@@ -111,6 +111,7 @@ html {
   background-color: transparent;
   height: 48px;
   color: white;
+  margin-top: 3rem;
 }
 
 .project-button:hover {
