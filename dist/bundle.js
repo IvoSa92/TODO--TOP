@@ -16,7 +16,7 @@
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dom);\n\nclass DomElements {\n  constructor() {\n    //container:\n    this.currentContent = document.querySelector(\".currentContent\");\n    this.container = document.querySelector(\".container\");\n    //Buttons:\n    this.addTaskButton = document.querySelector(\".add-task\");\n    this.allTasksButton = document.querySelector(\".all-tasks\");\n    this.todayTasksButton = document.querySelector(\".today-tasks\");\n    this.weekTasksButton = document.querySelector(\".week-tasks\");\n    this.upcomingTasksButton = document.querySelector(\".upcoming-tasks\");\n    this.newProjectButton = document.querySelector(\".new-project-button\");\n  }\n}\n\n\n//# sourceURL=webpack://todo--top/./src/DOM.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/*class DomElements {\n  constructor() {\n    //container:\n    this.currentContent = document.querySelector(\".currentContent\");\n    this.container = document.querySelector(\".container\");\n    //Buttons:\n    this.addTaskButton = document.querySelector(\".add-task\");\n    this.allTasksButton = document.querySelector(\".all-tasks\");\n    this.todayTasksButton = document.querySelector(\".today-tasks\");\n    this.weekTasksButton = document.querySelector(\".week-tasks\");\n    this.upcomingTasksButton = document.querySelector(\".upcoming-tasks\");\n    this.newProjectButton = document.querySelector(\".new-project-button\");\n  }\n}\n\nexport default DomElements;*/\n\nconst DomElements = {\n  //container:\n  currentContent: document.querySelector(\".currentContent\"),\n  container: document.querySelector(\".container\"),\n  //Buttons:\n  addTaskButton: document.querySelector(\".add-task\"),\n  allTasksButton: document.querySelector(\".all-tasks\"),\n  todayTasksButton: document.querySelector(\".today-tasks\"),\n  weekTasksButton: document.querySelector(\".week-tasks\"),\n  upcomingTasksButton: document.querySelector(\".upcoming-tasks\"),\n  newProjectButton: document.querySelector(\".new-project-button\"),\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DomElements);\n\n\n//# sourceURL=webpack://todo--top/./src/DOM.js?");
 
 /***/ }),
 
@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _DOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DOM */ \"./src/DOM.js\");\nconsole.log(\"hello\");\n\n\n\nconsole.log(addTask);\n\n\n//# sourceURL=webpack://todo--top/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _DOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DOM */ \"./src/DOM.js\");\nconsole.log(\"hello\");\n\n\n\n\n//# sourceURL=webpack://todo--top/./src/index.js?");
 
 /***/ })
 
