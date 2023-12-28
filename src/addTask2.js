@@ -5,7 +5,11 @@ class NewTaskManager {
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
-    this.addTaskButton.addEventListener("click", this.newTaskForm());
+    this.initializeEventListeners();
+  }
+
+  initializeEventListeners() {
+    this.addTaskButton.addEventListener("click", () => this.newTaskForm());
   }
 
   //creates a new task form pop up window
@@ -38,7 +42,9 @@ class NewTaskManager {
     buttonContainer.classList.add("button-container");
 
     const submitButton = this.createButtons("Submit", "submit-button");
-    //add event listener here for handling submit
+    submitButton.addEventListener("click", () => {
+      this.handleSubmit();
+    });
     const deleteButton = this.createButtons("Delete", "delete-button");
 
     buttonContainer.append(submitButton, deleteButton);
@@ -63,7 +69,7 @@ class NewTaskManager {
 
     const input = document.createElement("input");
     input.type = type;
-    input.classList.add(`${inputClass}-input, "formInput"`);
+    input.classList.add(`${inputClass}-input`, "formInput");
 
     inputContainer.append(inputHeader, input);
     return inputContainer;
@@ -116,3 +122,5 @@ class NewTaskManager {
   }
 }
 export default NewTaskManager;
+
+// schreibe den code um den submit button zu handlen!!
