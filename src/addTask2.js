@@ -43,4 +43,25 @@ class NewTaskManager {
   }
 }
 
+createSelectField(selectClass,options){
+  const inputContainer=document.createElement("div")
+
+  const label=document.createElement("label")
+  label.textContent="Priority"
+  label.classList.add("priority-caption")
+
+  const select=document.createElement("select")
+  select.classList.add(selectClass, "formInput")
+
+  options.forEach(optionText=>{
+    const option =document.createElement("option")
+    option.value=optionText
+    option.textContent=optionText;
+    select.appendChild(option);
+  })
+
+  inputContainer.append(label,select);
+  return inputContainer;
+}
+
 export default NewTaskManager;
