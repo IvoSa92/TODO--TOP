@@ -37,7 +37,7 @@ class NewTaskManager {
       "Medium",
       "Low",
     ]);
-    this.descriptionInput = this.createDescriptionField("description-input");
+    this.descriptionInput = this.createDescriptionField("description");
 
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
@@ -63,6 +63,7 @@ class NewTaskManager {
   //creates the input fields of the form
   createInputField(headerText, inputClass, type) {
     const inputContainer = document.createElement("div");
+    inputContainer.classList.add("form-div");
 
     const inputHeader = document.createElement("label");
     inputHeader.textContent = headerText;
@@ -79,6 +80,7 @@ class NewTaskManager {
   //creates the select field of the form
   createSelectField(selectClass, options) {
     const inputContainer = document.createElement("div");
+    inputContainer.classList.add("form-div");
 
     const label = document.createElement("label");
     label.textContent = "Priority";
@@ -101,13 +103,14 @@ class NewTaskManager {
   //creates the description field of the form
   createDescriptionField(descriptionClass) {
     const descriptionContainer = document.createElement("div");
+    descriptionContainer.classList.add("form-div");
 
     const label = document.createElement("label");
-    label.classList.add(descriptionClass);
+    label.classList.add(`${descriptionClass}-caption`);
     label.textContent = "Description";
 
     const textArea = document.createElement("textarea");
-    textArea.classList.add(descriptionClass, "formInput");
+    textArea.classList.add(`${descriptionClass}-input`, "formInput");
 
     descriptionContainer.append(label, textArea);
     return descriptionContainer;
