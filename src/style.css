@@ -275,11 +275,37 @@ html {
 /* VIEW OPTIONS*/
 
 .all-view,
-.week-view,
+.today-view,
 .tomorrow-view,
 .upcoming-view {
   display: none;
   background-color: black;
+  width: 100%;
+  height: 100%;
+}
+.all-view {
+  display: none;
+  background-color: green;
+  width: 100%;
+  height: 100%;
+}
+.today-view {
+  display: none;
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+}
+
+.tomorrow-view {
+  display: none;
+  background-color: pink;
+  width: 100%;
+  height: 100%;
+}
+
+.upcoming-view {
+  display: none;
+  background-color: red;
   width: 100%;
   height: 100%;
 }

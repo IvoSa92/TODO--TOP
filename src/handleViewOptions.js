@@ -32,8 +32,30 @@ class HandleNavButtons {
 
   displayAllTasks() {
     console.log("Click");
+    this.currentContent.innerHTML = "";
     this.viewAllTasks.style.display = "flex";
     this.currentContent.appendChild(this.viewAllTasks);
+  }
+
+  displayTodayTasks() {
+    console.log("Click2");
+    this.currentContent.innerHTML = "";
+    this.viewTodayTasks.style.display = "flex";
+    this.currentContent.appendChild(this.viewTodayTasks);
+  }
+
+  displayTomorrowTasks() {
+    console.log("Click3");
+    this.currentContent.innerHTML = "";
+    this.viewTomorrowTasks.style.display = "flex";
+    this.currentContent.appendChild(this.viewTodayTasks);
+  }
+
+  displayUpcomingTasks() {
+    console.log("Click4");
+    this.currentContent.innerHTML = "";
+    this.viewUpcomingTasks.style.display = "flex";
+    this.currentContent.appendChild(this.viewUpcomingTasks);
   }
 }
 
