@@ -18,6 +18,7 @@ class NewTaskManager {
     if (this.formActive === false) {
       this.formActive = true;
       const newTaskForm = this.createFormElements();
+      newTaskForm.classList.add("new-task");
       this.currentContent.appendChild(newTaskForm);
     } else {
       alert("Please fill out the displayed form ");
@@ -123,4 +124,4 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-// schreibe den code um den submit button zu handlen!!
+// schreibe den code um den submit button zu handeln!!
