@@ -15,10 +15,16 @@
 
 export default DomElements;*/
 
+import { domainToASCII } from "url";
+
 const DomElements = {
   //container:
   currentContent: document.querySelector(".currentContent"),
   container: document.querySelector(".container"),
+  allViewPage: document.querySelector(".all-view"),
+  tomorrowViewPage: document.querySelector(".tomorrow-view"),
+  weekViewPage: document.querySelector(".wek-view"),
+  upcomingViewPage: document.querySelector(".upcoming-view"),
   //Buttons:
   addTaskButton: document.querySelector(".add-task"),
   allTasksButton: document.querySelector(".all-tasks"),
