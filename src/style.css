@@ -162,7 +162,7 @@ html {
   align-items: center;
   justify-content: center;
   background-color: #9b9ea2de;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-family: Teko;
   letter-spacing: 5px;
   line-height: 1rem;
@@ -270,4 +270,15 @@ html {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(1px);
+}
+
+/* VIEW OPTIONS*/
+
+.all-view,
+.week-view,
+.tomorrow-view,
+.upcoming-view {
+  display: none;
+  width: 100%;
+  height: 100%;
 }
