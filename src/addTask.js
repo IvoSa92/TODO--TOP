@@ -17,6 +17,8 @@ class NewTaskManager {
     // checks if the for is already displayed
     if (this.formActive === false) {
       this.formActive = true;
+      //remove all containers for the form pop up
+      this.currentContent.innerHTML = "";
       //created the form to append
       const newTaskForm = this.createFormElements();
       newTaskForm.classList.add("new-task");
