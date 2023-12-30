@@ -48,7 +48,7 @@ class HandleNavButtons {
     console.log("Click3");
     this.currentContent.innerHTML = "";
     this.viewTomorrowTasks.style.display = "flex";
-    this.currentContent.appendChild(this.viewTodayTasks);
+    this.currentContent.appendChild(this.viewTomorrowTasks);
   }
 
   displayUpcomingTasks() {
