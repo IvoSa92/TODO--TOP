@@ -1,4 +1,5 @@
 import DomElements from "./DOM";
+import HandleNavButtons from "./handleViewOptions";
 
 class NewTaskManager {
   constructor() {
@@ -135,6 +136,7 @@ class NewTaskManager {
 
   //submit handler
   handleSubmit() {
+    const allViewPage = DomElements.allViewPage;
     const taskData = {
       title: this.titleInput.querySelector(".title-input").value,
       date: this.dateInput.querySelector(".date-input").value,
@@ -149,6 +151,8 @@ class NewTaskManager {
     allTasksPage.appendChild(newTaskCard);
 
     this.currentContent.innerHTML = "";
+    allViewPage.style.display = "flex";
+    this.currentContent.appendChild(allViewPage);
     this.formActive = false;
   }
 
@@ -156,6 +160,10 @@ class NewTaskManager {
     // create task card
     const newTaskCard = document.createElement("div");
     newTaskCard.classList.add("new-task-card");
+
+    //create checkbox
+    const checkBox = document.createElement("input");
+    checkBox.type = "checkbox";
 
     // create title field
     const cardTaskTitle = document.createElement("label");
@@ -179,6 +187,7 @@ class NewTaskManager {
 
     // append all elements
     newTaskCard.append(
+      checkBox,
       cardTaskTitle,
       cardTaskDate,
       cardTaskPriority,
