@@ -60,10 +60,11 @@ class NewTaskManager {
     newTaskForm.append(
       this.titleInput,
       this.dateInput,
-      this.descriptionInput,
+      this.prioritySelect,
       this.descriptionInput,
       buttonContainer
     );
+
     return newTaskForm;
   }
 
@@ -131,7 +132,60 @@ class NewTaskManager {
 
     return button;
   }
+
+  //submit handler
+  handleSubmit() {
+    const taskData = {
+      title: this.titleInput.querySelector(".title-input").value,
+      date: this.dateInput.querySelector(".date-input").value,
+      priority: this.prioritySelect.querySelector(".priority-input").value,
+      description:
+        this.descriptionInput.querySelector(".description-input").value,
+    };
+
+    const newTaskCard = this.createTaskCard(taskData);
+
+    const allTasksPage = DomElements.allViewPage;
+    allTasksPage.appendChild(newTaskCard);
+
+    this.currentContent.innerHTML = "";
+    this.formActive = false;
+  }
+
+  createTaskCard(taskData) {
+    // create task card
+    const newTaskCard = document.createElement("div");
+    newTaskCard.classList.add("new-task-card");
+
+    // create title field
+    const cardTaskTitle = document.createElement("label");
+    cardTaskTitle.textContent = taskData.title;
+    cardTaskTitle.classList.add("card-task-title");
+
+    // create date field
+    const cardTaskDate = document.createElement("div");
+    cardTaskDate.textContent = taskData.date;
+    cardTaskDate.classList.add("card-task-date");
+
+    // create selection field
+    const cardTaskPriority = document.createElement("div");
+    cardTaskPriority.textContent = taskData.priority;
+    cardTaskPriority.classList.add("card-task-priority");
+
+    // create description field
+    const cardTaskDescription = document.createElement("div");
+    cardTaskDescription.textContent = taskData.description;
+    cardTaskDescription.classList.add("card-task-description");
+
+    // append all elements
+    newTaskCard.append(
+      cardTaskTitle,
+      cardTaskDate,
+      cardTaskPriority,
+      cardTaskDescription
+    );
+
+    return newTaskCard;
+  }
 }
 export default NewTaskManager;
-
-// schreibe den code um den submit button zu handeln!!
