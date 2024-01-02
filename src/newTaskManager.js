@@ -180,7 +180,7 @@ class NewTaskManager {
 
     // create date field
     const cardTaskDate = document.createElement("div");
-    cardTaskDate.textContent = taskData.date;
+    cardTaskDate.textContent = `DueDate: ${taskData.date}`;
     cardTaskDate.classList.add("card-task-date");
 
     // create selection field
@@ -197,6 +197,8 @@ class NewTaskManager {
     newTaskCard.addEventListener("click", function () {
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
+      newTaskCard.style.height =
+        newTaskCard.style.height === "5rem" ? "10rem" : "5rem";
     });
 
     // append all elements
@@ -210,9 +212,9 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-//Task card stylen und funktion hinzufügn dass diese ausklappbar ist
-// - card sollte nur checkbox/ Title haben
-//- ausgeklappt sollten priorität und beschreibung kommen
+//
+// 
+/
 
 // funktion zum checkbox hinzufügen
 // buttons zur card hinzufügen mit bearbeiten und löschen

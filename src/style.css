@@ -344,7 +344,10 @@ html {
 .card-task-hidden {
   display: none;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 2rem;
 }
 
 .card-task-visible {
