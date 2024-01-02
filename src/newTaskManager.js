@@ -146,7 +146,6 @@ class NewTaskManager {
     };
 
     const newTaskCard = this.createTaskCard(taskData);
-
     const allTasksPage = DomElements.allViewPage;
     allTasksPage.appendChild(newTaskCard);
 
@@ -161,9 +160,18 @@ class NewTaskManager {
     const newTaskCard = document.createElement("div");
     newTaskCard.classList.add("new-task-card");
 
+    // container for the not expanded part of the task
+    const visibleContent = document.createElement("div");
+    visibleContent.classList.add("card-task-visible");
+
+    //container for the hidden task part
+    const hiddenContent = document.createElement("div");
+    hiddenContent.classList.add("card-task-hidden");
+
     //create checkbox
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
+    checkBox.classList.add("card-task-checkbox");
 
     // create title field
     const cardTaskTitle = document.createElement("label");
@@ -185,16 +193,26 @@ class NewTaskManager {
     cardTaskDescription.textContent = taskData.description;
     cardTaskDescription.classList.add("card-task-description");
 
-    // append all elements
-    newTaskCard.append(
-      checkBox,
-      cardTaskTitle,
-      cardTaskDate,
-      cardTaskPriority,
-      cardTaskDescription
-    );
+    //add event listener with function
+    newTaskCard.addEventListener("click", function () {
+      hiddenContent.style.display =
+        hiddenContent.style.display === "none" ? "flex" : "none";
+    });
 
+    // append all elements
+    visibleContent.append(checkBox, cardTaskTitle, cardTaskPriority);
+    hiddenContent.append(cardTaskDate, cardTaskDescription);
+
+    newTaskCard.append(visibleContent, hiddenContent);
+    console.log(taskData);
     return newTaskCard;
   }
 }
 export default NewTaskManager;
+
+//Task card stylen und funktion hinzufügn dass diese ausklappbar ist
+// - card sollte nur checkbox/ Title haben
+//- ausgeklappt sollten priorität und beschreibung kommen
+
+// funktion zum checkbox hinzufügen
+// buttons zur card hinzufügen mit bearbeiten und löschen
