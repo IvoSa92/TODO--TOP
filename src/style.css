@@ -355,4 +355,10 @@ html {
   justify-content: space-around;
   width: 100%;
   height: auto;
+  padding: 10px;
+}
+
+.card-task-description {
+  width: 80%;
+  line-height: 1.5rem;
 }

@@ -198,7 +198,7 @@ class NewTaskManager {
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
       newTaskCard.style.height =
-        newTaskCard.style.height === "5rem" ? "10rem" : "5rem";
+        newTaskCard.style.height === "5rem" ? "auto" : "5rem";
     });
 
     // append all elements
@@ -213,8 +213,7 @@ class NewTaskManager {
 export default NewTaskManager;
 
 //
-// 
-/
+//
 
 // funktion zum checkbox hinzufügen
 // buttons zur card hinzufügen mit bearbeiten und löschen
