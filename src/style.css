@@ -346,6 +346,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   padding: 1rem;
   gap: 2rem;
 }
@@ -361,4 +362,15 @@ html {
 .card-task-description {
   width: 80%;
   line-height: 1.5rem;
+}
+
+.card-task-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.card-task-delete-btn,
+.card-task-edit-btn {
+  margin: 0.5rem;
 }

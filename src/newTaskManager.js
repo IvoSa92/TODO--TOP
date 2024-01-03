@@ -158,9 +158,8 @@ class NewTaskManager {
     this.currentContent.appendChild(allViewPage);
     this.formActive = false;
   }
-
+  // create task card
   createTaskCard(taskData) {
-    // create task card
     const newTaskCard = document.createElement("div");
     newTaskCard.classList.add("new-task-card");
 
@@ -198,6 +197,20 @@ class NewTaskManager {
     cardTaskDescription.textContent = taskData.description;
     cardTaskDescription.classList.add("card-task-description");
 
+    // create container for delete and change buttons
+    const cardTaskBtnContainer = document.createElement("div");
+    cardTaskBtnContainer.classList.add("card-task-btn-container");
+
+    //create delete button
+    const cardTaskDeleteBtn = document.createElement("button");
+    cardTaskDeleteBtn.textContent = "Delete";
+    cardTaskDeleteBtn.classList.add("card-task-delete-btn");
+
+    //create edit button
+    const cardTaskEditBtn = document.createElement("button");
+    cardTaskEditBtn.textContent = "Edit";
+    cardTaskEditBtn.classList.add("card-task-edit-btn");
+
     //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function () {
       hiddenContent.style.display =
@@ -207,8 +220,13 @@ class NewTaskManager {
     });
 
     // append all elements
+    cardTaskBtnContainer.append(cardTaskDeleteBtn, cardTaskEditBtn);
     visibleContent.append(checkBox, cardTaskTitle, cardTaskPriority);
-    hiddenContent.append(cardTaskDate, cardTaskDescription);
+    hiddenContent.append(
+      cardTaskDate,
+      cardTaskDescription,
+      cardTaskBtnContainer
+    );
 
     newTaskCard.append(visibleContent, hiddenContent);
 
