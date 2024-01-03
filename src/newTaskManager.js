@@ -149,6 +149,7 @@ class NewTaskManager {
     };
 
     const newTaskCard = this.createTaskCard(taskData);
+    newTaskCard.style.height = "5rem";
     const allTasksPage = DomElements.allViewPage;
     allTasksPage.appendChild(newTaskCard);
 
@@ -170,6 +171,7 @@ class NewTaskManager {
     //container for the hidden task part
     const hiddenContent = document.createElement("div");
     hiddenContent.classList.add("card-task-hidden");
+    hiddenContent.style.display = "none";
 
     //create checkbox
     const checkBox = document.createElement("input");
@@ -216,14 +218,12 @@ class NewTaskManager {
   // function for the delete button of the new card form
   handleDelete() {
     const allViewPage = DomElements.allViewPage;
-    console.log("delete");
     this.titleInput.value = "";
     this.dateInput.value = "";
     this.prioritySelect.value = "";
     this.descriptionInput.value = "";
     this.currentContent.innerHTML = "";
     this.currentContent.appendChild(allViewPage);
-
     this.formActive = false;
   }
 }
