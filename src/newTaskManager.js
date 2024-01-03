@@ -201,10 +201,15 @@ class NewTaskManager {
     const cardTaskBtnContainer = document.createElement("div");
     cardTaskBtnContainer.classList.add("card-task-btn-container");
 
-    //create delete button
+    //create delete button with the function the delete the task
     const cardTaskDeleteBtn = document.createElement("button");
     cardTaskDeleteBtn.textContent = "Delete";
     cardTaskDeleteBtn.classList.add("card-task-delete-btn");
+    cardTaskDeleteBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      let taskCard = event.target.closest(".new-task-card");
+      taskCard.remove();
+    });
 
     //create edit button
     const cardTaskEditBtn = document.createElement("button");

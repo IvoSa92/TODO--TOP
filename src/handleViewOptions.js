@@ -31,28 +31,28 @@ class HandleNavButtons {
   }
 
   displayAllTasks() {
-    console.log("Click");
+    console.log("all tasks page");
     this.currentContent.innerHTML = "";
     this.viewAllTasks.style.display = "flex";
     this.currentContent.appendChild(this.viewAllTasks);
   }
 
   displayTodayTasks() {
-    console.log("Click2");
+    console.log("today tasks page");
     this.currentContent.innerHTML = "";
     this.viewTodayTasks.style.display = "flex";
     this.currentContent.appendChild(this.viewTodayTasks);
   }
 
   displayTomorrowTasks() {
-    console.log("Click3");
+    console.log("tomorrow tasks page");
     this.currentContent.innerHTML = "";
     this.viewTomorrowTasks.style.display = "flex";
     this.currentContent.appendChild(this.viewTomorrowTasks);
   }
 
   displayUpcomingTasks() {
-    console.log("Click4");
+    console.log("upcoming tasks page");
     this.currentContent.innerHTML = "";
     this.viewUpcomingTasks.style.display = "flex";
     this.currentContent.appendChild(this.viewUpcomingTasks);
