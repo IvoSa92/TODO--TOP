@@ -55,6 +55,9 @@ class NewTaskManager {
       this.handleSubmit();
     });
     const deleteButton = this.createButtons("Delete", "delete-button");
+    deleteButton.addEventListener("click", () => {
+      this.handleDelete();
+    });
 
     buttonContainer.append(submitButton, deleteButton);
 
@@ -193,7 +196,7 @@ class NewTaskManager {
     cardTaskDescription.textContent = taskData.description;
     cardTaskDescription.classList.add("card-task-description");
 
-    //add event listener with function
+    //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function () {
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
@@ -206,8 +209,22 @@ class NewTaskManager {
     hiddenContent.append(cardTaskDate, cardTaskDescription);
 
     newTaskCard.append(visibleContent, hiddenContent);
-    console.log(taskData);
+
     return newTaskCard;
+  }
+
+  // function for the delete button of the new card form
+  handleDelete() {
+    const allViewPage = DomElements.allViewPage;
+    console.log("delete");
+    this.titleInput.value = "";
+    this.dateInput.value = "";
+    this.prioritySelect.value = "";
+    this.descriptionInput.value = "";
+    this.currentContent.innerHTML = "";
+    this.currentContent.appendChild(allViewPage);
+
+    this.formActive = false;
   }
 }
 export default NewTaskManager;
