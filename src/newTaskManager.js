@@ -6,6 +6,7 @@ class NewTaskManager {
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
+    this.taskList = [];
     this.initializeEventListeners();
   }
 
@@ -15,21 +16,21 @@ class NewTaskManager {
 
   //creates a new task form pop up window
   newTaskForm() {
-    // checks if the for is already displayed
+    // checks if the form is already displayed
     if (this.formActive === false) {
       this.formActive = true;
       //remove all containers for the form pop up
       this.currentContent.innerHTML = "";
       //created the form to append
       const newTaskForm = this.createFormElements();
-      newTaskForm.classList.add("new-task");
+      //newTaskForm.classList.add("new-task");
       //creates the blurry background
       const blurredScreen = document.createElement("div");
       blurredScreen.classList.add("blurred-screen");
 
       this.currentContent.append(newTaskForm, blurredScreen);
     } else {
-      alert("Please fill out the displayed form ");
+      alert("Please fill out the displayed form");
     }
   }
 
@@ -150,12 +151,17 @@ class NewTaskManager {
 
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
-    const allTasksPage = DomElements.allViewPage;
-    allTasksPage.appendChild(newTaskCard);
+    this.taskList.push(newTaskCard);
+    //console.log(tasksList);
 
+    this.taskList.forEach((card, index) => {
+      card.className = `new-task-card-${index + 1}`;
+    });
+    console.log(this.taskList);
+    this.currentContent.appendChild(allViewPage);
     this.currentContent.innerHTML = "";
     allViewPage.style.display = "flex";
-    this.currentContent.appendChild(allViewPage);
+
     this.formActive = false;
   }
   // create task card
@@ -211,10 +217,15 @@ class NewTaskManager {
       taskCard.remove();
     });
 
-    //create edit button
+    //create edit button with function to edit the task
     const cardTaskEditBtn = document.createElement("button");
     cardTaskEditBtn.textContent = "Edit";
     cardTaskEditBtn.classList.add("card-task-edit-btn");
+    cardTaskEditBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      let taskCard = event.target.closest(".new-task-card");
+      console.log(taskData);
+    });
 
     //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function () {
@@ -252,8 +263,8 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-//
-//
-
+// TODO:
+// PROBLEM, jede task card hat momentan alle classen auch der anderen tasks
+// ganze logic auf aray umschreiben
+// funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
-// buttons zur card hinzufügen mit bearbeiten und löschen
