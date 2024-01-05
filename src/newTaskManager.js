@@ -152,16 +152,20 @@ class NewTaskManager {
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
     this.taskList.push(newTaskCard);
-    //console.log(tasksList);
-
+    allViewPage.innerHTML = "";
+    // adding custom classes to the task cards and appending them to the all view page
     this.taskList.forEach((card, index) => {
-      card.className = `new-task-card-${index + 1}`;
+      card.className = `new-task-card-${index + 1} task-card`;
+      allViewPage.appendChild(card);
     });
-    console.log(this.taskList);
+    // remove task form and blurred screen after clicking on submit
+    const taskForm = document.querySelector(".new-task");
+    const blurredScreen = document.querySelector(".blurred-screen");
+    this.currentContent.removeChild(taskForm);
+    this.currentContent.removeChild(blurredScreen);
+    // appending the tasks to the current content screen
     this.currentContent.appendChild(allViewPage);
-    this.currentContent.innerHTML = "";
     allViewPage.style.display = "flex";
-
     this.formActive = false;
   }
   // create task card
@@ -266,5 +270,7 @@ export default NewTaskManager;
 // TODO:
 // PROBLEM, jede task card hat momentan alle classen auch der anderen tasks
 // ganze logic auf aray umschreiben
+// delete funktion umschreiben
 // funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
+// wenn new task aufgerufen wird soll der hintergrund nicht verschwinden sondern lediglich unscharf werden

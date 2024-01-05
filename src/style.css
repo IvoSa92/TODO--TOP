@@ -319,7 +319,7 @@ html {
 
 /* TASK CARD*/
 
-.new-task-card {
+.task-card {
   display: flex;
   flex-direction: column;
   align-items: center;
