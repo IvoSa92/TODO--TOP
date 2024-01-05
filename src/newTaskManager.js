@@ -14,13 +14,13 @@ class NewTaskManager {
     this.addTaskButton.addEventListener("click", () => this.newTaskForm());
   }
 
-  //creates a new task form pop up window
+  //creates a new task form pop up window when user clicks on the plus icon
   newTaskForm() {
     // checks if the form is already displayed
     if (this.formActive === false) {
       this.formActive = true;
       //remove all containers for the form pop up
-      this.currentContent.innerHTML = "";
+      // this.currentContent.innerHTML = "";
       //created the form to append
       const newTaskForm = this.createFormElements();
       //newTaskForm.classList.add("new-task");
@@ -273,4 +273,3 @@ export default NewTaskManager;
 // delete funktion umschreiben
 // funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
-// wenn new task aufgerufen wird soll der hintergrund nicht verschwinden sondern lediglich unscharf werden
