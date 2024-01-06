@@ -153,11 +153,13 @@ class NewTaskManager {
     newTaskCard.style.height = "5rem";
     this.taskList.push(newTaskCard);
     allViewPage.innerHTML = "";
+
     // adding custom classes to the task cards and appending them to the all view page
     this.taskList.forEach((card, index) => {
       card.className = `new-task-card-${index + 1} task-card`;
       allViewPage.appendChild(card);
     });
+    console.log(this.taskList);
     // remove task form and blurred screen after clicking on submit
     const taskForm = document.querySelector(".new-task");
     const blurredScreen = document.querySelector(".blurred-screen");
@@ -217,8 +219,21 @@ class NewTaskManager {
     cardTaskDeleteBtn.classList.add("card-task-delete-btn");
     cardTaskDeleteBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      let taskCard = event.target.closest(".new-task-card");
-      taskCard.remove();
+      //get task by the class and set it as the id for finding it in the taskList array
+      let taskToDelete = event.target.closest(".task-card");
+      let taskId = taskToDelete.classList[0];
+
+      // finding task with taskId
+      let index = this.taskList.find(
+        (objekt) => objekt.className === taskToDelete.className
+      );
+      //delete the task in the taskList
+      if (index !== -1) {
+        this.taskList.splice(index, 1);
+      }
+      console.log(this.taskList);
+      // remove taskcard from the page
+      index.remove();
     });
 
     //create edit button with function to edit the task
@@ -253,7 +268,7 @@ class NewTaskManager {
     return newTaskCard;
   }
 
-  // function for the delete button of the new card form
+  // function for the delete button of the new task form
   handleDelete() {
     const allViewPage = DomElements.allViewPage;
     this.titleInput.value = "";
@@ -268,8 +283,7 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// PROBLEM, jede task card hat momentan alle classen auch der anderen tasks
-// ganze logic auf aray umschreiben
-// delete funktion umschreiben
+// delete funktion umschreiben: versuche auf die id der card zu kommen welche dan aus dem array gelöscht wird !
 // funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
+// funktion für die änderung der farbe der task card je nach priorität
