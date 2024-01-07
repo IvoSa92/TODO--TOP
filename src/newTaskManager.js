@@ -240,10 +240,12 @@ class NewTaskManager {
     const cardTaskEditBtn = document.createElement("button");
     cardTaskEditBtn.textContent = "Edit";
     cardTaskEditBtn.classList.add("card-task-edit-btn");
+    // function for editing the task
     cardTaskEditBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      let taskCard = event.target.closest(".new-task-card");
+      //let taskCard = event.target.closest(".new-task-card");
       console.log(taskData);
+      this.editTaskForm(taskData);
     });
 
     //add event listener with function to expand a task card
@@ -279,11 +281,56 @@ class NewTaskManager {
     this.currentContent.appendChild(allViewPage);
     this.formActive = false;
   }
+
+  editTaskForm = (taskData) => {
+    //create form div
+    let editForm = document.createElement("div");
+    editForm.className = "edit-form";
+    // create title
+    let editTitle = document.createElement("h2");
+    editTitle.textContent = "Title";
+    editTitle.className = "edit-title";
+    //create title input field with the value of the task to edit
+    let editTitleInput = document.createElement("input");
+    editTitleInput.className = "edit-title-input";
+    editTitleInput.value = taskData.title;
+    //create date
+    let editDate = document.createElement("h2");
+    editDate.textContent = "Date";
+    editDate.className = "edit-date";
+    //create date input field with the value of the task to edit
+    let editDateInput = document.createElement("input");
+    editDateInput.className = "edit-date-input";
+    editDateInput.type = "date";
+    editDateInput.value = taskData.date;
+    // create description
+    let editDescription = document.createElement("h2");
+    editDescription.textContent = "Description";
+    editDescription.className = "edit-description";
+    //create description input field with the value of the task to edit
+    let editDescriptionInput = document.createElement("textarea");
+    editDescriptionInput.className = "edit-description-input";
+    editDescriptionInput.value = taskData.description;
+    // create button for submitting the changes
+    let editSubmitBtn = document.createElement("button");
+    editSubmitBtn.className = "edit-submit-button";
+    editSubmitBtn.textContent = "Save Changes";
+    //append the elements to the form
+    editForm.append(
+      editTitle,
+      editTitleInput,
+      editDate,
+      editDateInput,
+      editDescription,
+      editDescriptionInput,
+      editSubmitBtn
+    );
+    this.currentContent.appendChild(editForm);
+  };
 }
 export default NewTaskManager;
 
 // TODO:
-// delete funktion umschreiben: versuche auf die id der card zu kommen welche dan aus dem array gelöscht wird !
 // funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
