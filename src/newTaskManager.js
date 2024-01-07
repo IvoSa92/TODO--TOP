@@ -156,10 +156,11 @@ class NewTaskManager {
 
     // adding custom classes to the task cards and appending them to the all view page
     this.taskList.forEach((card, index) => {
-      card.className = `new-task-card-${index + 1} task-card`;
+      card.className = `task-card`;
+      card.id = `new-task-card-${index + 1}`;
       allViewPage.appendChild(card);
     });
-    console.log(this.taskList);
+
     // remove task form and blurred screen after clicking on submit
     const taskForm = document.querySelector(".new-task");
     const blurredScreen = document.querySelector(".blurred-screen");
@@ -221,19 +222,18 @@ class NewTaskManager {
       event.stopPropagation();
       //get task by the class and set it as the id for finding it in the taskList array
       let taskToDelete = event.target.closest(".task-card");
-      let taskId = taskToDelete.classList[0];
+      let taskId = taskToDelete.id;
 
       // finding task with taskId
-      let index = this.taskList.find(
-        (objekt) => objekt.className === taskToDelete.className
-      );
+      let index = this.taskList.findIndex((task) => task.id === taskId);
+
       //delete the task in the taskList
       if (index !== -1) {
         this.taskList.splice(index, 1);
       }
       console.log(this.taskList);
       // remove taskcard from the page
-      index.remove();
+      taskToDelete.remove();
     });
 
     //create edit button with function to edit the task
@@ -243,7 +243,6 @@ class NewTaskManager {
     // function for editing the task
     cardTaskEditBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      //let taskCard = event.target.closest(".new-task-card");
       console.log(taskData);
       this.editTaskForm(taskData);
     });
@@ -283,6 +282,9 @@ class NewTaskManager {
   }
 
   editTaskForm = (taskData) => {
+    // blurred screen div
+    const blurredScreen = document.createElement("div");
+    blurredScreen.classList.add("blurred-screen");
     //create form div
     let editForm = document.createElement("div");
     editForm.className = "edit-form";
@@ -311,10 +313,21 @@ class NewTaskManager {
     let editDescriptionInput = document.createElement("textarea");
     editDescriptionInput.className = "edit-description-input";
     editDescriptionInput.value = taskData.description;
+    //create button container
+    let editButtonContainer = document.createElement("div");
+    editButtonContainer.className = "edit-button-container";
     // create button for submitting the changes
     let editSubmitBtn = document.createElement("button");
     editSubmitBtn.className = "edit-submit-button";
-    editSubmitBtn.textContent = "Save Changes";
+    editSubmitBtn.textContent = "Save";
+    //add event listener to the edit submit button
+    editSubmitBtn.addEventListener("click", () => this.submitChanges(taskData));
+    //create cancel button
+    let editCancelBtn = document.createElement("button");
+    editCancelBtn.className = "edit-cancel-button";
+    editCancelBtn.textContent = "Cancel";
+    //append the buttons to the button container
+    editButtonContainer.append(editSubmitBtn, editCancelBtn);
     //append the elements to the form
     editForm.append(
       editTitle,
@@ -323,10 +336,14 @@ class NewTaskManager {
       editDateInput,
       editDescription,
       editDescriptionInput,
-      editSubmitBtn
+      editButtonContainer
     );
-    this.currentContent.appendChild(editForm);
+    this.currentContent.append(editForm, blurredScreen);
   };
+
+  submitChanges(taskData) {
+    console.log(this.taskList);
+  }
 }
 export default NewTaskManager;
 
