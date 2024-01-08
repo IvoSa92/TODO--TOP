@@ -138,6 +138,18 @@ class NewTaskManager {
     return button;
   }
 
+  // function for the delete button of the new task form
+  handleDelete() {
+    const allViewPage = DomElements.allViewPage;
+    this.titleInput.value = "";
+    this.dateInput.value = "";
+    this.prioritySelect.value = "";
+    this.descriptionInput.value = "";
+    this.currentContent.innerHTML = "";
+    this.currentContent.appendChild(allViewPage);
+    this.formActive = false;
+  }
+
   //submit handler
   handleSubmit() {
     const allViewPage = DomElements.allViewPage;
@@ -148,6 +160,8 @@ class NewTaskManager {
       description:
         this.descriptionInput.querySelector(".description-input").value,
     };
+    // const task = taskData;
+    console.log(this.taskList);
 
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
@@ -171,6 +185,7 @@ class NewTaskManager {
     allViewPage.style.display = "flex";
     this.formActive = false;
   }
+
   // create task card
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
@@ -243,8 +258,17 @@ class NewTaskManager {
     // function for editing the task
     cardTaskEditBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      console.log(taskData);
-      this.editTaskForm(taskData);
+      let taskId = event.target.closest(".task-card");
+      taskId = taskId.id;
+      console.log(taskId);
+      this.editTaskForm(taskId);
+
+      // task in der liste ändern
+      /*   this.taskList.forEach((card, index) => {
+      card.className = `task-card`;
+      card.id = `new-task-card-${index + 1}`;
+      allViewPage.appendChild(card);
+    });*/
     });
 
     //add event listener with function to expand a task card
@@ -269,81 +293,77 @@ class NewTaskManager {
     return newTaskCard;
   }
 
-  // function for the delete button of the new task form
-  handleDelete() {
-    const allViewPage = DomElements.allViewPage;
-    this.titleInput.value = "";
-    this.dateInput.value = "";
-    this.prioritySelect.value = "";
-    this.descriptionInput.value = "";
-    this.currentContent.innerHTML = "";
-    this.currentContent.appendChild(allViewPage);
-    this.formActive = false;
-  }
+  editTaskForm = (taskId) => {
+    this.currentTaskId = taskId;
+    const taskToEdit = this.taskList.find((task) => task.id === taskId);
+    if (taskToEdit) {
+      // blurred screen for background
+      const blurredScreen = document.createElement("div");
+      blurredScreen.classList.add("blurred-screen");
+      //create form div
+      let editForm = document.createElement("div");
+      editForm.className = "edit-form";
+      // create title
+      let editTitle = document.createElement("h2");
+      editTitle.textContent = "Title";
+      editTitle.className = "edit-title";
+      //create title input field with the value of the task to edit
+      let editTitleInput = document.createElement("input");
+      editTitleInput.className = "edit-title-input";
+      editTitleInput.value = taskToEdit.title;
+      //create date
+      let editDate = document.createElement("h2");
+      editDate.textContent = "Date";
+      editDate.className = "edit-date";
+      //create date input field with the value of the task to edit
+      let editDateInput = document.createElement("input");
+      editDateInput.className = "edit-date-input";
+      editDateInput.type = "date";
+      editDateInput.value = taskToEdit.date;
+      // create description
+      let editDescription = document.createElement("h2");
+      editDescription.textContent = "Description";
+      editDescription.className = "edit-description";
+      //create description input field with the value of the task to edit
+      let editDescriptionInput = document.createElement("textarea");
+      editDescriptionInput.className = "edit-description-input";
+      editDescriptionInput.value = taskToEdit.description;
+      //create button container
+      let editButtonContainer = document.createElement("div");
+      editButtonContainer.className = "edit-button-container";
+      // create button for submitting the changes
+      let editSubmitBtn = document.createElement("button");
+      editSubmitBtn.className = "edit-submit-button";
+      editSubmitBtn.textContent = "Save";
+      //add event listener to the edit submit button
+      editSubmitBtn.addEventListener("click", () => {
+        //change the task values in the taskList
+        let taskIndex = this.taskList.findIndex((task) => task.id === taskId);
+        console.log(taskIndex);
+        this.taskList[taskIndex].title = editTitleInput.value;
+        this.taskList[taskIndex].date = editDateInput.value;
+        this.taskList[taskIndex].description = editDescriptionInput.value;
+      });
 
-  editTaskForm = (taskData) => {
-    // blurred screen div
-    const blurredScreen = document.createElement("div");
-    blurredScreen.classList.add("blurred-screen");
-    //create form div
-    let editForm = document.createElement("div");
-    editForm.className = "edit-form";
-    // create title
-    let editTitle = document.createElement("h2");
-    editTitle.textContent = "Title";
-    editTitle.className = "edit-title";
-    //create title input field with the value of the task to edit
-    let editTitleInput = document.createElement("input");
-    editTitleInput.className = "edit-title-input";
-    editTitleInput.value = taskData.title;
-    //create date
-    let editDate = document.createElement("h2");
-    editDate.textContent = "Date";
-    editDate.className = "edit-date";
-    //create date input field with the value of the task to edit
-    let editDateInput = document.createElement("input");
-    editDateInput.className = "edit-date-input";
-    editDateInput.type = "date";
-    editDateInput.value = taskData.date;
-    // create description
-    let editDescription = document.createElement("h2");
-    editDescription.textContent = "Description";
-    editDescription.className = "edit-description";
-    //create description input field with the value of the task to edit
-    let editDescriptionInput = document.createElement("textarea");
-    editDescriptionInput.className = "edit-description-input";
-    editDescriptionInput.value = taskData.description;
-    //create button container
-    let editButtonContainer = document.createElement("div");
-    editButtonContainer.className = "edit-button-container";
-    // create button for submitting the changes
-    let editSubmitBtn = document.createElement("button");
-    editSubmitBtn.className = "edit-submit-button";
-    editSubmitBtn.textContent = "Save";
-    //add event listener to the edit submit button
-    editSubmitBtn.addEventListener("click", () => this.submitChanges(taskData));
-    //create cancel button
-    let editCancelBtn = document.createElement("button");
-    editCancelBtn.className = "edit-cancel-button";
-    editCancelBtn.textContent = "Cancel";
-    //append the buttons to the button container
-    editButtonContainer.append(editSubmitBtn, editCancelBtn);
-    //append the elements to the form
-    editForm.append(
-      editTitle,
-      editTitleInput,
-      editDate,
-      editDateInput,
-      editDescription,
-      editDescriptionInput,
-      editButtonContainer
-    );
-    this.currentContent.append(editForm, blurredScreen);
+      //create cancel button
+      let editCancelBtn = document.createElement("button");
+      editCancelBtn.className = "edit-cancel-button";
+      editCancelBtn.textContent = "Cancel";
+      //append the buttons to the button container
+      editButtonContainer.append(editSubmitBtn, editCancelBtn);
+      //append the elements to the form
+      editForm.append(
+        editTitle,
+        editTitleInput,
+        editDate,
+        editDateInput,
+        editDescription,
+        editDescriptionInput,
+        editButtonContainer
+      );
+      this.currentContent.append(editForm, blurredScreen);
+    }
   };
-
-  submitChanges(taskData) {
-    console.log(this.taskList);
-  }
 }
 export default NewTaskManager;
 
@@ -351,3 +371,6 @@ export default NewTaskManager;
 // funktion edit der card hinzufügen
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
+
+// problem mit der task ID weiter vrsuchen wenn du auf save drückst dann kommt dass task ID nicht beklannt ist obwohl ich es schpn vermerkt habe
+// wie bekomme ich die taskId die ich oben bestimmt habe in die function saveChabnges?
