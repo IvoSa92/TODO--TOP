@@ -191,7 +191,7 @@ class NewTaskManager {
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
     newTaskCard.classList.add("new-task-card");
-    newTaskCard.id = taskData.id;
+    newTaskCard.dataset.id = taskData.id;
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
     visibleContent.classList.add("card-task-visible");
@@ -259,9 +259,10 @@ class NewTaskManager {
     // function for editing the task
     cardTaskEditBtn.addEventListener("click", (event) => {
       event.stopPropagation();
-      let taskId = event.target.closest(".task-card");
-      taskId = taskId.id;
-      console.log(taskId);
+      // get task object
+      let taskCard = event.target.closest(".task-card");
+      let taskId = taskCard.dataset.id;
+
       this.editTaskForm(taskId);
 
       // task in der liste ändern
@@ -296,8 +297,8 @@ class NewTaskManager {
 
   editTaskForm = (taskId) => {
     const taskObject = this.taskList.find((task) => task.data.id === taskId);
+    console.log(taskObject);
     if (taskObject) {
-      const taskData = taskObject.data;
       // blurred screen for background
       const blurredScreen = document.createElement("div");
       blurredScreen.classList.add("blurred-screen");
@@ -311,7 +312,7 @@ class NewTaskManager {
       //create title input field with the value of the task to edit
       let editTitleInput = document.createElement("input");
       editTitleInput.className = "edit-title-input";
-      editTitleInput.value = taskToEdit.title;
+      editTitleInput.value = taskObject.data.title;
       //create date
       let editDate = document.createElement("h2");
       editDate.textContent = "Date";
@@ -320,7 +321,7 @@ class NewTaskManager {
       let editDateInput = document.createElement("input");
       editDateInput.className = "edit-date-input";
       editDateInput.type = "date";
-      editDateInput.value = taskToEdit.date;
+      editDateInput.value = taskObject.data.date;
       // create description
       let editDescription = document.createElement("h2");
       editDescription.textContent = "Description";
@@ -328,7 +329,7 @@ class NewTaskManager {
       //create description input field with the value of the task to edit
       let editDescriptionInput = document.createElement("textarea");
       editDescriptionInput.className = "edit-description-input";
-      editDescriptionInput.value = taskToEdit.description;
+      editDescriptionInput.value = taskObject.data.description;
       //create button container
       let editButtonContainer = document.createElement("div");
       editButtonContainer.className = "edit-button-container";
