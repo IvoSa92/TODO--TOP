@@ -159,20 +159,21 @@ class NewTaskManager {
       priority: this.prioritySelect.querySelector(".priority-input").value,
       description:
         this.descriptionInput.querySelector(".description-input").value,
+      id: `new-task-card-${this.taskList.length + 1}`,
     };
     // const task = taskData;
     console.log(this.taskList);
 
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
-    this.taskList.push(newTaskCard);
+    this.taskList.push({ data: taskData, element: newTaskCard });
     allViewPage.innerHTML = "";
 
-    // adding custom classes to the task cards and appending them to the all view page
-    this.taskList.forEach((card, index) => {
-      card.className = `task-card`;
-      card.id = `new-task-card-${index + 1}`;
-      allViewPage.appendChild(card);
+    // adding custom id`s to the task cards and appending them to the all view page
+    this.taskList.forEach((taskObject, index) => {
+      taskObject.element.className = `task-card`;
+
+      allViewPage.appendChild(taskObject.element);
     });
 
     // remove task form and blurred screen after clicking on submit
@@ -190,7 +191,7 @@ class NewTaskManager {
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
     newTaskCard.classList.add("new-task-card");
-
+    newTaskCard.id = taskData.id;
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
     visibleContent.classList.add("card-task-visible");
@@ -240,7 +241,7 @@ class NewTaskManager {
       let taskId = taskToDelete.id;
 
       // finding task with taskId
-      let index = this.taskList.findIndex((task) => task.id === taskId);
+      let index = this.taskList.findIndex((task) => task.data.id === taskId);
 
       //delete the task in the taskList
       if (index !== -1) {
@@ -294,9 +295,9 @@ class NewTaskManager {
   }
 
   editTaskForm = (taskId) => {
-    this.currentTaskId = taskId;
-    const taskToEdit = this.taskList.find((task) => task.id === taskId);
-    if (taskToEdit) {
+    const taskObject = this.taskList.find((task) => task.data.id === taskId);
+    if (taskObject) {
+      const taskData = taskObject.data;
       // blurred screen for background
       const blurredScreen = document.createElement("div");
       blurredScreen.classList.add("blurred-screen");
