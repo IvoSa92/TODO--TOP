@@ -6,6 +6,7 @@ class NewTaskManager {
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
+    this.allViewPage = DomElements.allViewPage;
     this.taskList = [];
     this.initializeEventListeners();
   }
@@ -161,7 +162,7 @@ class NewTaskManager {
         this.descriptionInput.querySelector(".description-input").value,
       id: `new-task-card-${this.taskList.length + 1}`,
     };
-    // const task = taskData;
+
     console.log(this.taskList);
 
     const newTaskCard = this.createTaskCard(taskData);
@@ -169,12 +170,8 @@ class NewTaskManager {
     this.taskList.push({ data: taskData, element: newTaskCard });
     allViewPage.innerHTML = "";
 
-    // adding custom id`s to the task cards and appending them to the all view page
-    this.taskList.forEach((taskObject, index) => {
-      taskObject.element.className = `task-card`;
-
-      allViewPage.appendChild(taskObject.element);
-    });
+    // updating the screen with the tasks in the array
+    this.updateScreen();
 
     // remove task form and blurred screen after clicking on submit
     const taskForm = document.querySelector(".new-task");
@@ -185,6 +182,16 @@ class NewTaskManager {
     this.currentContent.appendChild(allViewPage);
     allViewPage.style.display = "flex";
     this.formActive = false;
+  }
+
+  // function for append all tasks as task card to the screen
+  updateScreen() {
+    this.allViewPage.innerHTML = "";
+    this.taskList.forEach((taskObject) => {
+      taskObject.element.className = "task-card";
+
+      this.allViewPage.appendChild(taskObject.element);
+    });
   }
 
   // create task card
@@ -238,7 +245,7 @@ class NewTaskManager {
       event.stopPropagation();
       //get task by the class and set it as the id for finding it in the taskList array
       let taskToDelete = event.target.closest(".task-card");
-      let taskId = taskToDelete.id;
+      let taskId = taskToDelete.dataset.id;
 
       // finding task with taskId
       let index = this.taskList.findIndex((task) => task.data.id === taskId);
@@ -246,10 +253,11 @@ class NewTaskManager {
       //delete the task in the taskList
       if (index !== -1) {
         this.taskList.splice(index, 1);
+        this.updateScreen();
       }
+
       console.log(this.taskList);
       // remove taskcard from the page
-      taskToDelete.remove();
     });
 
     //create edit button with function to edit the task
@@ -264,13 +272,6 @@ class NewTaskManager {
       let taskId = taskCard.dataset.id;
 
       this.editTaskForm(taskId);
-
-      // task in der liste ändern
-      /*   this.taskList.forEach((card, index) => {
-      card.className = `task-card`;
-      card.id = `new-task-card-${index + 1}`;
-      allViewPage.appendChild(card);
-    });*/
     });
 
     //add event listener with function to expand a task card
@@ -303,48 +304,55 @@ class NewTaskManager {
       const blurredScreen = document.createElement("div");
       blurredScreen.classList.add("blurred-screen");
       //create form div
-      let editForm = document.createElement("div");
+      const editForm = document.createElement("div");
       editForm.className = "edit-form";
       // create title
-      let editTitle = document.createElement("h2");
+      const editTitle = document.createElement("h2");
       editTitle.textContent = "Title";
       editTitle.className = "edit-title";
       //create title input field with the value of the task to edit
-      let editTitleInput = document.createElement("input");
+      const editTitleInput = document.createElement("input");
       editTitleInput.className = "edit-title-input";
       editTitleInput.value = taskObject.data.title;
       //create date
-      let editDate = document.createElement("h2");
+      const editDate = document.createElement("h2");
       editDate.textContent = "Date";
       editDate.className = "edit-date";
       //create date input field with the value of the task to edit
-      let editDateInput = document.createElement("input");
+      const editDateInput = document.createElement("input");
       editDateInput.className = "edit-date-input";
       editDateInput.type = "date";
       editDateInput.value = taskObject.data.date;
       // create description
-      let editDescription = document.createElement("h2");
+      const editDescription = document.createElement("h2");
       editDescription.textContent = "Description";
       editDescription.className = "edit-description";
       //create description input field with the value of the task to edit
-      let editDescriptionInput = document.createElement("textarea");
+      const editDescriptionInput = document.createElement("textarea");
       editDescriptionInput.className = "edit-description-input";
       editDescriptionInput.value = taskObject.data.description;
       //create button container
-      let editButtonContainer = document.createElement("div");
+      const editButtonContainer = document.createElement("div");
       editButtonContainer.className = "edit-button-container";
       // create button for submitting the changes
-      let editSubmitBtn = document.createElement("button");
+      const editSubmitBtn = document.createElement("button");
       editSubmitBtn.className = "edit-submit-button";
       editSubmitBtn.textContent = "Save";
+
       //add event listener to the edit submit button
       editSubmitBtn.addEventListener("click", () => {
         //change the task values in the taskList
-        let taskIndex = this.taskList.findIndex((task) => task.id === taskId);
-        console.log(taskIndex);
-        this.taskList[taskIndex].title = editTitleInput.value;
-        this.taskList[taskIndex].date = editDateInput.value;
-        this.taskList[taskIndex].description = editDescriptionInput.value;
+        let taskIndex = this.taskList.findIndex(
+          (task) => task.data.id === taskId
+        );
+
+        this.taskList[taskIndex].data.title = editTitleInput.value;
+        this.taskList[taskIndex].data.date = editDateInput.value;
+        this.taskList[taskIndex].data.description = editDescriptionInput.value;
+        console.log(this.taskList);
+        this.currentContent.removeChild(editForm);
+        this.currentContent.removeChild(blurredScreen);
+        this.updateScreen();
       });
 
       //create cancel button
@@ -374,5 +382,6 @@ export default NewTaskManager;
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
 
-// problem mit der task ID weiter vrsuchen wenn du auf save drückst dann kommt dass task ID nicht beklannt ist obwohl ich es schpn vermerkt habe
-// wie bekomme ich die taskId die ich oben bestimmt habe in die function saveChabnges?
+// durch save button wird das object in der task list actualisiert jetzt geht es darum das display zu aktualisieren also:
+// edit form entfernen
+//task list neu rendern
