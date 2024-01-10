@@ -163,8 +163,6 @@ class NewTaskManager {
       id: `new-task-card-${this.taskList.length + 1}`,
     };
 
-    console.log(this.taskList);
-
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
     this.taskList.push({ data: taskData, element: newTaskCard });
@@ -187,11 +185,12 @@ class NewTaskManager {
   // function for append all tasks as task card to the screen
   updateScreen() {
     this.allViewPage.innerHTML = "";
+
     this.taskList.forEach((taskObject) => {
       taskObject.element.className = "task-card";
-
       this.allViewPage.appendChild(taskObject.element);
     });
+    console.log(this.taskList);
   }
 
   // create task card
@@ -349,9 +348,21 @@ class NewTaskManager {
         this.taskList[taskIndex].data.title = editTitleInput.value;
         this.taskList[taskIndex].data.date = editDateInput.value;
         this.taskList[taskIndex].data.description = editDescriptionInput.value;
+        const taskData = {
+          title: this.taskList[taskIndex].data.title,
+          date: this.taskList[taskIndex].data.date,
+          description: this.taskList[taskIndex].data.description,
+          id: taskId,
+        };
+        const updatedTaskCard = this.createTaskCard(taskData);
+
+        this.taskList[taskIndex].element = updatedTaskCard;
+        console.log(taskData);
+
         console.log(this.taskList);
         this.currentContent.removeChild(editForm);
         this.currentContent.removeChild(blurredScreen);
+
         this.updateScreen();
       });
 
@@ -382,6 +393,5 @@ export default NewTaskManager;
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
 
-// durch save button wird das object in der task list actualisiert jetzt geht es darum das display zu aktualisieren also:
-// edit form entfernen
-//task list neu rendern
+// wenn ich edit bestätige dann verschwindet die form und der blurry screen das ist schonmal gut
+// leider wird die card nicht aktualisiert, muss den fehler in der create taskCard suchen nächstes mal !
