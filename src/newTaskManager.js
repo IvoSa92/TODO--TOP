@@ -324,6 +324,22 @@ class NewTaskManager {
       editDateInput.className = "edit-date-input";
       editDateInput.type = "date";
       editDateInput.value = taskObject.data.date;
+      //create priority
+      const editPriority = document.createElement("h2");
+      editPriority.textContent = "Priority";
+      editPriority.className = "edit-priority";
+      //create priority input field with the value of the task to edit
+      const editPriorityInput = document.createElement("select");
+      editPriorityInput.className = "edit-priority-input";
+      // create the options to select
+      const options = ["High", "Medium", "Low"];
+      options.forEach((optionText) => {
+        const option = document.createElement("option");
+        option.value = optionText;
+        option.textContent = optionText;
+        editPriorityInput.appendChild(option);
+        editPriorityInput.value = taskObject.data.priority;
+      });
       // create description
       const editDescription = document.createElement("h2");
       editDescription.textContent = "Description";
@@ -349,23 +365,25 @@ class NewTaskManager {
 
         this.taskList[taskIndex].data.title = editTitleInput.value;
         this.taskList[taskIndex].data.date = editDateInput.value;
+        this.taskList[taskIndex].data.priority = editPriorityInput.value;
         this.taskList[taskIndex].data.description = editDescriptionInput.value;
+        // create new taskData for the new taskCard after editing
         const taskData = {
           title: this.taskList[taskIndex].data.title,
           date: this.taskList[taskIndex].data.date,
+          priority: this.taskList[taskIndex].data.priority,
           description: this.taskList[taskIndex].data.description,
           id: taskId,
         };
-
+        // create new task Card
         const updatedTaskCard = this.createTaskCard(taskData);
         updatedTaskCard.style.height = "5rem";
         this.taskList[taskIndex].element = updatedTaskCard;
-        console.log(taskData);
 
-        console.log(this.taskList);
+        // remove form and blurry screen
         this.currentContent.removeChild(editForm);
         this.currentContent.removeChild(blurredScreen);
-
+        // update screen
         this.updateScreen();
       });
 
@@ -381,6 +399,8 @@ class NewTaskManager {
         editTitleInput,
         editDate,
         editDateInput,
+        editPriority,
+        editPriorityInput,
         editDescription,
         editDescriptionInput,
         editButtonContainer
