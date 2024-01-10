@@ -256,7 +256,6 @@ class NewTaskManager {
       }
 
       console.log(this.taskList);
-      // remove taskcard from the page
     });
 
     //create edit button with function to edit the task
@@ -274,6 +273,7 @@ class NewTaskManager {
     });
 
     //add event listener with function to expand a task card
+
     newTaskCard.addEventListener("click", function () {
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
@@ -294,6 +294,8 @@ class NewTaskManager {
 
     return newTaskCard;
   }
+
+  expandTaskCard() {}
 
   editTaskForm = (taskId) => {
     const taskObject = this.taskList.find((task) => task.data.id === taskId);
@@ -354,8 +356,9 @@ class NewTaskManager {
           description: this.taskList[taskIndex].data.description,
           id: taskId,
         };
-        const updatedTaskCard = this.createTaskCard(taskData);
 
+        const updatedTaskCard = this.createTaskCard(taskData);
+        updatedTaskCard.style.height = "5rem";
         this.taskList[taskIndex].element = updatedTaskCard;
         console.log(taskData);
 
@@ -389,9 +392,6 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// funktion edit der card hinzufügen
+
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
-
-// wenn ich edit bestätige dann verschwindet die form und der blurry screen das ist schonmal gut
-// leider wird die card nicht aktualisiert, muss den fehler in der create taskCard suchen nächstes mal !
