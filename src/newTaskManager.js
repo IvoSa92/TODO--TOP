@@ -390,6 +390,14 @@ class NewTaskManager {
       let editCancelBtn = document.createElement("button");
       editCancelBtn.className = "edit-cancel-button";
       editCancelBtn.textContent = "Cancel";
+
+      // ad event listener with function to the cancel button
+      editCancelBtn.addEventListener("click", () => {
+        this.currentContent.removeChild(editForm);
+        this.currentContent.removeChild(blurredScreen);
+        this.formActive = false;
+      });
+
       //append the buttons to the button container
       editButtonContainer.append(editSubmitBtn, editCancelBtn);
       //append the elements to the form
