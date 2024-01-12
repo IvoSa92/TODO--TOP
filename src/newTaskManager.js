@@ -210,11 +210,29 @@ class NewTaskManager {
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.classList.add("card-task-checkbox");
+    checkBox.addEventListener("click", (event) => {
+      event.stopPropagation();
+      //change title text decoration by checking checkbox
+      cardTaskTitle.style.textDecoration =
+        cardTaskTitle.style.textDecoration === "line-through"
+          ? ""
+          : "line-through";
+      //change text color by checking checkbox
+      cardTaskTitle.style.color =
+        cardTaskTitle.style.color === "rgb(59, 59, 59)"
+          ? "#6d6868"
+          : "rgb(59, 59, 59)";
+      //changing priority text color by checking checkbox
+
+      console.log("check");
+    });
 
     // create title field
     const cardTaskTitle = document.createElement("label");
     cardTaskTitle.textContent = taskData.title;
     cardTaskTitle.classList.add("card-task-title");
+    //setting color for event listener function
+    cardTaskTitle.style.color = "rgb(59, 59, 59)";
 
     // create date field
     const cardTaskDate = document.createElement("div");
@@ -419,6 +437,6 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-//cancel edit form button function schreiben
+// beim checkbox clicken soll die prio auch die farbe ändern
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität
