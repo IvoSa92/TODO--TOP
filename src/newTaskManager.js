@@ -190,7 +190,6 @@ class NewTaskManager {
       taskObject.element.className = "task-card";
       this.allViewPage.appendChild(taskObject.element);
     });
-    console.log(this.taskList);
   }
 
   // create task card
@@ -412,6 +411,6 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-
+//cancel edit form button function schreiben
 // funktion zum checkbox hinzufügen
 // funktion für die änderung der farbe der task card je nach priorität

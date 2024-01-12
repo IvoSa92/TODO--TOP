@@ -333,10 +333,10 @@ html {
   width: 30rem;
   height: 5rem;
   border-radius: 12px;
-  background-color: #ffcab0;
+  background-color: #a7edf1;
   margin-top: 1rem;
   color: #3b3b3b;
-  border-bottom: 3px solid #ea7033;
+  border-bottom: 3px solid #32868a;
 }
 
 .new-task-card:hover {
@@ -489,4 +489,43 @@ html {
 .edit-submit-button:active,
 .edit-cancel-button:active {
   transform: scale(0.95);
+}
+
+.card-task-delete-btn {
+  background-color: rgb(233, 37, 37);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.card-task-delete-btn:hover {
+  background-color: rgb(164, 10, 10);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-task-delete-btn:active {
+  background-color: crimson;
+  transform: scale(0.95);
+}
+
+.card-task-edit-btn {
+  background-color: rgba(62, 62, 161, 0.908); /* oder grün, je nach Vorliebe */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.card-task-edit-btn:hover {
+  background-color: rgb(26, 26, 99); /* oder dunkelgrün */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-task-edit-btn:active {
+  background-color: mediumblue; /* oder mediumseagreen, etc. */
 }
