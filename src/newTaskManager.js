@@ -188,6 +188,19 @@ class NewTaskManager {
 
     this.taskList.forEach((taskObject) => {
       taskObject.element.className = "task-card";
+      switch (taskObject.data.priority) {
+        case "High":
+          taskObject.element.classList.toggle("priority-high");
+          break;
+
+        case "Medium":
+          taskObject.element.classList.toggle("priority-medium");
+          break;
+
+        case "Low":
+          taskObject.element.classList.toggle("priority-low");
+          break;
+      }
       this.allViewPage.appendChild(taskObject.element);
     });
   }
@@ -257,10 +270,8 @@ class NewTaskManager {
       //get task by the class and set it as the id for finding it in the taskList array
       let taskToDelete = event.target.closest(".task-card");
       let taskId = taskToDelete.dataset.id;
-
       // finding task with taskId
       let index = this.taskList.findIndex((task) => task.data.id === taskId);
-
       //delete the task in the taskList
       if (index !== -1) {
         this.taskList.splice(index, 1);
@@ -278,12 +289,10 @@ class NewTaskManager {
       // get task object
       let taskCard = event.target.closest(".task-card");
       let taskId = taskCard.dataset.id;
-
       this.editTaskForm(taskId);
     });
 
     //add event listener with function to expand a task card
-
     newTaskCard.addEventListener("click", function () {
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
@@ -305,8 +314,6 @@ class NewTaskManager {
 
     return newTaskCard;
   }
-
-  expandTaskCard() {}
 
   editTaskForm = (taskId) => {
     const taskObject = this.taskList.find((task) => task.data.id === taskId);
@@ -351,6 +358,7 @@ class NewTaskManager {
         editPriorityInput.appendChild(option);
         editPriorityInput.value = taskObject.data.priority;
       });
+
       // create description
       const editDescription = document.createElement("h2");
       editDescription.textContent = "Description";

@@ -434,6 +434,28 @@ html {
   margin: 0.5rem;
 }
 
+/*TASK CARD PRIORITY COLORS*/
+
+.priority-high {
+  background-color: #ffcab0;
+}
+
+.priority-high:hover {
+  background-color: #fdb08a;
+}
+.priority-medium {
+  background-color: #fdffcd;
+}
+.priority-medium:hover {
+  background-color: #f8fb9d;
+}
+
+.priority-low {
+  background-color: #e0ffcd;
+}
+.priority-low:hover {
+  background-color: #cbfaae;
+}
 /* EDIT TASK FORM*/
 
 .edit-form {
