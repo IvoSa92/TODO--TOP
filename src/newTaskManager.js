@@ -195,7 +195,6 @@ class NewTaskManager {
   // create task card
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
-    newTaskCard.classList.add("new-task-card");
     newTaskCard.dataset.id = taskData.id;
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
@@ -212,25 +211,14 @@ class NewTaskManager {
     checkBox.classList.add("card-task-checkbox");
     checkBox.addEventListener("click", (event) => {
       event.stopPropagation();
-      //change title text decoration by checking checkbox
-      cardTaskTitle.style.textDecoration =
-        cardTaskTitle.style.textDecoration === "line-through"
-          ? ""
-          : "line-through";
-      //change text color by checking checkbox
-      cardTaskTitle.style.color =
-        cardTaskTitle.style.color === "rgb(59, 59, 59)"
-          ? "#6d6868"
-          : "rgb(59, 59, 59)";
-      //changing priority text color by checking checkbox
-      cardTaskPriority.style.color =
-        cardTaskPriority.style.color === "rgb(59, 59, 59)"
-          ? "#6d6868"
-          : "rgb(59, 59, 59)";
-      cardTaskPriority.style.textDecoration =
-        cardTaskPriority.style.textDecoration === "line-through"
-          ? ""
-          : "line-through";
+
+      //change title text decoration and color by checking checkbox
+      cardTaskTitle.classList.toggle("checked-checkbox-font");
+      cardTaskPriority.classList.toggle("checked-checkbox-font");
+      newTaskCard.classList.toggle("checked-checkbox-background");
+
+      //remove buttons from checked task
+      cardTaskBtnContainer.classList.toggle("task-buttons-toggle");
     });
 
     // create title field
@@ -249,7 +237,7 @@ class NewTaskManager {
     const cardTaskPriority = document.createElement("div");
     cardTaskPriority.textContent = taskData.priority;
     cardTaskPriority.classList.add("card-task-priority");
-    cardTaskPriority.style.color = "";
+    cardTaskPriority.style.color = "rgb(59, 59, 59)";
 
     // create description field
     const cardTaskDescription = document.createElement("div");
@@ -278,8 +266,6 @@ class NewTaskManager {
         this.taskList.splice(index, 1);
         this.updateScreen();
       }
-
-      console.log(this.taskList);
     });
 
     //create edit button with function to edit the task
@@ -303,6 +289,7 @@ class NewTaskManager {
         hiddenContent.style.display === "none" ? "flex" : "none";
       newTaskCard.style.height =
         newTaskCard.style.height === "5rem" ? "auto" : "5rem";
+      visibleContent.classList.toggle("card-task-visible-border");
     });
 
     // append all elements
@@ -444,6 +431,6 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// beim checkbox clicken soll die prio auch die farbe ändern
-// funktion zum checkbox hinzufügen
+//
+//
 // funktion für die änderung der farbe der task card je nach priorität

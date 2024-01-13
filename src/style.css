@@ -327,16 +327,38 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  box-sizing: border-box;
   font-family: monospace;
   font-size: 1rem;
+  background-color: #a7edf1;
   font-weight: bolder;
-  width: 30rem;
+  width: 33rem;
   height: 5rem;
   border-radius: 12px;
-  background-color: #a7edf1;
   margin-top: 1rem;
   color: #3b3b3b;
   border-bottom: 3px solid #32868a;
+}
+
+.task-card:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  background-color: #b1f3f7;
+}
+
+/*CHECKBOX */
+.checked-checkbox-background {
+  background-color: #ececec !important;
+  border: none;
+}
+
+.checked-checkbox-font {
+  text-decoration: line-through !important;
+  color: #6d6868 !important;
+}
+
+.task-buttons-toggle {
+  display: none !important;
 }
 
 .card-task-checkbox {
@@ -357,14 +379,11 @@ html {
 .card-task-checkbox:active {
   transform: scale(0.9);
 }
-.task-card:hover {
-  cursor: pointer;
-  transform: scale(1.01);
-  background-color: #b1f3f7;
-}
 
 .card-task-hidden {
   display: none;
+  box-sizing: border-box;
+  font-size: 0.9rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -375,16 +394,32 @@ html {
 
 .card-task-visible {
   display: flex;
+  box-sizing: border-box;
+  align-items: center;
   justify-content: space-around;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 1rem;
   margin-top: 0.5rem;
+}
+
+.card-task-visible-border {
+  border-bottom: 2px solid rgb(19, 30, 104);
 }
 
 .card-task-description {
   width: 80%;
   line-height: 1.5rem;
+  text-align: center;
+  border: 2px solid rgba(0, 0, 0, 0.466);
+  padding: 0.2rem;
+  border-radius: 6px;
+}
+
+.card-task-date {
+  border: 2px solid rgba(0, 0, 0, 0.627);
+  border-radius: 6px;
+  padding: 0.3rem;
 }
 
 .card-task-btn-container {
