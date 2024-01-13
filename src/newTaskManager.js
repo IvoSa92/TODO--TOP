@@ -185,6 +185,15 @@ class NewTaskManager {
   // function for append all tasks as task card to the screen
   updateScreen() {
     this.allViewPage.innerHTML = "";
+    this.taskList.sort(
+      (a, b) =>
+        this.priorityToNumber(b.data.priority) -
+        this.priorityToNumber(a.data.priority)
+    );
+
+    this.taskList.forEach((taskObject) => {
+      console.log(taskObject.data.priority);
+    });
 
     this.taskList.forEach((taskObject) => {
       taskObject.element.className = "task-card";
@@ -203,6 +212,19 @@ class NewTaskManager {
       }
       this.allViewPage.appendChild(taskObject.element);
     });
+  }
+
+  priorityToNumber(priority) {
+    switch (priority) {
+      case "High":
+        return 3;
+
+      case "Medium":
+        return 2;
+
+      case "Low":
+        return 1;
+    }
   }
 
   // create task card

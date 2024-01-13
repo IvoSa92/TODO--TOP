@@ -438,6 +438,7 @@ html {
 
 .priority-high {
   background-color: #ffcab0;
+  border-color: #f68851;
 }
 
 .priority-high:hover {
@@ -445,6 +446,7 @@ html {
 }
 .priority-medium {
   background-color: #fdffcd;
+  border-color: #f4f951;
 }
 .priority-medium:hover {
   background-color: #f8fb9d;
@@ -452,6 +454,7 @@ html {
 
 .priority-low {
   background-color: #e0ffcd;
+  border-color: #93fa52;
 }
 .priority-low:hover {
   background-color: #cbfaae;
