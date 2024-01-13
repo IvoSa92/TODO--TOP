@@ -223,8 +223,14 @@ class NewTaskManager {
           ? "#6d6868"
           : "rgb(59, 59, 59)";
       //changing priority text color by checking checkbox
-
-      console.log("check");
+      cardTaskPriority.style.color =
+        cardTaskPriority.style.color === "rgb(59, 59, 59)"
+          ? "#6d6868"
+          : "rgb(59, 59, 59)";
+      cardTaskPriority.style.textDecoration =
+        cardTaskPriority.style.textDecoration === "line-through"
+          ? ""
+          : "line-through";
     });
 
     // create title field
@@ -243,6 +249,7 @@ class NewTaskManager {
     const cardTaskPriority = document.createElement("div");
     cardTaskPriority.textContent = taskData.priority;
     cardTaskPriority.classList.add("card-task-priority");
+    cardTaskPriority.style.color = "";
 
     // create description field
     const cardTaskDescription = document.createElement("div");
