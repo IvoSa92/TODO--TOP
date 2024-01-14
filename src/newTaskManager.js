@@ -11,6 +11,9 @@ class NewTaskManager {
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
     this.allViewPage = DomElements.allViewPage;
+    this.todaysTasksPage = DomElements.todayViewPage;
+    this.tomorrowsTasksPage = DomElements.tomorrowViewPage;
+    this.upcomingTasksPage = DomElements.upcomingViewPage;
     //this.taskList = [];
     this.initializeEventListeners();
   }
@@ -170,7 +173,7 @@ class NewTaskManager {
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
     NewTaskManager.taskList.push({ data: taskData, element: newTaskCard });
-    allViewPage.innerHTML = "";
+    //allViewPage.innerHTML = "";
 
     // updating the screen with the tasks in the array
     this.updateScreen();
@@ -186,19 +189,35 @@ class NewTaskManager {
     this.formActive = false;
   }
 
+  // function to detect todays date and format it like the date in the tasks
+  isToday() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = today.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
+  //function to detect todays date and add one day for tomorrow date
+  isTomorrow() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const Tomorrow = parseFloat(day) + 1;
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = today.getFullYear();
+
+    return `${year}-${month}-${Tomorrow}`;
+  }
+
   // function for append all tasks as task card to the screen
-  updateScreen() {
+  /* updateScreen() {
     this.allViewPage.innerHTML = "";
+    //sort tasks after priority
     NewTaskManager.taskList.sort(
       (a, b) =>
         this.priorityToNumber(b.data.priority) -
         this.priorityToNumber(a.data.priority)
     );
-
-    NewTaskManager.taskList.forEach((taskObject) => {
-      console.log(taskObject.data.priority);
-    });
-
+    // toggle class for priority color and append each task to the all tasks page
     NewTaskManager.taskList.forEach((taskObject) => {
       taskObject.element.className = "task-card";
       switch (taskObject.data.priority) {
@@ -215,6 +234,117 @@ class NewTaskManager {
           break;
       }
       this.allViewPage.appendChild(taskObject.element);
+    });
+  }
+*/
+  updateScreen() {
+    // get todays date and the numbers for month and year
+    const today = this.isToday();
+    const tomorrow = this.isTomorrow();
+
+    //filter tasklist for all tasks
+    const allTasks = NewTaskManager.taskList;
+
+    // filter tasklist by the todays date
+    const todaysTasks = NewTaskManager.taskList.filter(
+      (task) => task.data.date === today
+    );
+
+    // filter tasklist by the date of tomorrow
+    const tomorrowTasks = NewTaskManager.taskList.filter(
+      (task) => task.data.date === tomorrow
+    );
+
+    //filter tasks by date bigger than today
+    const upcomingTasks = NewTaskManager.taskList.filter(
+      (task) => task.data.date > tomorrow
+    );
+
+    //sort tasks after priority
+    NewTaskManager.taskList.sort(
+      (a, b) =>
+        this.priorityToNumber(b.data.priority) -
+        this.priorityToNumber(a.data.priority)
+    );
+
+    // toggle task colorization by priority and append tasks to all tasks page
+    allTasks.forEach((taskObject) => {
+      this.allViewPage.innerHTML = "";
+      taskObject.element.className = "task-card";
+      switch (taskObject.data.priority) {
+        case "High":
+          taskObject.element.classList.toggle("priority-high");
+          break;
+
+        case "Medium":
+          taskObject.element.classList.toggle("priority-medium");
+          break;
+
+        case "Low":
+          taskObject.element.classList.toggle("priority-low");
+          break;
+      }
+      this.allViewPage.appendChild(taskObject.element);
+    });
+
+    // toggle task colorization by priority and append tasks to tomorrow tasks page
+    todaysTasks.forEach((taskObject) => {
+      this.todaysTasksPage.innerHTML = "";
+      taskObject.element.className = "task-card";
+      switch (taskObject.data.priority) {
+        case "High":
+          taskObject.element.classList.toggle("priority-high");
+          break;
+
+        case "Medium":
+          taskObject.element.classList.toggle("priority-medium");
+          break;
+
+        case "Low":
+          taskObject.element.classList.toggle("priority-low");
+          break;
+      }
+      this.todaysTasksPage.appendChild(taskObject.element);
+    });
+
+    // toggle task colorization by priority and append tasks to tomorrow tasks page
+    tomorrowTasks.forEach((taskObject) => {
+      this.tomorrowsTasksPage.innerHTML = "";
+      taskObject.element.className = "task-card";
+      switch (taskObject.data.priority) {
+        case "High":
+          taskObject.element.classList.toggle("priority-high");
+          break;
+
+        case "Medium":
+          taskObject.element.classList.toggle("priority-medium");
+          break;
+
+        case "Low":
+          taskObject.element.classList.toggle("priority-low");
+          break;
+      }
+      this.tomorrowsTasksPage.appendChild(taskObject.element);
+    });
+
+    // toggle task colorization by priority and append tasks to tomorrow tasks page
+    upcomingTasks.forEach((taskObject) => {
+      this.upcomingTasksPage.innerHTML = "";
+      taskObject.element.className = "task-card";
+      switch (taskObject.data.priority) {
+        case "High":
+          taskObject.element.classList.toggle("priority-high");
+          break;
+
+        case "Medium":
+          taskObject.element.classList.toggle("priority-medium");
+          break;
+
+        case "Low":
+          taskObject.element.classList.toggle("priority-low");
+          break;
+      }
+      this.upcomingTasksPage.appendChild(taskObject.element);
     });
   }
 
@@ -301,6 +431,7 @@ class NewTaskManager {
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
       );
+
       //delete the task in the taskList
       if (index !== -1) {
         NewTaskManager.taskList.splice(index, 1);
@@ -437,6 +568,7 @@ class NewTaskManager {
         this.currentContent.removeChild(blurredScreen);
         // update screen
         this.updateScreen();
+        console.log(NewTaskManager.taskList);
       });
 
       //create cancel button
@@ -472,8 +604,8 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// verschieben view options programmieren dass sie nach dem datum zugeordnet werden
-// - immer wenn ich auf eine seite klcike in der side nav dann soll das programm durch die tasklist iterieren und
-//wenn das datum zur seite passt dann soll sie zur seite appended werden
-//
-// - taskList function geschreieben welche die tasklist retunt uujm sie in anderen modulen zu benuitzen
+
+// PROBLEME:
+//auf die all tasks wird keine task gesetz , wenn man kein datum angobt verschwidnet die task einfach
+// tasks lassen sich nicht mehr löschen !
+// problem, die tasks sind immer nur auf einer seite und nicht zB in alltasks und tomorrow tasks
