@@ -1,13 +1,17 @@
 import DomElements from "./DOM";
-import HandleNavButtons from "./handleViewOptions";
 
 class NewTaskManager {
+  static taskList = [];
+  static getTaskList() {
+    return NewTaskManager.taskList;
+  }
+
   constructor() {
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
     this.allViewPage = DomElements.allViewPage;
-    this.taskList = [];
+    //this.taskList = [];
     this.initializeEventListeners();
   }
 
@@ -160,12 +164,12 @@ class NewTaskManager {
       priority: this.prioritySelect.querySelector(".priority-input").value,
       description:
         this.descriptionInput.querySelector(".description-input").value,
-      id: `new-task-card-${this.taskList.length + 1}`,
+      id: `new-task-card-${NewTaskManager.taskList.length + 1}`,
     };
 
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
-    this.taskList.push({ data: taskData, element: newTaskCard });
+    NewTaskManager.taskList.push({ data: taskData, element: newTaskCard });
     allViewPage.innerHTML = "";
 
     // updating the screen with the tasks in the array
@@ -185,17 +189,17 @@ class NewTaskManager {
   // function for append all tasks as task card to the screen
   updateScreen() {
     this.allViewPage.innerHTML = "";
-    this.taskList.sort(
+    NewTaskManager.taskList.sort(
       (a, b) =>
         this.priorityToNumber(b.data.priority) -
         this.priorityToNumber(a.data.priority)
     );
 
-    this.taskList.forEach((taskObject) => {
+    NewTaskManager.taskList.forEach((taskObject) => {
       console.log(taskObject.data.priority);
     });
 
-    this.taskList.forEach((taskObject) => {
+    NewTaskManager.taskList.forEach((taskObject) => {
       taskObject.element.className = "task-card";
       switch (taskObject.data.priority) {
         case "High":
@@ -214,6 +218,7 @@ class NewTaskManager {
     });
   }
 
+  // function to set the priorities to number so the task list can be ordered by priority
   priorityToNumber(priority) {
     switch (priority) {
       case "High":
@@ -293,10 +298,12 @@ class NewTaskManager {
       let taskToDelete = event.target.closest(".task-card");
       let taskId = taskToDelete.dataset.id;
       // finding task with taskId
-      let index = this.taskList.findIndex((task) => task.data.id === taskId);
+      let index = NewTaskManager.taskList.findIndex(
+        (task) => task.data.id === taskId
+      );
       //delete the task in the taskList
       if (index !== -1) {
-        this.taskList.splice(index, 1);
+        NewTaskManager.taskList.splice(index, 1);
         this.updateScreen();
       }
     });
@@ -338,7 +345,9 @@ class NewTaskManager {
   }
 
   editTaskForm = (taskId) => {
-    const taskObject = this.taskList.find((task) => task.data.id === taskId);
+    const taskObject = NewTaskManager.taskList.find(
+      (task) => task.data.id === taskId
+    );
     console.log(taskObject);
     if (taskObject) {
       // blurred screen for background
@@ -400,26 +409,28 @@ class NewTaskManager {
       //add event listener to the edit submit button
       editSubmitBtn.addEventListener("click", () => {
         //change the task values in the taskList
-        let taskIndex = this.taskList.findIndex(
+        let taskIndex = NewTaskManager.taskList.findIndex(
           (task) => task.data.id === taskId
         );
 
-        this.taskList[taskIndex].data.title = editTitleInput.value;
-        this.taskList[taskIndex].data.date = editDateInput.value;
-        this.taskList[taskIndex].data.priority = editPriorityInput.value;
-        this.taskList[taskIndex].data.description = editDescriptionInput.value;
+        NewTaskManager.taskList[taskIndex].data.title = editTitleInput.value;
+        NewTaskManager.taskList[taskIndex].data.date = editDateInput.value;
+        NewTaskManager.taskList[taskIndex].data.priority =
+          editPriorityInput.value;
+        NewTaskManager.taskList[taskIndex].data.description =
+          editDescriptionInput.value;
         // create new taskData for the new taskCard after editing
         const taskData = {
-          title: this.taskList[taskIndex].data.title,
-          date: this.taskList[taskIndex].data.date,
-          priority: this.taskList[taskIndex].data.priority,
-          description: this.taskList[taskIndex].data.description,
+          title: NewTaskManager.taskList[taskIndex].data.title,
+          date: NewTaskManager.taskList[taskIndex].data.date,
+          priority: NewTaskManager.taskList[taskIndex].data.priority,
+          description: NewTaskManager.taskList[taskIndex].data.description,
           id: taskId,
         };
         // create new task Card
         const updatedTaskCard = this.createTaskCard(taskData);
         updatedTaskCard.style.height = "5rem";
-        this.taskList[taskIndex].element = updatedTaskCard;
+        NewTaskManager.taskList[taskIndex].element = updatedTaskCard;
 
         // remove form and blurry screen
         this.currentContent.removeChild(editForm);
@@ -461,6 +472,8 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
+// verschieben view options programmieren dass sie nach dem datum zugeordnet werden
+// - immer wenn ich auf eine seite klcike in der side nav dann soll das programm durch die tasklist iterieren und
+//wenn das datum zur seite passt dann soll sie zur seite appended werden
 //
-//
-// funktion für die änderung der farbe der task card je nach priorität
+// - taskList function geschreieben welche die tasklist retunt uujm sie in anderen modulen zu benuitzen
