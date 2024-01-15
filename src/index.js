@@ -4,5 +4,5 @@ import DomElements from "./DOM";
 import NewTaskManager from "./newTaskManager";
 import HandleNavButtons from "./handleViewOptions";
 
-const taskManager = new NewTaskManager();
-const handleSideNavButtons = new HandleNavButtons();
+const newTaskManager = new NewTaskManager();
+const handleSideNavButtons = new HandleNavButtons(newTaskManager);

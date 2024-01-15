@@ -1,4 +1,5 @@
 import DomElements from "./DOM";
+import HandleNavButtons from "./handleViewOptions";
 
 class NewTaskManager {
   static taskList = [];
@@ -267,85 +268,47 @@ class NewTaskManager {
         this.priorityToNumber(a.data.priority)
     );
 
-    // toggle task colorization by priority and append tasks to all tasks page
-    allTasks.forEach((taskObject) => {
-      this.allViewPage.innerHTML = "";
-      taskObject.element.className = "task-card";
-      switch (taskObject.data.priority) {
-        case "High":
-          taskObject.element.classList.toggle("priority-high");
-          break;
-
-        case "Medium":
-          taskObject.element.classList.toggle("priority-medium");
-          break;
-
-        case "Low":
-          taskObject.element.classList.toggle("priority-low");
-          break;
-      }
-      this.allViewPage.appendChild(taskObject.element);
-    });
-
-    // toggle task colorization by priority and append tasks to tomorrow tasks page
-    todaysTasks.forEach((taskObject) => {
+    if (HandleNavButtons.currentPage === "allTasks") {
+      // toggle task colorization by priority and append tasks to all tasks page
+      allTasks.forEach((taskObject) =>
+        this.appendTaskToPage(taskObject, this.allViewPage)
+      );
+    } else if (HandleNavButtons.currentPage === "todayTasks") {
       this.todaysTasksPage.innerHTML = "";
-      taskObject.element.className = "task-card";
-      switch (taskObject.data.priority) {
-        case "High":
-          taskObject.element.classList.toggle("priority-high");
-          break;
-
-        case "Medium":
-          taskObject.element.classList.toggle("priority-medium");
-          break;
-
-        case "Low":
-          taskObject.element.classList.toggle("priority-low");
-          break;
-      }
-      this.todaysTasksPage.appendChild(taskObject.element);
-    });
-
-    // toggle task colorization by priority and append tasks to tomorrow tasks page
-    tomorrowTasks.forEach((taskObject) => {
+      // toggle task colorization by priority and append tasks to today tasks page
+      todaysTasks.forEach((taskObject) =>
+        this.appendTaskToPage(taskObject, this.todaysTasksPage)
+      );
+    } else if (HandleNavButtons.currentPage === "tomorrowTasks") {
       this.tomorrowsTasksPage.innerHTML = "";
-      taskObject.element.className = "task-card";
-      switch (taskObject.data.priority) {
-        case "High":
-          taskObject.element.classList.toggle("priority-high");
-          break;
-
-        case "Medium":
-          taskObject.element.classList.toggle("priority-medium");
-          break;
-
-        case "Low":
-          taskObject.element.classList.toggle("priority-low");
-          break;
-      }
-      this.tomorrowsTasksPage.appendChild(taskObject.element);
-    });
-
-    // toggle task colorization by priority and append tasks to tomorrow tasks page
-    upcomingTasks.forEach((taskObject) => {
+      // toggle task colorization by priority and append tasks to tomorrow tasks page
+      tomorrowTasks.forEach((taskObject) =>
+        this.appendTaskToPage(taskObject, this.tomorrowsTasksPage)
+      );
+    } else if (HandleNavButtons.currentPage === "upcomingTasks") {
       this.upcomingTasksPage.innerHTML = "";
-      taskObject.element.className = "task-card";
-      switch (taskObject.data.priority) {
-        case "High":
-          taskObject.element.classList.toggle("priority-high");
-          break;
+      // toggle task colorization by priority and append tasks to tomorrow tasks page
+      upcomingTasks.forEach((taskObject) =>
+        this.appendTaskToPage(taskObject, this.upcomingTasksPage)
+      );
+    }
+  }
 
-        case "Medium":
-          taskObject.element.classList.toggle("priority-medium");
-          break;
-
-        case "Low":
-          taskObject.element.classList.toggle("priority-low");
-          break;
-      }
-      this.upcomingTasksPage.appendChild(taskObject.element);
-    });
+  // function for appending the tasks
+  appendTaskToPage(taskObject, page) {
+    taskObject.element.className = "task-card";
+    switch (taskObject.data.priority) {
+      case "High":
+        taskObject.element.classList.add("priority-high");
+        break;
+      case "Medium":
+        taskObject.element.classList.add("priority-medium");
+        break;
+      case "Low":
+        taskObject.element.classList.add("priority-low");
+        break;
+    }
+    page.appendChild(taskObject.element);
   }
 
   // function to set the priorities to number so the task list can be ordered by priority
