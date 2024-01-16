@@ -210,35 +210,6 @@ class NewTaskManager {
     return `${year}-${month}-${Tomorrow}`;
   }
 
-  // function for append all tasks as task card to the screen
-  /* updateScreen() {
-    this.allViewPage.innerHTML = "";
-    //sort tasks after priority
-    NewTaskManager.taskList.sort(
-      (a, b) =>
-        this.priorityToNumber(b.data.priority) -
-        this.priorityToNumber(a.data.priority)
-    );
-    // toggle class for priority color and append each task to the all tasks page
-    NewTaskManager.taskList.forEach((taskObject) => {
-      taskObject.element.className = "task-card";
-      switch (taskObject.data.priority) {
-        case "High":
-          taskObject.element.classList.toggle("priority-high");
-          break;
-
-        case "Medium":
-          taskObject.element.classList.toggle("priority-medium");
-          break;
-
-        case "Low":
-          taskObject.element.classList.toggle("priority-low");
-          break;
-      }
-      this.allViewPage.appendChild(taskObject.element);
-    });
-  }
-*/
   updateScreen() {
     // get todays date and the numbers for month and year
     const today = this.isToday();
@@ -270,6 +241,7 @@ class NewTaskManager {
     );
 
     if (HandleNavButtons.currentPage === "allTasks") {
+      this.allViewPage.innerHTML = "";
       // toggle task colorization by priority and append tasks to all tasks page
       allTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.allViewPage)
@@ -414,6 +386,7 @@ class NewTaskManager {
       //get task by the class and set it as the id for finding it in the taskList array
       let taskToDelete = event.target.closest(".task-card");
       let taskId = taskToDelete.dataset.id;
+      console.log(taskToDelete);
       // finding task with taskId
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
@@ -593,5 +566,5 @@ export default NewTaskManager;
 // TODO:
 
 // PROBLEME:
-// graue färbung beim ereldigen der task bleibt nicht bestehen bei seitenwechsel
+
 // task verschwindet nicht aus der ALL seite wenn man die task direkt darin löscht
