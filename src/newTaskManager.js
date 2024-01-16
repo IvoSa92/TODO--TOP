@@ -169,6 +169,7 @@ class NewTaskManager {
       description:
         this.descriptionInput.querySelector(".description-input").value,
       id: `new-task-card-${NewTaskManager.taskList.length + 1}`,
+      isChecked: false,
     };
 
     const newTaskCard = this.createTaskCard(taskData);
@@ -297,6 +298,16 @@ class NewTaskManager {
   // function for appending the tasks
   appendTaskToPage(taskObject, page) {
     taskObject.element.className = "task-card";
+    if (taskObject.isChecked) {
+      //change title text decoration and color by checking checkbox
+      taskObject.element.classList.toggle("checked-checkbox-font");
+      taskObject.element.classList.toggle("checked-checkbox-font");
+      taskObject.element.classList.toggle("checked-checkbox-background");
+    } else if (taskObject.isChecked === false) {
+      //change title text decoration and color by checking checkbox
+      taskObject.element.classList.toggle("checked-checkbox-font");
+      taskObject.element.classList.toggle("checked-checkbox-font");
+    }
     switch (taskObject.data.priority) {
       case "High":
         taskObject.element.classList.add("priority-high");
@@ -342,8 +353,21 @@ class NewTaskManager {
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.classList.add("card-task-checkbox");
+
     checkBox.addEventListener("click", (event) => {
       event.stopPropagation();
+
+      //find task which gets checked
+      let taskChecked = event.target.closest(".task-card");
+      let taskId = taskChecked.dataset.id;
+      // finding task with taskId
+      let index = NewTaskManager.taskList.findIndex(
+        (task) => task.data.id === taskId
+      );
+      NewTaskManager.taskList[index].isChecked = NewTaskManager.taskList[index]
+        .isChecked
+        ? false
+        : true;
 
       //change title text decoration and color by checking checkbox
       cardTaskTitle.classList.toggle("checked-checkbox-font");
@@ -569,6 +593,5 @@ export default NewTaskManager;
 // TODO:
 
 // PROBLEME:
-//auf die all tasks wird keine task gesetz , wenn man kein datum angobt verschwidnet die task einfach
-// tasks lassen sich nicht mehr löschen !
-// problem, die tasks sind immer nur auf einer seite und nicht zB in alltasks und tomorrow tasks
+// graue färbung beim ereldigen der task bleibt nicht bestehen bei seitenwechsel
+// task verschwindet nicht aus der ALL seite wenn man die task direkt darin löscht
