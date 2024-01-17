@@ -15,7 +15,6 @@ class NewTaskManager {
     this.todaysTasksPage = DomElements.todayViewPage;
     this.tomorrowsTasksPage = DomElements.tomorrowViewPage;
     this.upcomingTasksPage = DomElements.upcomingViewPage;
-    //this.taskList = [];
     this.initializeEventListeners();
   }
 
@@ -386,7 +385,7 @@ class NewTaskManager {
       //get task by the class and set it as the id for finding it in the taskList array
       let taskToDelete = event.target.closest(".task-card");
       let taskId = taskToDelete.dataset.id;
-      console.log(taskToDelete);
+
       // finding task with taskId
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
@@ -439,7 +438,7 @@ class NewTaskManager {
     const taskObject = NewTaskManager.taskList.find(
       (task) => task.data.id === taskId
     );
-    console.log(taskObject);
+
     if (taskObject) {
       // blurred screen for background
       const blurredScreen = document.createElement("div");
@@ -528,7 +527,6 @@ class NewTaskManager {
         this.currentContent.removeChild(blurredScreen);
         // update screen
         this.updateScreen();
-        console.log(NewTaskManager.taskList);
       });
 
       //create cancel button
@@ -564,7 +562,6 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-
-// PROBLEME:
-
-// task verschwindet nicht aus der ALL seite wenn man die task direkt darin löscht
+// projecte implementieren, vllt als object element wie zB project: home usw anhand des porjekts filtern auf welcher seite die task angezegit wird
+// New Project button function zum erstellen einer projects
+//
