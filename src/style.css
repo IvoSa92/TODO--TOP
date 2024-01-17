@@ -118,7 +118,7 @@ html {
 /* PROJECTS */
 .projects {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
 }
@@ -209,6 +209,35 @@ html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.new-project-nav-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 1rem;
+  width: 80%;
+  font-family: monospace;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgb(48, 27, 98);
+  height: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #f1efef;
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 1.8rem;
+  cursor: pointer;
+}
+
+.new-project-nav-btn:hover {
+  color: #edc370;
+}
+
+.project-icon {
+  width: 1.4rem;
+  margin-right: 10px;
 }
 /* ADD TASK FORM*/
 
