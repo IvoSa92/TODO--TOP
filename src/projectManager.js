@@ -9,6 +9,8 @@ class ProjectManager {
     this.initializeEventListeners();
     this.newProjectForm = false;
     this.titleInput = null;
+    this.currentContent = DomElements.currentContent;
+    this.projectButtonCount = 0;
   }
   // event listener for the new project button
   initializeEventListeners() {
@@ -48,7 +50,7 @@ class ProjectManager {
 
       buttonContainer.append(saveButton, cancelButton);
       newForm.append(this.titleInput, buttonContainer);
-
+      //
       this.projectNav.appendChild(newForm);
       this.newProjectForm = true;
     }
@@ -59,7 +61,25 @@ class ProjectManager {
     if (this.titleInput.value !== "") {
       //create new button with the value of the input
       const newNavLink = document.createElement("button");
+      newNavLink.addEventListener("click", (event) => {
+        //search for target button ID
+        let projectEvent = event.target.closest(".new-project-nav-btn");
+        let projectId = projectEvent.id;
+        let projectNum = projectId.substring(8);
+
+        //search for the right page with the same ID Number
+        let projectPageTarget = document.querySelector(
+          `#projectPage-${projectNum}`
+        );
+
+        //display the page
+        projectPageTarget.style.display = "flex";
+      });
+
       newNavLink.className = "new-project-nav-btn";
+      this.projectButtonCount++;
+      //set id for customization the project button for later use
+      newNavLink.setAttribute("id", `project-${this.projectButtonCount}`);
       newNavLink.textContent = this.titleInput.value;
       //add an icon before the title
       const icon = document.createElement("img");
@@ -71,6 +91,13 @@ class ProjectManager {
       // find the project form to remove it from the DOM
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
+
+      //add new page for the projects for later activation
+      const projectPage = document.createElement("div");
+      projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
+      projectPage.className = "project-page";
+      this.currentContent.appendChild(projectPage);
+
       // set back the value of the project form so a new one can pop up
       this.newProjectForm = false;
     } else {
@@ -90,5 +117,11 @@ class ProjectManager {
 export default ProjectManager;
 
 // new project input form save click:
-// delete new project form coden
 // wenn man auf den button klickt öffnet sich eine neue view page mit dem dazugehörigen project title
+// erst mal das öffnen der projekt seite programmieren
+// dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
+// funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
+// project button delete einbauen (button zum lpöschen eines project buttons, dabei muss die project count -1 genommen werden)
+// wennich auf project button clicke:
+// eine neue seite wird erstellt und  appended, die ID ist definiert auf die anzahl der buttons
+// das zugehörige project wird auf die seite appended
