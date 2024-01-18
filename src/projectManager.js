@@ -67,13 +67,16 @@ class ProjectManager {
         let projectId = projectEvent.id;
         let projectNum = projectId.substring(8);
 
-        //search for the right page with the same ID Number
+        /* //search for the right page with the same ID Number
         let projectPageTarget = document.querySelector(
           `#projectPage-${projectNum}`
-        );
+        );*/
+        this.currentContent.innerHTML = "";
+        const newProjectPage = document.createElement("div");
+        newProjectPage.setAttribute("id", `projectPage-${projectNum}`);
+        newProjectPage.className = "project-page";
 
-        //display the page
-        projectPageTarget.style.display = "flex";
+        this.currentContent.appendChild(newProjectPage);
       });
 
       newNavLink.className = "new-project-nav-btn";
@@ -92,11 +95,11 @@ class ProjectManager {
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
 
-      //add new page for the projects for later activation
+      /*//add new page for the projects for later activation
       const projectPage = document.createElement("div");
       projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
       projectPage.className = "project-page";
-      this.currentContent.appendChild(projectPage);
+      this.currentContent.appendChild(projectPage);*/
 
       // set back the value of the project form so a new one can pop up
       this.newProjectForm = false;
