@@ -54,6 +54,7 @@ class NewTaskManager {
       "Medium",
       "Low",
     ]);
+    this.projectSelection = this.createProjectSelection();
     this.descriptionInput = this.createDescriptionField("description");
 
     const buttonContainer = document.createElement("div");
@@ -74,6 +75,7 @@ class NewTaskManager {
       this.titleInput,
       this.dateInput,
       this.prioritySelect,
+      this.projectSelection,
       this.descriptionInput,
       buttonContainer
     );
@@ -119,6 +121,40 @@ class NewTaskManager {
 
     inputContainer.append(label, select);
     return inputContainer;
+  }
+
+  // creates the project selection field of the form
+  createProjectSelection() {
+    const projectContainer = document.createElement("div");
+    projectContainer.classList.add("form-div");
+
+    const label = document.createElement("label");
+    label.classList.add("form-project-label");
+    label.textContent = "Project";
+
+    const select = document.createElement("select");
+    select.classList.add("form-project-select");
+    select.classList.add("formInput");
+
+    // search for all created projects in the DOM
+    const optionElements = Array.from(
+      document.querySelectorAll(".new-project-nav-btn")
+    );
+
+    //filter the elements for their innerHTML to add them to the selection
+    const innerHTMLArray = optionElements.map(function (element) {
+      return element.textContent;
+    });
+
+    innerHTMLArray.forEach((optionText) => {
+      const option = document.createElement("option");
+      option.value = optionText;
+      option.textContent = optionText;
+      select.appendChild(option);
+    });
+
+    projectContainer.append(label, select);
+    return projectContainer;
   }
 
   //creates the description field of the form
@@ -168,6 +204,7 @@ class NewTaskManager {
       description:
         this.descriptionInput.querySelector(".description-input").value,
       id: `new-task-card-${NewTaskManager.taskList.length + 1}`,
+      project: "",
       isChecked: false,
     };
 

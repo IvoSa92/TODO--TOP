@@ -258,10 +258,10 @@ html {
 
 .new-task {
   position: fixed;
-  top: 20%;
+  top: 12%;
   left: 40%;
   width: 30rem;
-  height: 35rem;
+  height: 45rem;
   display: flex;
   flex-direction: column;
   z-index: 100;
@@ -304,6 +304,17 @@ html {
 .formInput:focus {
   outline: none;
   border-bottom: 5px solid rgb(135, 249, 211);
+}
+
+.form-project-container {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.form-project-select {
 }
 
 .description-input {

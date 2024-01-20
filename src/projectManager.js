@@ -67,10 +67,7 @@ class ProjectManager {
         let projectId = projectEvent.id;
         let projectNum = projectId.substring(8);
 
-        /* //search for the right page with the same ID Number
-        let projectPageTarget = document.querySelector(
-          `#projectPage-${projectNum}`
-        );*/
+        // create project page and append it to the screen
         this.currentContent.innerHTML = "";
         const newProjectPage = document.createElement("div");
         newProjectPage.setAttribute("id", `projectPage-${projectNum}`);
@@ -120,11 +117,6 @@ class ProjectManager {
 export default ProjectManager;
 
 // new project input form save click:
-// wenn man auf den button klickt öffnet sich eine neue view page mit dem dazugehörigen project title
-// erst mal das öffnen der projekt seite programmieren
 // dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
-// project button delete einbauen (button zum lpöschen eines project buttons, dabei muss die project count -1 genommen werden)
-// wennich auf project button clicke:
-// eine neue seite wird erstellt und  appended, die ID ist definiert auf die anzahl der buttons
-// das zugehörige project wird auf die seite appended
+// project button delete einbauen (button zum löschen eines project buttons, dabei muss die project count -1 genommen werden)
