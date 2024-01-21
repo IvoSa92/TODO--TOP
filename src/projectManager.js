@@ -90,13 +90,28 @@ class ProjectManager {
       icon.className = "project-icon";
       icon.src = "../src/media/target.png";
 
-      //create delete button for the navbar button
-      const deleteProject = document.createElement("");
+      //create edit and delete buttons
+      const buttonContainer = document.createElement("div");
+      buttonContainer.className = "project-buttons";
+
+      const deleteProject = document.createElement("button");
+      deleteProject.className = "delete-project";
+      deleteProject.textContent = "Delete";
+
+      const editProject = document.createElement("button");
+      editProject.className = "edit-project";
+      editProject.textContent = "Edit";
+
+      buttonContainer.append(editProject, deleteProject);
+
+      //container to style it properly
+      const container = document.createElement("div");
+      container.className = "project-container";
 
       newProjectDiv.append(icon, newNavLink);
-      //newNavLink.prepend(icon);
+      container.append(newProjectDiv, buttonContainer);
 
-      this.projectNav.appendChild(newProjectDiv);
+      this.projectNav.appendChild(container);
       // find the project form to remove it from the DOM
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
