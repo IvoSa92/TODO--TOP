@@ -123,6 +123,14 @@ html {
   align-items: center;
 }
 
+.new-project-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1.5px solid rgb(48, 27, 98);
+}
+
 .new-project-button {
   display: inline-block;
   outline: none;
@@ -215,18 +223,16 @@ html {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
+
   width: 80%;
   font-family: monospace;
   background-color: transparent;
   border: none;
-  border-bottom: 1.5px solid rgb(48, 27, 98);
   height: 2rem;
   text-align: center;
   font-size: 1.2rem;
   color: #f1efef;
   font-weight: bold;
-  text-decoration: underline;
   padding: 1.8rem;
   cursor: pointer;
 }
@@ -236,8 +242,8 @@ html {
 }
 
 .project-icon {
-  width: 1.4rem;
-  margin-right: 10px;
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 .project-page {
@@ -312,9 +318,6 @@ html {
 
   align-items: center;
   justify-content: center;
-}
-
-.form-project-select {
 }
 
 .description-input {
@@ -531,6 +534,10 @@ html {
   border-radius: 6px;
 }
 
+.card-task-project {
+  border-bottom: 1.8px solid black;
+}
+
 .card-task-date {
   border: 2px solid rgba(0, 0, 0, 0.627);
   border-radius: 6px;
@@ -583,7 +590,7 @@ html {
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 20%;
+  top: 5%;
   left: 50%;
   background-color: #90a5ba;
   width: 20rem;
@@ -604,7 +611,8 @@ html {
 
 .edit-title-input,
 .edit-date-input,
-.edit-priority-input {
+.edit-priority-input,
+.edit-project-input {
   width: 60%;
   height: 20%;
   border-style: none;
@@ -613,8 +621,7 @@ html {
   color: #fff;
   font-size: large;
   text-align: center;
-
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .edit-description-input {

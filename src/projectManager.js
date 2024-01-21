@@ -59,6 +59,10 @@ class ProjectManager {
   // function for adding a button with the project title to the nav bar
   createProjectNavLink() {
     if (this.titleInput.value !== "") {
+      //create a div for the elements
+      const newProjectDiv = document.createElement("div");
+      newProjectDiv.className = "new-project-div";
+
       //create new button with the value of the input
       const newNavLink = document.createElement("button");
       newNavLink.addEventListener("click", (event) => {
@@ -85,9 +89,14 @@ class ProjectManager {
       const icon = document.createElement("img");
       icon.className = "project-icon";
       icon.src = "../src/media/target.png";
-      newNavLink.prepend(icon);
 
-      this.projectNav.appendChild(newNavLink);
+      //create delete button for the navbar button
+      const deleteProject = document.createElement("");
+
+      newProjectDiv.append(icon, newNavLink);
+      //newNavLink.prepend(icon);
+
+      this.projectNav.appendChild(newProjectDiv);
       // find the project form to remove it from the DOM
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);

@@ -204,7 +204,8 @@ class NewTaskManager {
       description:
         this.descriptionInput.querySelector(".description-input").value,
       id: `new-task-card-${NewTaskManager.taskList.length + 1}`,
-      project: "",
+      project: this.projectSelection.querySelector(".form-project-select")
+        .value,
       isChecked: false,
     };
 
@@ -225,6 +226,8 @@ class NewTaskManager {
     this.currentContent.appendChild(allViewPage);
     allViewPage.style.display = "flex";
     this.formActive = false;
+
+    console.log(NewTaskManager.taskList);
   }
 
   // function to detect todays date and format it like the date in the tasks
@@ -393,6 +396,11 @@ class NewTaskManager {
     //setting color for event listener function
     cardTaskTitle.style.color = "rgb(59, 59, 59)";
 
+    // create project field
+    const cardTaskProject = document.createElement("label");
+    cardTaskProject.textContent = `Project: ${taskData.project}`;
+    cardTaskProject.classList.add("card-task-project");
+
     // create date field
     const cardTaskDate = document.createElement("div");
     cardTaskDate.textContent = `DueDate: ${taskData.date}`;
@@ -461,6 +469,7 @@ class NewTaskManager {
     cardTaskBtnContainer.append(cardTaskDeleteBtn, cardTaskEditBtn);
     visibleContent.append(checkBox, cardTaskTitle, cardTaskPriority);
     hiddenContent.append(
+      cardTaskProject,
       cardTaskDate,
       cardTaskDescription,
       cardTaskBtnContainer
@@ -491,6 +500,28 @@ class NewTaskManager {
       const editTitleInput = document.createElement("input");
       editTitleInput.className = "edit-title-input";
       editTitleInput.value = taskObject.data.title;
+      //create project field
+      const editProject = document.createElement("h2");
+      editProject.textContent = "Project";
+      editProject.className = "edit-project-title";
+      //create project selection field with the value of the task to edit
+      const editProjectInput = document.createElement("select");
+      editProjectInput.className = "edit-project-input";
+      //create the options to select"
+      const optionElements = Array.from(
+        document.querySelectorAll(".new-project-nav-btn")
+      );
+      const innerHTMLArray = optionElements.map(function (element) {
+        return element.textContent;
+      });
+
+      innerHTMLArray.forEach((optionText) => {
+        const option = document.createElement("option");
+        option.value = optionText;
+        option.textContent = optionText;
+        editProjectInput.appendChild(option);
+      });
+
       //create date
       const editDate = document.createElement("h2");
       editDate.textContent = "Date";
@@ -542,6 +573,8 @@ class NewTaskManager {
 
         NewTaskManager.taskList[taskIndex].data.title = editTitleInput.value;
         NewTaskManager.taskList[taskIndex].data.date = editDateInput.value;
+        NewTaskManager.taskList[taskIndex].data.project =
+          editProjectInput.value;
         NewTaskManager.taskList[taskIndex].data.priority =
           editPriorityInput.value;
         NewTaskManager.taskList[taskIndex].data.description =
@@ -550,6 +583,7 @@ class NewTaskManager {
         const taskData = {
           title: NewTaskManager.taskList[taskIndex].data.title,
           date: NewTaskManager.taskList[taskIndex].data.date,
+          project: NewTaskManager.taskList[taskIndex].data.project,
           priority: NewTaskManager.taskList[taskIndex].data.priority,
           description: NewTaskManager.taskList[taskIndex].data.description,
           id: taskId,
@@ -584,6 +618,8 @@ class NewTaskManager {
       editForm.append(
         editTitle,
         editTitleInput,
+        editProject,
+        editProjectInput,
         editDate,
         editDateInput,
         editPriority,
@@ -599,6 +635,9 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// projecte implementieren, vllt als object element wie zB project: home usw anhand des porjekts filtern auf welcher seite die task angezegit wird
-// New Project button function zum erstellen einer projects
-//
+// delete project button + funktion erstellen
+// projecte anhand der taskdata.project sortieren und dem richtigen project appenden
+
+// function iwie so : wenn taskData.project gleich ist wie taskButton dass soll es auf diese seite appendet werden
+// vorgehen : iteriere durch die tasklist nach den projecten, wenn ein project den selben wert hab wie ein textContent eines buttons dann wird dieser task wem button entsprechenden seite hinzugefügt
+// wenn man einne task hinzufügt saollte es die wahl geben kein Projekt zu wählen
