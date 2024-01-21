@@ -97,6 +97,11 @@ class ProjectManager {
       const deleteProject = document.createElement("button");
       deleteProject.className = "delete-project";
       deleteProject.textContent = "Delete";
+      deleteProject.addEventListener("click", (event) => {
+        const projectButtonToDelete =
+          event.target.closest(".project-container");
+        this.projectNav.removeChild(projectButtonToDelete);
+      });
 
       const editProject = document.createElement("button");
       editProject.className = "edit-project";
