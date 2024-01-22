@@ -39,10 +39,10 @@ class ProjectManager {
       const saveButton = document.createElement("button");
       saveButton.className = "project-save-button";
       saveButton.textContent = "Save";
-      saveButton.addEventListener(
-        "click",
-        this.createProjectNavLink.bind(this)
-      );
+      saveButton.addEventListener("click", () => {
+        this.createProjectNavLink();
+        this.createProjectPage();
+      });
 
       const cancelButton = document.createElement("button");
       cancelButton.className = "project-cancel-button";
@@ -67,18 +67,22 @@ class ProjectManager {
       //create new button with the value of the input
       const newNavLink = document.createElement("button");
       newNavLink.addEventListener("click", (event) => {
-        //search for target button ID
-        let projectEvent = event.target.closest(".new-project-nav-btn");
-        let projectId = projectEvent.id;
-        let projectNum = projectId.substring(8);
+        //which button got clicked / filter ID
+        const projectButton = event.target.closest(".new-project-nav-btn");
+        const projectId = projectButton.id;
+        const projectNum = projectId[projectId.length - 1];
 
-        // create project page and append it to the screen
-        this.currentContent.innerHTML = "";
-        const newProjectPage = document.createElement("div");
-        newProjectPage.setAttribute("id", `projectPage-${projectNum}`);
-        newProjectPage.className = "project-page";
+        //page to link
+        const projectPage = document.querySelector(
+          `#projectPage-${projectNum}`
+        );
 
-        this.currentContent.appendChild(newProjectPage);
+        //hide all other project pages
+        const projectPagesToHide = document.querySelectorAll(".project-page");
+        projectPagesToHide.forEach((page) => {
+          page.style.display = "none";
+        });
+        projectPage.style.display = "flex";
       });
 
       newNavLink.className = "new-project-nav-btn";
@@ -126,17 +130,19 @@ class ProjectManager {
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
 
-      /*//add new page for the projects for later activation
-      const projectPage = document.createElement("div");
-      projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
-      projectPage.className = "project-page";
-      this.currentContent.appendChild(projectPage);*/
-
       // set back the value of the project form so a new one can pop up
       this.newProjectForm = false;
     } else {
       alert("please fill out the title input");
     }
+  }
+
+  createProjectPage() {
+    const projectPage = document.createElement("div");
+    projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
+    projectPage.className = "project-page";
+    projectPage.style.display = "none";
+    this.currentContent.appendChild(projectPage);
   }
 
   // function for canceling the new project form
@@ -203,3 +209,5 @@ export default ProjectManager;
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
 
 //funktion für project button edit schreiben. um den titel zu ändern
+// delete project muss auch die dazugehörige seite löschen!
+// das umschalten zwischen den project seiten geht noch nicht es werden dann imer alle angezeigt
