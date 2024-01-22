@@ -143,12 +143,19 @@ html {
 }
 
 .project-buttons {
-  display: flex;
+  display: none;
+  opacity: 0;
+  transform: opacity 0.5s ease;
   width: 100%;
   justify-content: center;
   align-items: center;
   gap: 5px;
   margin-bottom: 5px;
+}
+
+.project-container:hover .project-buttons {
+  display: flex;
+  opacity: 1;
 }
 
 .edit-project {
@@ -285,6 +292,7 @@ html {
   transform: scale(1.05);
   background-color: rgb(227, 84, 84);
 }
+/* EDIT PROJECT BUTTON*/
 
 .edit-project-form {
   display: flex;
@@ -292,8 +300,11 @@ html {
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 4.5rem;
-  z-index: 100;
+  top: 0%;
+  left: 100%;
+  background-color: #8f9194;
+  padding: 0.5rem;
+  border-radius: 10px;
 }
 
 .edit-project-title {
@@ -317,6 +328,7 @@ html {
   justify-content: center;
   width: 100%;
   gap: 4px;
+  margin-top: 0.5rem;
 }
 
 .cancel-project-changes-button,

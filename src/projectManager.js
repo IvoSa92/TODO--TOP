@@ -97,6 +97,7 @@ class ProjectManager {
 
       const deleteProject = document.createElement("button");
       deleteProject.className = "delete-project";
+      deleteProject.classList.add(`project-${this.projectButtonCount}`);
       deleteProject.textContent = "Delete";
       deleteProject.addEventListener("click", (event) => {
         const projectButtonToDelete =
@@ -107,6 +108,7 @@ class ProjectManager {
 
       const editProject = document.createElement("button");
       editProject.className = "edit-project";
+      editProject.classList.add(`project-${this.projectButtonCount}`);
       editProject.textContent = "Edit";
       editProject.addEventListener("click", this.editProjectForm.bind(this));
 
@@ -145,19 +147,20 @@ class ProjectManager {
     this.newProjectForm = false;
   }
 
-  editProjectForm() {
+  editProjectForm(event) {
     if (this.editProjectFormActive === false) {
       this.editProjectFormActive = true;
 
-      //hide the other buttons
-      const otherButtons = document.querySelector(".project-buttons");
-      otherButtons.style.display = "none";
+      //searching for the right project to edit
+      const editButtonClass = event.target.classList[1];
+      const projectToChange = document.querySelector(`#${editButtonClass}`);
 
       const editForm = document.createElement("div");
       editForm.className = "edit-project-form";
 
       const editTitle = document.createElement("input");
       editTitle.className = "edit-project-title";
+      editTitle.placeholder = "new title here";
 
       const parentElement = document.querySelector(".projects");
       const targetElement = parentElement.children[1];
@@ -169,9 +172,20 @@ class ProjectManager {
       saveChangesButton.className = "save-project-changes-button";
       saveChangesButton.textContent = "Save";
 
+      saveChangesButton.addEventListener("click", (event) => {
+        projectToChange.textContent = editTitle.value;
+        parentElement.removeChild(editForm);
+        this.editProjectFormActive = false;
+      });
+
       const cancelChangesButton = document.createElement("button");
       cancelChangesButton.className = "cancel-project-changes-button";
       cancelChangesButton.textContent = "Cancel";
+
+      cancelChangesButton.addEventListener("click", () => {
+        parentElement.removeChild(editForm);
+        this.editProjectFormActive = false;
+      });
 
       btnContainer.append(saveChangesButton, cancelChangesButton);
 
