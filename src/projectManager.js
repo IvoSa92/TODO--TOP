@@ -11,6 +11,7 @@ class ProjectManager {
     this.titleInput = null;
     this.currentContent = DomElements.currentContent;
     this.projectButtonCount = 0;
+    this.editProjectFormActive = false;
   }
   // event listener for the new project button
   initializeEventListeners() {
@@ -101,11 +102,13 @@ class ProjectManager {
         const projectButtonToDelete =
           event.target.closest(".project-container");
         this.projectNav.removeChild(projectButtonToDelete);
+        this.projectButtonCount--;
       });
 
       const editProject = document.createElement("button");
       editProject.className = "edit-project";
       editProject.textContent = "Edit";
+      editProject.addEventListener("click", this.editProjectForm.bind(this));
 
       buttonContainer.append(editProject, deleteProject);
 
@@ -141,6 +144,42 @@ class ProjectManager {
     this.projectNav.removeChild(projectForm);
     this.newProjectForm = false;
   }
+
+  editProjectForm() {
+    if (this.editProjectFormActive === false) {
+      this.editProjectFormActive = true;
+
+      //hide the other buttons
+      const otherButtons = document.querySelector(".project-buttons");
+      otherButtons.style.display = "none";
+
+      const editForm = document.createElement("div");
+      editForm.className = "edit-project-form";
+
+      const editTitle = document.createElement("input");
+      editTitle.className = "edit-project-title";
+
+      const parentElement = document.querySelector(".projects");
+      const targetElement = parentElement.children[1];
+
+      const btnContainer = document.createElement("div");
+      btnContainer.className = "edit-project-btn-container";
+
+      const saveChangesButton = document.createElement("button");
+      saveChangesButton.className = "save-project-changes-button";
+      saveChangesButton.textContent = "Save";
+
+      const cancelChangesButton = document.createElement("button");
+      cancelChangesButton.className = "cancel-project-changes-button";
+      cancelChangesButton.textContent = "Cancel";
+
+      btnContainer.append(saveChangesButton, cancelChangesButton);
+
+      editForm.append(editTitle, btnContainer);
+
+      parentElement.insertBefore(editForm, targetElement);
+    }
+  }
 }
 
 export default ProjectManager;
@@ -148,4 +187,5 @@ export default ProjectManager;
 // new project input form save click:
 // dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
-// project button delete einbauen (button zum löschen eines project buttons, dabei muss die project count -1 genommen werden)
+
+//funktion für project button edit schreiben. um den titel zu ändern
