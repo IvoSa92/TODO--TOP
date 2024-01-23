@@ -351,6 +351,7 @@ class NewTaskManager {
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
     newTaskCard.dataset.id = taskData.id;
+    newTaskCard.dataset.classList = `project-${taskData.project}`;
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
     visibleContent.classList.add("card-task-visible");
@@ -435,6 +436,34 @@ class NewTaskManager {
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
       );
+
+      const allPages = Array.from(document.querySelectorAll(".task-page"));
+      const allProjectPages = document.querySelectorAll(".project-page");
+      allProjectPages.forEach((page) => {
+        allPages.push(page);
+      });
+
+      allPages.forEach((page) => {
+        if (
+          page.className === "project-page" &&
+          page.style.display === "flex"
+        ) {
+          //delete the taskcard from the projectpages
+          const taskProject = NewTaskManager.taskList[index];
+          const taskProjectX = taskProject.data.project;
+
+          const projectPageToDeleteTask = document.querySelector(
+            `#projectPage-${taskProjectX}`
+          );
+          const taskCardToDelete = document.querySelector(
+            `[data-class-list="project-${taskProjectX}"]`
+          );
+
+          console.log(taskCardToDelete);
+          //remove from the project page
+          projectPageToDeleteTask.removeChild(taskCardToDelete);
+        }
+      });
 
       //delete the task in the taskList
       if (index !== -1) {
@@ -641,3 +670,4 @@ export default NewTaskManager;
 // function iwie so : wenn taskData.project gleich ist wie taskButton dass soll es auf diese seite appendet werden
 // vorgehen : iteriere durch die tasklist nach den projecten, wenn ein project den selben wert hab wie ein textContent eines buttons dann wird dieser task wem button entsprechenden seite hinzugefügt
 // wenn man einne task hinzufügt saollte es die wahl geben kein Projekt zu wählen
+// edit project anpassen damit die task dannn von der falschen project seite verschwindet

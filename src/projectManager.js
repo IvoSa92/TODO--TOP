@@ -83,11 +83,25 @@ class ProjectManager {
           page.style.display = "none";
         });
 
+        //hide all task pages
         const taskPages = document.querySelectorAll(".task-page");
         taskPages.forEach((page) => {
           page.style.display = "none";
         });
 
+        //add the right task to the right project page
+        const pageToAppendTask = document.querySelector(
+          `#projectPage-${projectNum}`
+        );
+
+        // iterate on the taskList and apend the right task
+        NewTaskManager.taskList.forEach((task) => {
+          if (task.data.project === projectNum) {
+            pageToAppendTask.appendChild(task.element);
+          }
+        });
+
+        //display the wanted page
         projectPage.style.display = "flex";
       });
 
@@ -226,5 +240,3 @@ export default ProjectManager;
 // new project input form save click:
 // dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
-
-// delete project muss auch die dazugehörige seite löschen!

@@ -34,8 +34,10 @@ class HandleNavButtons {
       this.displayUpcomingTasks()
     );
   }
-  // function for the page with all tasks sortet by priority
+
+  // function for the page with all tasks sorted by priority
   displayAllTasks() {
+    // hide all other pages
     this.sideNavPages.forEach((page) => {
       page.style.display = "none";
     });
@@ -46,12 +48,13 @@ class HandleNavButtons {
     });
 
     this.viewAllTasks.style.display = "flex";
-    // this.currentContent.appendChild(this.viewAllTasks);
     HandleNavButtons.currentPage = "allTasks";
     this.taskManager.updateScreen();
   }
+
   // function to display the page with all tasks with the date of today
   displayTodayTasks() {
+    // hide all other pages
     this.sideNavPages.forEach((page) => {
       page.style.display = "none";
     });
@@ -62,12 +65,13 @@ class HandleNavButtons {
     });
 
     this.viewTodayTasks.style.display = "flex";
-    //this.currentContent.appendChild(this.viewTodayTasks);
     HandleNavButtons.currentPage = "todayTasks";
     this.taskManager.updateScreen();
   }
+
   // function to display the page with all tasks with the date of tomorrow
   displayTomorrowTasks() {
+    // hide all other pages
     this.sideNavPages.forEach((page) => {
       page.style.display = "none";
     });
@@ -78,12 +82,13 @@ class HandleNavButtons {
     });
 
     this.viewTomorrowTasks.style.display = "flex";
-    // this.currentContent.appendChild(this.viewTomorrowTasks);
     HandleNavButtons.currentPage = "tomorrowTasks";
     this.taskManager.updateScreen();
   }
+
   // function to display the page with alls tasks with the date of tomorrow - future
   displayUpcomingTasks() {
+    // hide all other pages
     this.sideNavPages.forEach((page) => {
       page.style.display = "none";
     });
@@ -94,7 +99,6 @@ class HandleNavButtons {
     });
 
     this.viewUpcomingTasks.style.display = "flex";
-    // this.currentContent.appendChild(this.viewUpcomingTasks);
     HandleNavButtons.currentPage = "upcomingTasks";
     this.taskManager.updateScreen();
   }
