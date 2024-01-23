@@ -105,14 +105,27 @@ class ProjectManager {
       const buttonContainer = document.createElement("div");
       buttonContainer.className = "project-buttons";
 
+      //delete project nav button
       const deleteProject = document.createElement("button");
       deleteProject.className = "delete-project";
+
       deleteProject.classList.add(`project-${this.projectButtonCount}`);
       deleteProject.textContent = "Delete";
+
+      //function to delete the project
       deleteProject.addEventListener("click", (event) => {
         const projectButtonToDelete =
           event.target.closest(".project-container");
+
+        //find linked page to delete
+        const projectClass = event.target.classList[1]; //project-1
+        const projectClassNum = projectClass[projectClass.length - 1];
+        const pageToDelete = document.querySelector(
+          `#projectPage-${projectClassNum}`
+        );
+
         this.projectNav.removeChild(projectButtonToDelete);
+        this.currentContent.removeChild(pageToDelete);
         this.projectButtonCount--;
       });
 
@@ -215,4 +228,3 @@ export default ProjectManager;
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
 
 // delete project muss auch die dazugehörige seite löschen!
-// umschalten zwischen project und normalen task seiten geht nicht da dann beide angezeigt werden shit
