@@ -82,6 +82,12 @@ class ProjectManager {
         projectPagesToHide.forEach((page) => {
           page.style.display = "none";
         });
+
+        const taskPages = document.querySelectorAll(".task-page");
+        taskPages.forEach((page) => {
+          page.style.display = "none";
+        });
+
         projectPage.style.display = "flex";
       });
 
@@ -178,7 +184,7 @@ class ProjectManager {
       saveChangesButton.className = "save-project-changes-button";
       saveChangesButton.textContent = "Save";
 
-      saveChangesButton.addEventListener("click", (event) => {
+      saveChangesButton.addEventListener("click", () => {
         projectToChange.textContent = editTitle.value;
         parentElement.removeChild(editForm);
         this.editProjectFormActive = false;
@@ -208,6 +214,5 @@ export default ProjectManager;
 // dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
 // funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
 
-//funktion für project button edit schreiben. um den titel zu ändern
 // delete project muss auch die dazugehörige seite löschen!
-// das umschalten zwischen den project seiten geht noch nicht es werden dann imer alle angezeigt
+// umschalten zwischen project und normalen task seiten geht nicht da dann beide angezeigt werden shit

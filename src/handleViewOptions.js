@@ -16,6 +16,8 @@ class HandleNavButtons {
     this.viewTodayTasks = DomElements.todayViewPage;
     this.viewTomorrowTasks = DomElements.tomorrowViewPage;
     this.viewUpcomingTasks = DomElements.upcomingViewPage;
+    this.sideNavPages = Array.from(document.querySelectorAll(".task-page"));
+
     //function to add the event listeners
     this.initializeEventListeners();
   }
@@ -34,33 +36,65 @@ class HandleNavButtons {
   }
   // function for the page with all tasks sortet by priority
   displayAllTasks() {
-    this.currentContent.innerHTML = "";
+    this.sideNavPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
+    const projectPages = document.querySelectorAll(".project-page");
+    projectPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
     this.viewAllTasks.style.display = "flex";
-    this.currentContent.appendChild(this.viewAllTasks);
+    // this.currentContent.appendChild(this.viewAllTasks);
     HandleNavButtons.currentPage = "allTasks";
     this.taskManager.updateScreen();
   }
   // function to display the page with all tasks with the date of today
   displayTodayTasks() {
-    this.currentContent.innerHTML = "";
+    this.sideNavPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
+    const projectPages = document.querySelectorAll(".project-page");
+    projectPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
     this.viewTodayTasks.style.display = "flex";
-    this.currentContent.appendChild(this.viewTodayTasks);
+    //this.currentContent.appendChild(this.viewTodayTasks);
     HandleNavButtons.currentPage = "todayTasks";
     this.taskManager.updateScreen();
   }
   // function to display the page with all tasks with the date of tomorrow
   displayTomorrowTasks() {
-    this.currentContent.innerHTML = "";
+    this.sideNavPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
+    const projectPages = document.querySelectorAll(".project-page");
+    projectPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
     this.viewTomorrowTasks.style.display = "flex";
-    this.currentContent.appendChild(this.viewTomorrowTasks);
+    // this.currentContent.appendChild(this.viewTomorrowTasks);
     HandleNavButtons.currentPage = "tomorrowTasks";
     this.taskManager.updateScreen();
   }
   // function to display the page with alls tasks with the date of tomorrow - future
   displayUpcomingTasks() {
-    this.currentContent.innerHTML = "";
+    this.sideNavPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
+    const projectPages = document.querySelectorAll(".project-page");
+    projectPages.forEach((page) => {
+      page.style.display = "none";
+    });
+
     this.viewUpcomingTasks.style.display = "flex";
-    this.currentContent.appendChild(this.viewUpcomingTasks);
+    // this.currentContent.appendChild(this.viewUpcomingTasks);
     HandleNavButtons.currentPage = "upcomingTasks";
     this.taskManager.updateScreen();
   }
