@@ -449,21 +449,20 @@ class NewTaskManager {
 
       allPages.forEach((page) => {
         if (
-          page.className === "project-page" &&
+          page.classList.contains("project-page") &&
           page.style.display === "flex"
         ) {
-          //delete the taskcard from the projectpages
+          //delete the taskcard from the project pages
           const taskProject = NewTaskManager.taskList[index];
           const taskProjectX = taskProject.data.project;
 
           const projectPageToDeleteTask = document.querySelector(
-            `#projectPage-${taskProjectX}`
+            `.Project-${taskProjectX}`
           );
           const taskCardToDelete = document.querySelector(
             `[data-class-list="project-${taskProjectX}"]`
           );
 
-          console.log(taskCardToDelete);
           //remove from the project page
           projectPageToDeleteTask.removeChild(taskCardToDelete);
         }

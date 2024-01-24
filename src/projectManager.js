@@ -176,6 +176,9 @@ class ProjectManager {
     projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
     projectPage.className = "project-page";
     projectPage.style.display = "none";
+    projectPage.classList.add(`Project-${this.titleInput.value}`);
+    console.log(projectPage.classList);
+    // projectPage.classList.add(this.projectTitleForProjectPage);
     this.currentContent.appendChild(projectPage);
   }
 
