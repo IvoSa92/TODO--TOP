@@ -69,6 +69,7 @@ class ProjectManager {
       newNavLink.addEventListener("click", (event) => {
         //which button got clicked / filter ID
         const projectButton = event.target.closest(".new-project-nav-btn");
+        const projectTitle = projectButton.innerHTML;
         const projectId = projectButton.id;
         const projectNum = projectId[projectId.length - 1];
 
@@ -94,9 +95,9 @@ class ProjectManager {
           `#projectPage-${projectNum}`
         );
 
-        // iterate on the taskList and apend the right task
+        // iterate on the taskList and append the right task
         NewTaskManager.taskList.forEach((task) => {
-          if (task.data.project === projectNum) {
+          if (task.data.project === projectTitle) {
             pageToAppendTask.appendChild(task.element);
           }
         });

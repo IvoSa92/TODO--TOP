@@ -146,6 +146,10 @@ class NewTaskManager {
       return element.textContent;
     });
 
+    //adding option for No Project
+    const noProject = "No Project";
+    innerHTMLArray.push(noProject);
+
     innerHTMLArray.forEach((optionText) => {
       const option = document.createElement("option");
       option.value = optionText;
@@ -617,6 +621,7 @@ class NewTaskManager {
           description: NewTaskManager.taskList[taskIndex].data.description,
           id: taskId,
         };
+
         // create new task Card
         const updatedTaskCard = this.createTaskCard(taskData);
         updatedTaskCard.style.height = "5rem";
@@ -664,10 +669,5 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // TODO:
-// delete project button + funktion erstellen
-// projecte anhand der taskdata.project sortieren und dem richtigen project appenden
-
-// function iwie so : wenn taskData.project gleich ist wie taskButton dass soll es auf diese seite appendet werden
-// vorgehen : iteriere durch die tasklist nach den projecten, wenn ein project den selben wert hab wie ein textContent eines buttons dann wird dieser task wem button entsprechenden seite hinzugefügt
 // wenn man einne task hinzufügt saollte es die wahl geben kein Projekt zu wählen
 // edit project anpassen damit die task dannn von der falschen project seite verschwindet
