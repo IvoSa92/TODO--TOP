@@ -355,7 +355,10 @@ class NewTaskManager {
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
     newTaskCard.dataset.id = taskData.id;
-    newTaskCard.dataset.classList = `project-${taskData.project}`;
+    newTaskCard.dataset.classList = `project-${taskData.project.replace(
+      /\s+/g,
+      "-"
+    )}`;
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
     visibleContent.classList.add("card-task-visible");
@@ -454,7 +457,7 @@ class NewTaskManager {
         ) {
           //delete the taskcard from the project pages
           const taskProject = NewTaskManager.taskList[index];
-          const taskProjectX = taskProject.data.project;
+          const taskProjectX = taskProject.data.project.replace(/\s+/g, "-");
 
           const projectPageToDeleteTask = document.querySelector(
             `.Project-${taskProjectX}`
@@ -462,7 +465,9 @@ class NewTaskManager {
           const taskCardToDelete = document.querySelector(
             `[data-class-list="project-${taskProjectX}"]`
           );
-
+          console.log(`project x ${taskProjectX}`);
+          console.log(`card task to delete: ${taskCardToDelete}`);
+          console.log(`page to delete ${projectPageToDeleteTask}`);
           //remove from the project page
           projectPageToDeleteTask.removeChild(taskCardToDelete);
         }
@@ -546,6 +551,10 @@ class NewTaskManager {
       const innerHTMLArray = optionElements.map(function (element) {
         return element.textContent;
       });
+
+      const noProject = "No Project";
+
+      innerHTMLArray.push(noProject);
 
       innerHTMLArray.forEach((optionText) => {
         const option = document.createElement("option");
@@ -667,6 +676,4 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-// TODO:
-// wenn man einne task hinzufügt saollte es die wahl geben kein Projekt zu wählen
 // edit project anpassen damit die task dannn von der falschen project seite verschwindet

@@ -176,7 +176,9 @@ class ProjectManager {
     projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
     projectPage.className = "project-page";
     projectPage.style.display = "none";
-    projectPage.classList.add(`Project-${this.titleInput.value}`);
+    projectPage.classList.add(
+      `Project-${this.titleInput.value.replace(/\s+/g, "-")}`
+    );
     console.log(projectPage.classList);
     // projectPage.classList.add(this.projectTitleForProjectPage);
     this.currentContent.appendChild(projectPage);
@@ -240,7 +242,3 @@ class ProjectManager {
 }
 
 export default ProjectManager;
-
-// new project input form save click:
-// dann programmieren dass man einer task aus der task list ein projektname zuweisen kann vllt als object attribute
-// funktion schreiben welche die projekte auch anhand der project attribute auf die richtige seite hinzufügt (updateScreen?)
