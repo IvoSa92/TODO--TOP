@@ -193,9 +193,13 @@ class NewTaskManager {
     this.dateInput.value = "";
     this.prioritySelect.value = "";
     this.descriptionInput.value = "";
-    this.currentContent.innerHTML = "";
-    this.currentContent.appendChild(allViewPage);
+    allViewPage.style.display = "flex";
     this.formActive = false;
+    this.currentContent.removeChild(document.querySelector(".new-task"));
+    this.currentContent.removeChild(document.querySelector(".blurred-screen"));
+    this.todaysTasksPage.style.display = "none";
+    this.tomorrowsTasksPage.style.display = "none";
+    this.upcomingTasksPage.style.display = "none";
   }
 
   //submit handler
@@ -216,22 +220,21 @@ class NewTaskManager {
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
     NewTaskManager.taskList.push({ data: taskData, element: newTaskCard });
-    //allViewPage.innerHTML = "";
-
-    // updating the screen with the tasks in the array
-    this.updateScreen();
 
     // remove task form and blurred screen after clicking on submit
     const taskForm = document.querySelector(".new-task");
     const blurredScreen = document.querySelector(".blurred-screen");
     this.currentContent.removeChild(taskForm);
     this.currentContent.removeChild(blurredScreen);
-    // appending the tasks to the current content screen
-    this.currentContent.appendChild(allViewPage);
-    allViewPage.style.display = "flex";
-    this.formActive = false;
 
-    console.log(NewTaskManager.taskList);
+    // appending the tasks to the current content screen
+    allViewPage.style.display = "flex";
+    this.todaysTasksPage.style.display = "none";
+    this.tomorrowsTasksPage.style.display = "none";
+    this.upcomingTasksPage.style.display = "none";
+    this.formActive = false;
+    // updating the screen with the tasks in the array
+    this.updateScreen();
   }
 
   // function to detect todays date and format it like the date in the tasks
@@ -283,27 +286,26 @@ class NewTaskManager {
         this.priorityToNumber(a.data.priority)
     );
 
+    //clear all task pages
+    this.allViewPage.innerHTML = "";
+    this.todaysTasksPage.innerHTML = "";
+    this.tomorrowsTasksPage.innerHTML = "";
+    this.upcomingTasksPage.innerHTML = "";
+
+    //append task with priority colorization
     if (HandleNavButtons.currentPage === "allTasks") {
-      this.allViewPage.innerHTML = "";
-      // toggle task colorization by priority and append tasks to all tasks page
       allTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.allViewPage)
       );
-    } else if (HandleNavButtons.currentPage === "todayTasks") {
-      this.todaysTasksPage.innerHTML = "";
-      // toggle task colorization by priority and append tasks to today tasks page
+    } else {
       todaysTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.todaysTasksPage)
       );
-    } else if (HandleNavButtons.currentPage === "tomorrowTasks") {
-      this.tomorrowsTasksPage.innerHTML = "";
-      // toggle task colorization by priority and append tasks to tomorrow tasks page
+
       tomorrowTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.tomorrowsTasksPage)
       );
-    } else if (HandleNavButtons.currentPage === "upcomingTasks") {
-      this.upcomingTasksPage.innerHTML = "";
-      // toggle task colorization by priority and append tasks to tomorrow tasks page
+
       upcomingTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.upcomingTasksPage)
       );
@@ -323,6 +325,8 @@ class NewTaskManager {
       taskObject.element.classList.toggle("checked-checkbox-font");
       taskObject.element.classList.toggle("checked-checkbox-font");
     }
+
+    //change color for the priority
     switch (taskObject.data.priority) {
       case "High":
         taskObject.element.classList.add("priority-high");
@@ -465,9 +469,7 @@ class NewTaskManager {
           const taskCardToDelete = document.querySelector(
             `[data-class-list="project-${taskProjectX}"]`
           );
-          console.log(`project x ${taskProjectX}`);
-          console.log(`card task to delete: ${taskCardToDelete}`);
-          console.log(`page to delete ${projectPageToDeleteTask}`);
+
           //remove from the project page
           projectPageToDeleteTask.removeChild(taskCardToDelete);
         }
@@ -620,6 +622,13 @@ class NewTaskManager {
           editPriorityInput.value;
         NewTaskManager.taskList[taskIndex].data.description =
           editDescriptionInput.value;
+
+        console.log(
+          (NewTaskManager.taskList[taskIndex].data.project =
+            editProjectInput.value)
+        );
+        console.log(NewTaskManager.taskList[taskIndex].data.project);
+
         // create new taskData for the new taskCard after editing
         const taskData = {
           title: NewTaskManager.taskList[taskIndex].data.title,
@@ -635,6 +644,8 @@ class NewTaskManager {
         updatedTaskCard.style.height = "5rem";
         NewTaskManager.taskList[taskIndex].element = updatedTaskCard;
 
+        console.log(updatedTaskCard);
+        console.log(NewTaskManager.taskList);
         // remove form and blurry screen
         this.currentContent.removeChild(editForm);
         this.currentContent.removeChild(blurredScreen);
@@ -676,4 +687,5 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-// edit project anpassen damit die task dannn von der falschen project seite verschwindet
+// edit project anpassen damit die task dannn von der falschen project seite verschwindet (name des projekts ändern geht auch nicht) löschen auch nicht
+// tasks mit datum werden nicht mehr auf der all tasks seite angezeigt (update screen prüfen!!!)
