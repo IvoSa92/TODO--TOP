@@ -93,20 +93,6 @@ class ProjectManager {
           page.style.display = "none";
         });
 
-        //add the right task to the right project page
-        const pageToAppendTask = document.querySelector(
-          `#projectPage-${projectNum}`
-        );
-        /*
-        //clear project page before appending the tasks
-        pageToAppendTask.innerHTML = "";
-        // iterate on the taskList and append the right task
-        NewTaskManager.taskList.forEach((task) => {
-          if (task.data.project === projectTitle) {
-            pageToAppendTask.appendChild(task.element);
-          }
-        });*/
-
         //display the wanted page
         projectPage.style.display = "flex";
 

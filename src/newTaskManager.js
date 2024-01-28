@@ -2,12 +2,17 @@ import DomElements from "./DOM";
 import HandleNavButtons from "./handleViewOptions";
 
 class NewTaskManager {
+  static instance = null;
   static taskList = [];
   static getTaskList() {
     return NewTaskManager.taskList;
   }
 
   constructor() {
+    if (NewTaskManager.instance) {
+      return NewTaskManager.instance;
+    }
+
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
@@ -16,6 +21,7 @@ class NewTaskManager {
     this.tomorrowsTasksPage = DomElements.tomorrowViewPage;
     this.upcomingTasksPage = DomElements.upcomingViewPage;
     this.initializeEventListeners();
+    NewTaskManager.instance = this;
   }
 
   initializeEventListeners() {
@@ -28,10 +34,10 @@ class NewTaskManager {
     if (this.formActive === false) {
       this.formActive = true;
       //remove all containers for the form pop up
-      // this.currentContent.innerHTML = "";
+
       //created the form to append
       const newTaskForm = this.createFormElements();
-      //newTaskForm.classList.add("new-task");
+      // newTaskForm.classList.add("new-task");
       //creates the blurry background
       const blurredScreen = document.createElement("div");
       blurredScreen.classList.add("blurred-screen");
@@ -233,6 +239,7 @@ class NewTaskManager {
     this.tomorrowsTasksPage.style.display = "none";
     this.upcomingTasksPage.style.display = "none";
     this.formActive = false;
+
     // updating the screen with the tasks in the array
     this.updateScreen();
   }
