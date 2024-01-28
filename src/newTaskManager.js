@@ -280,6 +280,7 @@ class NewTaskManager {
     const tomorrowTasks = NewTaskManager.taskList.filter(
       (task) => task.data.date === tomorrow
     );
+    console.log(todaysTasks);
 
     //filter tasks by date bigger than today
     const upcomingTasks = NewTaskManager.taskList.filter(
@@ -307,7 +308,7 @@ class NewTaskManager {
       allTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.allViewPage)
       );
-    } else if (HandleNavButtons.currentPage === "todaysTasks") {
+    } else if (HandleNavButtons.currentPage === "todayTasks") {
       todaysTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.todaysTasksPage)
       );
@@ -666,42 +667,6 @@ class NewTaskManager {
         // remove form and blurry screen
         this.currentContent.removeChild(editForm);
         this.currentContent.removeChild(blurredScreen);
-
-        /* const allProjectPages = document.querySelectorAll(".project-page");
-
-        allProjectPages.forEach((page) => {
-          const tasks = page.querySelector(".task-card");
-          if (tasks.dataset.classList === page.classList[1]) {
-            console.log("hellllooooo");
-          }
-          console.log(tasks.dataset.classList);
-          console.log(page.classList[1]);
-        });
-
-         const classInfo = NewTaskManager.taskList[taskIndex].data.project;
-        const classInfoX = `Project-${classInfo}`;
-        console.log(classInfo);
-        const currentProjectPage = document.querySelector(
-          `.Project-${classInfo}`
-        );
-
-        if (currentProjectPage) {
-          const findTask = currentProjectPage.querySelector(
-            `:scope > :not([data-class-list="${classInfoX}"])`
-          );
-
-          if (findTask) {
-            // Führe Operationen mit findTask durch, z.B. Entfernen oder Bearbeiten
-            console.log("Gefundenes Element:", findTask);
-          } else {
-            // Kein passendes Element gefunden, keine Aktion erforderlich
-            console.log("Kein Element zum Entfernen gefunden.");
-          }
-        } else {
-          console.log("currentProjectPage nicht gefunden");
-        }
-
-        //currentProjectPage.removeChild(findTask);*/
 
         // update screen
         this.updateScreen();
