@@ -1,5 +1,8 @@
 import DomElements from "./DOM";
+import HandleNavButtons from "./handleViewOptions";
 import NewTaskManager from "./newTaskManager";
+
+const taskManager = new NewTaskManager();
 
 class ProjectManager {
   constructor() {
@@ -94,16 +97,22 @@ class ProjectManager {
         const pageToAppendTask = document.querySelector(
           `#projectPage-${projectNum}`
         );
-
+        /*
+        //clear project page before appending the tasks
+        pageToAppendTask.innerHTML = "";
         // iterate on the taskList and append the right task
         NewTaskManager.taskList.forEach((task) => {
           if (task.data.project === projectTitle) {
             pageToAppendTask.appendChild(task.element);
           }
-        });
+        });*/
 
         //display the wanted page
         projectPage.style.display = "flex";
+
+        HandleNavButtons.currentPage = "project-page";
+
+        taskManager.updateScreen();
       });
 
       newNavLink.className = "new-project-nav-btn";
@@ -160,6 +169,7 @@ class ProjectManager {
       container.append(newProjectDiv, buttonContainer);
 
       this.projectNav.appendChild(container);
+
       // find the project form to remove it from the DOM
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
@@ -179,7 +189,6 @@ class ProjectManager {
     projectPage.classList.add(
       `Project-${this.titleInput.value.replace(/\s+/g, "-")}`
     );
-    console.log(projectPage.classList);
     // projectPage.classList.add(this.projectTitleForProjectPage);
     this.currentContent.appendChild(projectPage);
   }

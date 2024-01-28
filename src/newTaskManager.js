@@ -286,6 +286,9 @@ class NewTaskManager {
         this.priorityToNumber(a.data.priority)
     );
 
+    //collect all project pages which got created
+    const projectPages = Array.from(document.querySelectorAll(".project-page"));
+
     //clear all task pages
     this.allViewPage.innerHTML = "";
     this.todaysTasksPage.innerHTML = "";
@@ -297,20 +300,35 @@ class NewTaskManager {
       allTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.allViewPage)
       );
-    } else {
+    } else if (HandleNavButtons.currentPage === "todaysTasks") {
       todaysTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.todaysTasksPage)
       );
-
+    } else if (HandleNavButtons.currentPage === "tomorrowTasks") {
       tomorrowTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.tomorrowsTasksPage)
       );
-
+    } else if (HandleNavButtons.currentPage === "upcomingTasks") {
       upcomingTasks.forEach((taskObject) =>
         this.appendTaskToPage(taskObject, this.upcomingTasksPage)
       );
+    } else if (HandleNavButtons.currentPage === "project-page") {
+      //search for the active project page
+      let activePage = projectPages.filter((page) => {
+        let style = window.getComputedStyle(page);
+        return style.display === "flex";
+      });
+      activePage = activePage[0];
+      activePage.innerHTML = "";
+
+      allTasks.forEach((taskObject) => {
+        if (`Project-${taskObject.data.project}` === activePage.classList[1]) {
+          this.appendTaskToPage(taskObject, activePage);
+        }
+      });
     }
   }
+  // delete task auf project seite geht nicht // neue task form verschwindetr nicht nach dem submitten
 
   // function for appending the tasks
   appendTaskToPage(taskObject, page) {
@@ -359,7 +377,7 @@ class NewTaskManager {
   createTaskCard(taskData) {
     const newTaskCard = document.createElement("div");
     newTaskCard.dataset.id = taskData.id;
-    newTaskCard.dataset.classList = `project-${taskData.project.replace(
+    newTaskCard.dataset.classList = `Project-${taskData.project.replace(
       /\s+/g,
       "-"
     )}`;
@@ -623,12 +641,6 @@ class NewTaskManager {
         NewTaskManager.taskList[taskIndex].data.description =
           editDescriptionInput.value;
 
-        console.log(
-          (NewTaskManager.taskList[taskIndex].data.project =
-            editProjectInput.value)
-        );
-        console.log(NewTaskManager.taskList[taskIndex].data.project);
-
         // create new taskData for the new taskCard after editing
         const taskData = {
           title: NewTaskManager.taskList[taskIndex].data.title,
@@ -644,11 +656,46 @@ class NewTaskManager {
         updatedTaskCard.style.height = "5rem";
         NewTaskManager.taskList[taskIndex].element = updatedTaskCard;
 
-        console.log(updatedTaskCard);
-        console.log(NewTaskManager.taskList);
         // remove form and blurry screen
         this.currentContent.removeChild(editForm);
         this.currentContent.removeChild(blurredScreen);
+
+        /* const allProjectPages = document.querySelectorAll(".project-page");
+
+        allProjectPages.forEach((page) => {
+          const tasks = page.querySelector(".task-card");
+          if (tasks.dataset.classList === page.classList[1]) {
+            console.log("hellllooooo");
+          }
+          console.log(tasks.dataset.classList);
+          console.log(page.classList[1]);
+        });
+
+         const classInfo = NewTaskManager.taskList[taskIndex].data.project;
+        const classInfoX = `Project-${classInfo}`;
+        console.log(classInfo);
+        const currentProjectPage = document.querySelector(
+          `.Project-${classInfo}`
+        );
+
+        if (currentProjectPage) {
+          const findTask = currentProjectPage.querySelector(
+            `:scope > :not([data-class-list="${classInfoX}"])`
+          );
+
+          if (findTask) {
+            // Führe Operationen mit findTask durch, z.B. Entfernen oder Bearbeiten
+            console.log("Gefundenes Element:", findTask);
+          } else {
+            // Kein passendes Element gefunden, keine Aktion erforderlich
+            console.log("Kein Element zum Entfernen gefunden.");
+          }
+        } else {
+          console.log("currentProjectPage nicht gefunden");
+        }
+
+        //currentProjectPage.removeChild(findTask);*/
+
         // update screen
         this.updateScreen();
       });
@@ -688,4 +735,5 @@ class NewTaskManager {
 export default NewTaskManager;
 
 // edit project anpassen damit die task dannn von der falschen project seite verschwindet (name des projekts ändern geht auch nicht) löschen auch nicht
-// tasks mit datum werden nicht mehr auf der all tasks seite angezeigt (update screen prüfen!!!)
+
+// ich muss es kmplett umschreiben,ich muss versuichen dass updatescreen auch die project seiten bedient sonst wird es lanmgsam zu kompliziert
