@@ -336,7 +336,6 @@ class NewTaskManager {
       });
     }
   }
-  // delete task auf project seite geht nicht // neue task form verschwindetr nicht nach dem submitten
 
   // function for appending the tasks
   appendTaskToPage(taskObject, page) {
@@ -489,13 +488,15 @@ class NewTaskManager {
           const taskProject = NewTaskManager.taskList[index];
           const taskProjectX = taskProject.data.project.replace(/\s+/g, "-");
 
+          //find project page
           const projectPageToDeleteTask = document.querySelector(
             `.Project-${taskProjectX}`
           );
-          const taskCardToDelete = document.querySelector(
-            `[data-class-list="project-${taskProjectX}"]`
-          );
 
+          //find taskCard
+          const taskCardToDelete = document.querySelector(
+            `[data-class-list="Project-${taskProjectX}"]`
+          );
           //remove from the project page
           projectPageToDeleteTask.removeChild(taskCardToDelete);
         }
@@ -706,6 +707,4 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-// edit project anpassen damit die task dannn von der falschen project seite verschwindet (name des projekts ändern geht auch nicht) löschen auch nicht
-
-// ich muss es kmplett umschreiben,ich muss versuichen dass updatescreen auch die project seiten bedient sonst wird es lanmgsam zu kompliziert
+// delete task auf project seite geht nicht
