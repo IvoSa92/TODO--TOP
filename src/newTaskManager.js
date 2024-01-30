@@ -22,10 +22,36 @@ class NewTaskManager {
     this.upcomingTasksPage = DomElements.upcomingViewPage;
     this.initializeEventListeners();
     NewTaskManager.instance = this;
+    this.loadTasksFromStorage();
+    this.loadStartPage();
   }
 
   initializeEventListeners() {
     this.addTaskButton.addEventListener("click", () => this.newTaskForm());
+  }
+
+  // load the page of all tasks to display them directly from the storage
+  loadStartPage() {
+    HandleNavButtons.viewAllTasks.style.display = "flex";
+  }
+
+  //function to save the taskList to the local storage
+  saveTasksToLocalStorage() {
+    const tasksData = NewTaskManager.taskList.map((task) => task.data);
+    localStorage.setItem("tasks", JSON.stringify(tasksData));
+  }
+
+  //function to load the tasklist from the local storage and display them through updateScreen();
+  loadTasksFromStorage() {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      const tasksData = JSON.parse(storedTasks);
+      tasksData.forEach((taskData) => {
+        const taskElement = this.createTaskCard(taskData);
+        NewTaskManager.taskList.push({ data: taskData, element: taskElement });
+      });
+      this.updateScreen();
+    }
   }
 
   //creates a new task form pop up window when user clicks on the plus icon
@@ -206,6 +232,7 @@ class NewTaskManager {
     this.todaysTasksPage.style.display = "none";
     this.tomorrowsTasksPage.style.display = "none";
     this.upcomingTasksPage.style.display = "none";
+    this.saveTasksToLocalStorage();
   }
 
   //submit handler
@@ -241,6 +268,7 @@ class NewTaskManager {
     this.formActive = false;
 
     // updating the screen with the tasks in the array
+    this.saveTasksToLocalStorage();
     this.updateScreen();
   }
 
@@ -388,6 +416,7 @@ class NewTaskManager {
       /\s+/g,
       "-"
     )}`;
+
     // container for the not expanded part of the task
     const visibleContent = document.createElement("div");
     visibleContent.classList.add("card-task-visible");
@@ -505,6 +534,7 @@ class NewTaskManager {
       //delete the task in the taskList
       if (index !== -1) {
         NewTaskManager.taskList.splice(index, 1);
+        this.saveTasksToLocalStorage();
         this.updateScreen();
       }
     });
@@ -521,6 +551,8 @@ class NewTaskManager {
       let taskId = taskCard.dataset.id;
       this.editTaskForm(taskId);
     });
+
+    newTaskCard.style.height = "5rem";
 
     //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function () {
@@ -670,6 +702,7 @@ class NewTaskManager {
         this.currentContent.removeChild(blurredScreen);
 
         // update screen
+        this.saveTasksToLocalStorage();
         this.updateScreen();
       });
 
@@ -707,4 +740,22 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-// delete task auf project seite geht nicht
+//wie funktioniert das project expanden? finde die funktion nicht mehr haha
+// speichern und laden der daten implementieren =>
+
+/*
+
+
+
+loadTasksFromStorage() {
+  const storedTasks = localStorage.getItem("tasks");
+  if (storedTasks) {
+    const tasksData = JSON.parse(storedTasks);
+    tasksData.forEach(taskData => {
+      const taskElement = this.createTaskCard(taskData);
+      NewTaskManager.taskList.push({ data: taskData, element: taskElement });
+    });
+    this.updateScreen();
+  }
+}
+*/

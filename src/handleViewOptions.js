@@ -3,6 +3,7 @@ import NewTaskManager from "./newTaskManager";
 
 class HandleNavButtons {
   static currentPage = "allTasks";
+  static viewAllTasks = DomElements.allViewPage;
   constructor(taskManager) {
     this.taskManager = taskManager;
     //link buttons
