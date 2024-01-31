@@ -2,10 +2,10 @@ import DomElements from "./DOM";
 import HandleNavButtons from "./handleViewOptions";
 import NewTaskManager from "./newTaskManager";
 
-const taskManager = new NewTaskManager();
-
 class ProjectManager {
-  constructor() {
+  constructor(taskManager) {
+    this.taskManager = taskManager;
+
     this.taskList = NewTaskManager.taskList;
     this.newProjectButton = DomElements.newProjectButton;
     this.projectNav = DomElements.projects;
@@ -13,8 +13,11 @@ class ProjectManager {
     this.newProjectForm = false;
     this.titleInput = null;
     this.currentContent = DomElements.currentContent;
-    this.projectButtonCount = 0;
+
     this.editProjectFormActive = false;
+    this.projectPages = [];
+    this.loadProjectPages();
+    this.projectButtonCount = this.projectPages.length;
   }
   // event listener for the new project button
   initializeEventListeners() {
@@ -43,6 +46,13 @@ class ProjectManager {
       saveButton.className = "project-save-button";
       saveButton.textContent = "Save";
       saveButton.addEventListener("click", () => {
+        //saving the data for later rendering from the local storage
+        const projectData = {
+          title: this.titleInput.value,
+        };
+        this.projectPages.push(projectData);
+
+        this.saveProjectPages();
         this.createProjectNavLink();
         this.createProjectPage();
       });
@@ -61,122 +71,140 @@ class ProjectManager {
   }
 
   // function for adding a button with the project title to the nav bar
-  createProjectNavLink() {
-    if (this.titleInput.value !== "") {
-      //create a div for the elements
-      const newProjectDiv = document.createElement("div");
-      newProjectDiv.className = "new-project-div";
+  createProjectNavLink(projectTitle) {
+    let title;
 
-      //create new button with the value of the input
-      const newNavLink = document.createElement("button");
-      newNavLink.addEventListener("click", (event) => {
-        //which button got clicked / filter ID
-        const projectButton = event.target.closest(".new-project-nav-btn");
-        const projectTitle = projectButton.innerHTML;
-        const projectId = projectButton.id;
-        const projectNum = projectId[projectId.length - 1];
+    if (projectTitle) {
+      title = projectTitle;
+    } else if (this.titleInput && this.titleInput.value) {
+      title = this.titleInput.value;
+    } else {
+      console.log("No project title provided");
+    }
 
-        //page to link
-        const projectPage = document.querySelector(
-          `#projectPage-${projectNum}`
-        );
+    //create a div for the elements
+    const newProjectDiv = document.createElement("div");
+    newProjectDiv.className = "new-project-div";
 
-        //hide all other project pages
-        const projectPagesToHide = document.querySelectorAll(".project-page");
-        projectPagesToHide.forEach((page) => {
-          page.style.display = "none";
-        });
-
-        //hide all task pages
-        const taskPages = document.querySelectorAll(".task-page");
-        taskPages.forEach((page) => {
-          page.style.display = "none";
-        });
-
-        //display the wanted page
-        projectPage.style.display = "flex";
-
-        HandleNavButtons.currentPage = "project-page";
-
-        taskManager.updateScreen();
+    //create new button with the value of the input
+    const newNavLink = document.createElement("button");
+    newNavLink.addEventListener("click", (event) => {
+      //which button got clicked / filter ID
+      const projectButton = event.target.closest(".new-project-nav-btn");
+      const projectId = projectButton.id;
+      const projectNum = projectId[projectId.length - 1];
+      //page to link
+      const projectPage = document.querySelector(`#projectPage-${projectNum}`);
+      console.log(projectPage);
+      console.log(projectNum);
+      console.log(projectId);
+      //hide all other project pages
+      const projectPagesToHide = document.querySelectorAll(".project-page");
+      projectPagesToHide.forEach((page) => {
+        page.style.display = "none";
       });
 
-      newNavLink.className = "new-project-nav-btn";
-      this.projectButtonCount++;
-      //set id for customization the project button for later use
-      newNavLink.setAttribute("id", `project-${this.projectButtonCount}`);
-      newNavLink.textContent = this.titleInput.value;
-      //add an icon before the title
-      const icon = document.createElement("img");
-      icon.className = "project-icon";
-      icon.src = "../src/media/target.png";
-
-      //create edit and delete buttons
-      const buttonContainer = document.createElement("div");
-      buttonContainer.className = "project-buttons";
-
-      //delete project nav button
-      const deleteProject = document.createElement("button");
-      deleteProject.className = "delete-project";
-
-      deleteProject.classList.add(`project-${this.projectButtonCount}`);
-      deleteProject.textContent = "Delete";
-
-      //function to delete the project
-      deleteProject.addEventListener("click", (event) => {
-        const projectButtonToDelete =
-          event.target.closest(".project-container");
-
-        //find linked page to delete
-        const projectClass = event.target.classList[1]; //project-1
-        const projectClassNum = projectClass[projectClass.length - 1];
-        const pageToDelete = document.querySelector(
-          `#projectPage-${projectClassNum}`
-        );
-
-        this.projectNav.removeChild(projectButtonToDelete);
-        this.currentContent.removeChild(pageToDelete);
-        this.projectButtonCount--;
+      //hide all task pages
+      const taskPages = document.querySelectorAll(".task-page");
+      taskPages.forEach((page) => {
+        page.style.display = "none";
       });
 
-      const editProject = document.createElement("button");
-      editProject.className = "edit-project";
-      editProject.classList.add(`project-${this.projectButtonCount}`);
-      editProject.textContent = "Edit";
-      editProject.addEventListener("click", this.editProjectForm.bind(this));
+      //display the wanted page
+      projectPage.style.display = "flex";
 
-      buttonContainer.append(editProject, deleteProject);
+      HandleNavButtons.currentPage = "project-page";
+      this.taskManager.updateScreen();
+    });
 
-      //container to style it properly
-      const container = document.createElement("div");
-      container.className = "project-container";
+    newNavLink.className = "new-project-nav-btn";
+    this.projectButtonCount++;
+    //set id for customization the project button for later use
+    newNavLink.setAttribute("id", `project-${this.projectButtonCount}`);
+    newNavLink.textContent = title;
+    //add an icon before the title
+    const icon = document.createElement("img");
+    icon.className = "project-icon";
+    icon.src = "../src/media/target.png";
 
-      newProjectDiv.append(icon, newNavLink);
-      container.append(newProjectDiv, buttonContainer);
+    //create edit and delete buttons
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "project-buttons";
 
-      this.projectNav.appendChild(container);
+    //delete project nav button
+    const deleteProject = document.createElement("button");
+    deleteProject.className = "delete-project";
 
+    deleteProject.classList.add(`project-${this.projectButtonCount}`);
+    deleteProject.textContent = "Delete";
+
+    //function to delete the project
+    deleteProject.addEventListener("click", (event) => {
+      const projectButtonToDelete = event.target.closest(".project-container");
+
+      //find linked page to delete
+      const projectClass = event.target.classList[1];
+      const projectClassNum = projectClass[projectClass.length - 1];
+      const pageToDelete = document.querySelector(
+        `#projectPage-${projectClassNum}`
+      );
+
+      this.projectNav.removeChild(projectButtonToDelete);
+      this.currentContent.removeChild(pageToDelete);
+      this.projectButtonCount--;
+    });
+
+    const editProject = document.createElement("button");
+    editProject.className = "edit-project";
+    editProject.classList.add(`project-${this.projectButtonCount}`);
+    editProject.textContent = "Edit";
+    editProject.addEventListener("click", this.editProjectForm.bind(this));
+
+    buttonContainer.append(editProject, deleteProject);
+
+    //container to style it properly
+    const container = document.createElement("div");
+    container.className = "project-container";
+
+    newProjectDiv.append(icon, newNavLink);
+    container.append(newProjectDiv, buttonContainer);
+
+    this.projectNav.appendChild(container);
+
+    //only remove the form when it is active
+    if (this.newProjectForm) {
       // find the project form to remove it from the DOM
       const projectForm = document.querySelector(".project-form");
       this.projectNav.removeChild(projectForm);
 
       // set back the value of the project form so a new one can pop up
       this.newProjectForm = false;
-    } else {
-      alert("please fill out the title input");
     }
+
+    this.saveProjectPages();
   }
 
-  createProjectPage() {
-    const projectPage = document.createElement("div");
-    projectPage.setAttribute("id", `projectPage-${this.projectButtonCount}`);
-    projectPage.className = "project-page";
-    projectPage.style.display = "none";
-    projectPage.classList.add(
-      `Project-${this.titleInput.value.replace(/\s+/g, "-")}`
-    );
-    // projectPage.classList.add(this.projectTitleForProjectPage);
-    this.currentContent.appendChild(projectPage);
+  createProjectPage(projectTitle) {
+    let title;
+
+    if (projectTitle) {
+      title = projectTitle.replace(/\s+/g, "-");
+    } else if (this.titleInput && this.titleInput.value) {
+      title = this.titleInput.value.replace(/\s+/g, "-");
+    } else {
+      console.error("No project title provided");
+      return;
+    }
+
+    const projectPageId = `projectPage-${this.projectButtonCount}`;
+    const existingPage = document.getElementById(projectPageId);
+    if (!existingPage) {
+      const projectPage = document.createElement("div");
+      projectPage.setAttribute("id", projectPageId);
+      projectPage.className = `project-page Project-${title}`;
+      projectPage.style.display = "none";
+      this.currentContent.appendChild(projectPage);
+    }
   }
 
   // function for canceling the new project form
@@ -234,6 +262,27 @@ class ProjectManager {
       parentElement.insertBefore(editForm, targetElement);
     }
   }
+
+  saveProjectPages() {
+    const projectButtons = this.projectPages.map((project) => project.title);
+    localStorage.setItem("projects", JSON.stringify(projectButtons));
+  }
+
+  loadProjectPages() {
+    const savedButtons = localStorage.getItem("projects");
+
+    if (savedButtons) {
+      const titles = JSON.parse(savedButtons);
+
+      titles.forEach((title, index) => {
+        this.projectButtonCount = index + 1;
+        this.createProjectNavLink(title);
+        this.createProjectPage(title);
+      });
+    }
+  }
 }
 
 export default ProjectManager;
+
+//funktionmiert alles ganz gut muss nur dahinter kommen warum die projekt seiten nach 2 x aktualisiern verschwinden

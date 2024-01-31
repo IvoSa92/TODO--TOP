@@ -7,4 +7,4 @@ import ProjectManager from "./projectManager";
 
 const newTaskManager = new NewTaskManager();
 const handleSideNavButtons = new HandleNavButtons(newTaskManager);
-const projectManager = new ProjectManager();
+const projectManager = new ProjectManager(newTaskManager);

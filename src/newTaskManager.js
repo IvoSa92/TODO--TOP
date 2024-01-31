@@ -308,7 +308,6 @@ class NewTaskManager {
     const tomorrowTasks = NewTaskManager.taskList.filter(
       (task) => task.data.date === tomorrow
     );
-    console.log(todaysTasks);
 
     //filter tasks by date bigger than today
     const upcomingTasks = NewTaskManager.taskList.filter(
@@ -740,22 +739,5 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-//wie funktioniert das project expanden? finde die funktion nicht mehr haha
-// speichern und laden der daten implementieren =>
-
-/*
-
-
-
-loadTasksFromStorage() {
-  const storedTasks = localStorage.getItem("tasks");
-  if (storedTasks) {
-    const tasksData = JSON.parse(storedTasks);
-    tasksData.forEach(taskData => {
-      const taskElement = this.createTaskCard(taskData);
-      NewTaskManager.taskList.push({ data: taskData, element: taskElement });
-    });
-    this.updateScreen();
-  }
-}
-*/
+//funktionen schreiben welche die porject seiten speichern und neu laden kann
+// projekt seiten iwie so speichern dass sie beim aufrufen wieder neu erstelt werden können
