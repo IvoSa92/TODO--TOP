@@ -13,7 +13,7 @@ class ProjectManager {
     this.newProjectForm = false;
     this.titleInput = null;
     this.currentContent = DomElements.currentContent;
-
+    this.projectData = "";
     this.editProjectFormActive = false;
     this.projectPages = [];
     this.loadProjectPages();
@@ -46,12 +46,6 @@ class ProjectManager {
       saveButton.className = "project-save-button";
       saveButton.textContent = "Save";
       saveButton.addEventListener("click", () => {
-        //saving the data for later rendering from the local storage
-        const projectData = {
-          title: this.titleInput.value,
-        };
-        this.projectPages.push(projectData);
-
         this.saveProjectPages();
         this.createProjectNavLink();
         this.createProjectPage();
@@ -76,8 +70,16 @@ class ProjectManager {
 
     if (projectTitle) {
       title = projectTitle;
+
+      this.projectData = {
+        title: projectTitle,
+      };
     } else if (this.titleInput && this.titleInput.value) {
       title = this.titleInput.value;
+
+      this.projectData = {
+        title: title,
+      };
     } else {
       console.log("No project title provided");
     }
@@ -95,9 +97,7 @@ class ProjectManager {
       const projectNum = projectId[projectId.length - 1];
       //page to link
       const projectPage = document.querySelector(`#projectPage-${projectNum}`);
-      console.log(projectPage);
-      console.log(projectNum);
-      console.log(projectId);
+
       //hide all other project pages
       const projectPagesToHide = document.querySelectorAll(".project-page");
       projectPagesToHide.forEach((page) => {
@@ -122,6 +122,12 @@ class ProjectManager {
     //set id for customization the project button for later use
     newNavLink.setAttribute("id", `project-${this.projectButtonCount}`);
     newNavLink.textContent = title;
+
+    //save data in projectPages for later loading from the storage
+    this.projectData.id = newNavLink.id;
+    this.projectPages.push(this.projectData);
+    console.log(this.projectData);
+
     //add an icon before the title
     const icon = document.createElement("img");
     icon.className = "project-icon";
@@ -144,10 +150,22 @@ class ProjectManager {
 
       //find linked page to delete
       const projectClass = event.target.classList[1];
+      console.log(projectClass);
       const projectClassNum = projectClass[projectClass.length - 1];
       const pageToDelete = document.querySelector(
         `#projectPage-${projectClassNum}`
       );
+
+      //search for title to delete project from the projectPages
+      let searchedClass = projectClass;
+      let index = this.projectPages.findIndex(
+        (page) => page.id === searchedClass
+      );
+
+      //delete project from the array
+      this.projectPages.splice(index, 1);
+      //update the saved objects
+      this.saveProjectPages();
 
       this.projectNav.removeChild(projectButtonToDelete);
       this.currentContent.removeChild(pageToDelete);
@@ -275,7 +293,7 @@ class ProjectManager {
       const titles = JSON.parse(savedButtons);
 
       titles.forEach((title, index) => {
-        this.projectButtonCount = index + 1;
+        this.projectButtonCount = index;
         this.createProjectNavLink(title);
         this.createProjectPage(title);
       });
