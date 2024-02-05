@@ -302,5 +302,3 @@ class ProjectManager {
 }
 
 export default ProjectManager;
-
-//funktionmiert alles ganz gut muss nur dahinter kommen warum die projekt seiten nach 2 x aktualisiern verschwinden

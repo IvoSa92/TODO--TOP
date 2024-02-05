@@ -97,13 +97,13 @@ html {
   justify-content: start;
   cursor: pointer;
   width: 11rem;
-  font-size: 14px;
+  font-size: 0.8rem;
   border-radius: 500px;
   transition-property: background-color, border-color, color, box-shadow, filter;
   transition-duration: 0.3s;
   border: 1px solid transparent;
   letter-spacing: 2px;
-  min-width: 160px;
+  min-width: 140px;
   text-transform: uppercase;
   white-space: normal;
   font-weight: 700;
@@ -564,7 +564,7 @@ html {
   font-size: 1rem;
   background-color: #a7edf1;
   font-weight: bolder;
-  width: 33rem;
+  width: 80%;
   height: 5rem;
   border-radius: 12px;
   margin-top: 1rem;
@@ -845,4 +845,8 @@ html {
 
 .card-task-edit-btn:active {
   background-color: mediumblue; /* oder mediumseagreen, etc. */
+}
+
+.checkbox-checked {
+  opacity: 0.5;
 }

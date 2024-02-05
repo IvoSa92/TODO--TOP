@@ -449,9 +449,8 @@ class NewTaskManager {
       cardTaskTitle.classList.toggle("checked-checkbox-font");
       cardTaskPriority.classList.toggle("checked-checkbox-font");
       newTaskCard.classList.toggle("checked-checkbox-background");
-
-      //remove buttons from checked task
-      cardTaskBtnContainer.classList.toggle("task-buttons-toggle");
+      cardTaskDeleteBtn.classList.toggle("checkbox-checked");
+      cardTaskEditBtn.classList.toggle("checkbox-checked");
     });
 
     // create title field
@@ -739,5 +738,9 @@ class NewTaskManager {
 }
 export default NewTaskManager;
 
-//funktionen schreiben welche die porject seiten speichern und neu laden kann
-// projekt seiten iwie so speichern dass sie beim aufrufen wieder neu erstelt werden können
+// Bonus:
+
+// Wenn man den Task abhakt soll er verschwinden und auf der seite runter rutschen in einen abschnitt mit den erledigten tasks , entferne die funktiion dasss die delete und edit buttons verschwinden
+//Die Projekt Buttons sollen die größe des create new project einnehmen
+// farben und style überarbeiten
+// project buttons expand für die 2 butons sollte ich anders gestalten da dass drüber hovern um auf ein anderes project zu kommen etwas nervig ist
