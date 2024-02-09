@@ -1,5 +1,18 @@
+:root {
+  /* Basic colors */
+  --background-color: #fafafa;
+  --text-icon-color: #333333;
+
+  /* accent colors */
+  --priority-high: #ff6347;
+  --priority-medium: #5f9ea0;
+  --priority-low: #b19cd9;
+}
+
 body,
 html {
+  background-color: var(--background-color);
+  color: var(--text-icon-color);
   padding: 0;
   margin: 0;
   height: 100%;
@@ -15,6 +28,18 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
+}
+
+footer {
+  grid-column: 2/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #616467;
 }
 
 .currentContent {
@@ -74,10 +99,11 @@ html {
 
 /*SIDE NAV*/
 .sideNav {
-  background-color: cadetblue;
+  background-color: #1d2382;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
+  grid-row: 2/10;
 }
 
 .button-section-1 {
@@ -93,29 +119,69 @@ html {
 .sideNavButton {
   display: flex;
   gap: 10px;
+  border: none;
   align-items: center;
   justify-content: start;
   cursor: pointer;
   width: 11rem;
   font-size: 0.8rem;
-  border-radius: 500px;
-  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-property: background-color, border-color, color, box-shadow, filter,
+    font-size;
   transition-duration: 0.3s;
-  border: 1px solid transparent;
   letter-spacing: 2px;
   min-width: 140px;
   text-transform: uppercase;
   white-space: normal;
   font-weight: 700;
   padding: 16px 14px 18px;
-  box-shadow: inset 0 0 0 2px #616467;
   background-color: transparent;
   height: 48px;
+  color: #a7abcb;
+  position: relative;
+}
+
+.sideNavButton::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(110, 140, 225);
+  transition: transform 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.sideNavButton:hover::before {
+  transform: scaleX(1);
+}
+
+.sideNavButton.active::before {
+  transform: scaleX(1);
+  background-color: white;
+}
+
+.sideNavButton:hover::after {
+  width: calc(100% - 28px);
+  left: 14px;
+}
+
+.sideNavButton:hover::after {
+  height: 2px;
+}
+
+.sideNavButton:hover {
+  font-size: 0.9rem;
   color: white;
 }
-.sideNavButton:hover {
-  color: #fff;
-  background-color: #616467;
+
+.sideNavButton img {
+  transition: 0.3s;
+}
+
+.sideNavButton:hover img {
+  filter: brightness(0) invert(1);
 }
 
 /* PROJECTS */
@@ -132,8 +198,7 @@ html {
   justify-content: center;
   align-items: center;
   width: 90%;
-  border: 1px solid black;
-  border-radius: 10px;
+  max-width: 13rem;
   height: fit-content;
   border-bottom: 1.5px solid rgb(48, 27, 98);
   margin-top: 1rem;
@@ -194,28 +259,28 @@ html {
 }
 
 .new-project-button {
-  display: inline-block;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   font-size: 12px;
-  line-height: 1;
-  border-radius: 500px;
+  line-height: 1rem;
+  border: 2px solid rgb(218, 218, 236);
+  border-radius: 10px;
   transition-property: background-color, border-color, color, box-shadow, filter;
   transition-duration: 0.3s;
-  border: 1px solid transparent;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   min-width: 140px;
   text-transform: uppercase;
   white-space: normal;
   font-weight: 700;
   text-align: center;
-  padding: 16px 14px 18px;
   color: #616467;
-  box-shadow: inset 0 0 0 2px #616467;
   background-color: transparent;
   height: 48px;
   color: white;
   margin-top: 3rem;
+  margin: 1rem;
 }
 
 .new-project-button:hover {
@@ -565,6 +630,7 @@ html {
   background-color: #a7edf1;
   font-weight: bolder;
   width: 80%;
+  max-width: 35rem;
   height: 5rem;
   border-radius: 12px;
   margin-top: 1rem;
@@ -637,6 +703,13 @@ html {
 
 .card-task-visible-border {
   border-bottom: 2px solid rgb(19, 30, 104);
+}
+
+.card-task-title {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .card-task-description {
@@ -829,7 +902,7 @@ html {
 }
 
 .card-task-edit-btn {
-  background-color: rgba(62, 62, 161, 0.908); /* oder grün, je nach Vorliebe */
+  background-color: rgba(62, 62, 161, 0.908);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -839,14 +912,28 @@ html {
 }
 
 .card-task-edit-btn:hover {
-  background-color: rgb(26, 26, 99); /* oder dunkelgrün */
+  background-color: rgb(26, 26, 99);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card-task-edit-btn:active {
-  background-color: mediumblue; /* oder mediumseagreen, etc. */
+  background-color: mediumblue;
 }
 
 .checkbox-checked {
   opacity: 0.5;
+}
+
+.active {
+  color: white;
+  font-size: 0.9rem;
+}
+
+.active::before {
+  transform: scaleX(1);
+  background-color: white;
+}
+
+.sideNavButton.active img {
+  filter: brightness(0) invert(1);
 }
