@@ -40,20 +40,6 @@ class HandleNavButtons {
     this.upcomingTasksButton.addEventListener("click", () =>
       this.displayUpcomingTasks()
     );
-    // Event listeners for setting active button
-    this.navButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
-        this.setActiveButton(e.currentTarget);
-      });
-    });
-  }
-
-  //event listeners for active button
-  setActiveButton(activeButton) {
-    this.navButtons.forEach((button) => {
-      button.classList.remove("active");
-    });
-    activeButton.classList.add("active");
   }
 
   // function for the page with all tasks sorted by priority

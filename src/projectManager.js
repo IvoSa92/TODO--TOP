@@ -126,7 +126,6 @@ class ProjectManager {
     //save data in projectPages for later loading from the storage
     this.projectData.id = newNavLink.id;
     this.projectPages.push(this.projectData);
-    console.log(this.projectData);
 
     //add an icon before the title
     const icon = document.createElement("img");

@@ -12,7 +12,7 @@ class NewTaskManager {
     if (NewTaskManager.instance) {
       return NewTaskManager.instance;
     }
-
+    this.sideNav = document.querySelector(".sideNav");
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
     this.currentContent = DomElements.currentContent;
@@ -20,6 +20,17 @@ class NewTaskManager {
     this.todaysTasksPage = DomElements.todayViewPage;
     this.tomorrowsTasksPage = DomElements.tomorrowViewPage;
     this.upcomingTasksPage = DomElements.upcomingViewPage;
+    this.allTasksButton = DomElements.allTasksButton;
+    this.todayTasksButton = DomElements.todayTasksButton;
+    this.tomorrowTasksButton = DomElements.tomorrowTasksButton;
+    this.upcomingTasksButton = DomElements.upcomingTasksButton;
+    this.navButtons = [
+      this.allTasksButton,
+      this.todayTasksButton,
+      this.tomorrowTasksButton,
+      this.upcomingTasksButton,
+    ];
+
     this.initializeEventListeners();
     NewTaskManager.instance = this;
     this.loadTasksFromStorage();
@@ -362,6 +373,29 @@ class NewTaskManager {
         }
       });
     }
+
+    //searching for the  buttons to create the functionality to set the active project button
+    const projectNavBar = document.querySelector(".projects");
+    this.projectButtons = projectNavBar.querySelectorAll(
+      ".new-project-nav-btn"
+    );
+
+    this.allButtons = Array.from(this.projectButtons).concat(
+      Array.from(this.navButtons)
+    );
+
+    this.allButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        this.setActiveButton(event.currentTarget);
+      });
+    });
+  }
+
+  setActiveButton(activeButton) {
+    this.allButtons.forEach((button) => {
+      button.classList.remove("active");
+    });
+    activeButton.classList.add("active");
   }
 
   // function for appending the tasks
@@ -746,3 +780,4 @@ export default NewTaskManager;
 // farben und style überarbeiten
 // project buttons expand für die 2 butons sollte ich anders gestalten da dass drüber hovern um auf ein anderes project zu kommen etwas nervig ist
 // tasks bleiben nicht gechecked wenn man sie neu läd.
+// active page auch bei den project buttons einfügen
