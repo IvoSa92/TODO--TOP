@@ -232,12 +232,6 @@ footer {
   color: white;
 }
 
-.new-project-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .project-buttons {
   display: flex;
   opacity: 0;
@@ -448,8 +442,8 @@ footer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
-  width: 80%;
+  width: 100%;
+  margin-left: 0.3rem;
   font-family: monospace;
   background-color: transparent;
   border: none;
@@ -458,7 +452,7 @@ footer {
   font-size: 1.2rem;
   color: #888585;
   font-weight: bold;
-  padding: 1.8rem;
+
   cursor: pointer;
   position: relative;
   transition: color 0.3s, border-bottom 0.3s;
@@ -469,6 +463,10 @@ footer {
 }
 
 .new-project-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   transition-property: filter;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -480,6 +478,7 @@ footer {
 .project-icon {
   width: 1.7rem;
   height: 1.7rem;
+  margin-right: 1rem;
 }
 
 /* ADD TASK FORM*/
@@ -976,5 +975,9 @@ footer {
 }
 
 .sideNavButton.active img {
+  filter: brightness(0) invert(1);
+}
+
+.new-project-nav-btn.active img {
   filter: brightness(0) invert(1);
 }

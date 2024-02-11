@@ -121,7 +121,6 @@ class ProjectManager {
     this.projectButtonCount++;
     //set id for customization the project button for later use
     newNavLink.setAttribute("id", `project-${this.projectButtonCount}`);
-    newNavLink.textContent = title;
 
     //save data in projectPages for later loading from the storage
     this.projectData.id = newNavLink.id;
@@ -131,6 +130,11 @@ class ProjectManager {
     const icon = document.createElement("img");
     icon.className = "project-icon";
     icon.src = "../src/media/target.png";
+
+    newNavLink.appendChild(icon);
+
+    const buttonTitle = document.createTextNode(title);
+    newNavLink.appendChild(buttonTitle);
 
     //create edit and delete buttons
     const buttonContainer = document.createElement("div");
@@ -183,7 +187,7 @@ class ProjectManager {
     const container = document.createElement("div");
     container.className = "project-container";
 
-    newProjectDiv.append(icon, newNavLink);
+    newProjectDiv.append(newNavLink);
     container.append(newProjectDiv, buttonContainer);
 
     this.projectNav.appendChild(container);

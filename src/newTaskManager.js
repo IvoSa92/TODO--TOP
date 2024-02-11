@@ -778,6 +778,4 @@ export default NewTaskManager;
 // vllt nochmal nen button erstellen im side nav mit den erledigten aufgaben, wenn man einen task abhakt dann wird der task auf die seite hinzugefügt
 //Die Projekt Buttons sollen die größe des create new project einnehmen
 // farben und style überarbeiten
-// project buttons expand für die 2 butons sollte ich anders gestalten da dass drüber hovern um auf ein anderes project zu kommen etwas nervig ist
 // tasks bleiben nicht gechecked wenn man sie neu läd.
-// active page auch bei den project buttons einfügen
