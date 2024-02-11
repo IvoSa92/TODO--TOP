@@ -666,19 +666,18 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
   box-sizing: border-box;
   font-family: monospace;
   font-size: 1rem;
-  background-color: #a7edf1;
   font-weight: bolder;
   width: 80%;
   max-width: 35rem;
-  height: 5rem;
-  border-radius: 12px;
-  margin-top: 1rem;
+  height: 2rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-top: 0.6rem;
   color: #3b3b3b;
-  border-bottom: 3px solid #32868a;
 }
 
 .task-card:hover {
@@ -687,10 +686,102 @@ footer {
   background-color: #b1f3f7;
 }
 
+.card-task-hidden {
+  display: none;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.card-task-visible {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-task-visible-border {
+  border-bottom: 2px solid rgba(190, 192, 201, 0.642);
+}
+
+.card-task-title {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.card-task-description {
+  width: 80%;
+  line-height: 1.5rem;
+  text-align: center;
+  padding: 0.2rem;
+  border-radius: 6px;
+}
+
+.card-task-date {
+  margin: 1rem;
+  border-radius: 6px;
+  padding: 0.3rem;
+}
+
+.card-task-project {
+  margin: 1rem;
+}
+.card-task-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.card-task-delete-btn,
+.card-task-edit-btn {
+  margin: 0.5rem;
+}
+
+/*TASK CARD PRIORITY COLORS*/
+
+.priority-high {
+  background-image: linear-gradient(to top, #ffcab064 10%, #fafafa 90%);
+  border-bottom: 3px solid #f5a67f;
+}
+
+.priority-high:hover {
+  background-color: #fdb08ab3;
+}
+.priority-medium {
+  background-image: linear-gradient(to top, #fdffcd98 10%, #fafafa 90%);
+  border-bottom: 3px solid #f0f476;
+}
+.priority-medium:hover {
+  background-color: #f8fb9d;
+}
+
+.priority-low {
+  background-image: linear-gradient(to top, #e0ffcda4 10%, #fafafa 90%);
+  border-bottom: 3px solid #befa98;
+}
+.priority-low:hover {
+  background-color: #cbfaae;
+}
+
 /*CHECKBOX */
 .checked-checkbox-background {
-  background-color: #ececec !important;
+  background-color: #ded9d9 !important;
   border: none;
+  border-bottom: none;
 }
 
 .checked-checkbox-font {
@@ -721,96 +812,6 @@ footer {
   transform: scale(0.9);
 }
 
-.card-task-hidden {
-  display: none;
-  box-sizing: border-box;
-  font-size: 0.9rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 1rem;
-  gap: 2rem;
-}
-
-.card-task-visible {
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  height: auto;
-  padding: 1rem;
-  margin-top: 0.5rem;
-}
-
-.card-task-visible-border {
-  border-bottom: 2px solid rgb(19, 30, 104);
-}
-
-.card-task-title {
-  padding-left: 2rem;
-  padding-right: 2rem;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.card-task-description {
-  width: 80%;
-  line-height: 1.5rem;
-  text-align: center;
-  border: 2px solid rgba(0, 0, 0, 0.466);
-  padding: 0.2rem;
-  border-radius: 6px;
-}
-
-.card-task-project {
-  border-bottom: 1.8px solid black;
-}
-
-.card-task-date {
-  border: 2px solid rgba(0, 0, 0, 0.627);
-  border-radius: 6px;
-  padding: 0.3rem;
-}
-
-.card-task-btn-container {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-right: 1rem;
-}
-
-.card-task-delete-btn,
-.card-task-edit-btn {
-  margin: 0.5rem;
-}
-
-/*TASK CARD PRIORITY COLORS*/
-
-.priority-high {
-  background-color: #ffcab0;
-  border-color: #f68851;
-}
-
-.priority-high:hover {
-  background-color: #fdb08a;
-}
-.priority-medium {
-  background-color: #fdffcd;
-  border-color: #f4f951;
-}
-.priority-medium:hover {
-  background-color: #f8fb9d;
-}
-
-.priority-low {
-  background-color: #e0ffcd;
-  border-color: #93fa52;
-}
-.priority-low:hover {
-  background-color: #cbfaae;
-}
 /* EDIT TASK FORM*/
 
 .edit-form {
