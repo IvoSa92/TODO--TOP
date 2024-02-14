@@ -487,6 +487,8 @@ class NewTaskManager {
       //find task which gets checked
       let taskChecked = event.target.closest(".task-card");
       let taskId = taskChecked.dataset.id;
+      let taskChildren = taskChecked.children[0];
+      const priorityText = taskChildren.children[2];
       // finding task with taskId
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
@@ -502,6 +504,7 @@ class NewTaskManager {
       newTaskCard.classList.toggle("checked-checkbox-background");
       cardTaskDeleteBtn.classList.toggle("checkbox-checked");
       cardTaskEditBtn.classList.toggle("checkbox-checked");
+      priorityText.classList.toggle("priority-checked");
     });
 
     // create title field
@@ -606,7 +609,6 @@ class NewTaskManager {
     //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function (event) {
       const clickedTaskCard = event.target.closest(".task-card");
-      console.log(clickedTaskCard);
 
       let clickedTaskCardPriority = clickedTaskCard.children[0];
       const priorityText = clickedTaskCardPriority.children[2];

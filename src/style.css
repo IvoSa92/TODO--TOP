@@ -807,6 +807,10 @@ footer {
   background-color: #cbfaae;
 }
 
+.priority-checked {
+  background-color: transparent;
+}
+
 /*CHECKBOX */
 .checked-checkbox-background {
   background-color: #ded9d9 !important;
