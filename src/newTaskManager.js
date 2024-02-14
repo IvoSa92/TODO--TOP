@@ -374,6 +374,23 @@ class NewTaskManager {
       });
     }
 
+    //change color from priority title
+    const taskPriorityDiv = document.querySelectorAll(".card-task-priority");
+
+    taskPriorityDiv.forEach((task) => {
+      switch (task.innerHTML) {
+        case "High":
+          task.classList.add("priority-high-title");
+          break;
+        case "Medium":
+          task.classList.add("priority-medium-title");
+          break;
+        case "Low":
+          task.classList.add("priority-low-title");
+          break;
+      }
+    });
+
     //searching for the  buttons to create the functionality to set the active project button
     const projectNavBar = document.querySelector(".projects");
     this.projectButtons = projectNavBar.querySelectorAll(
@@ -587,12 +604,32 @@ class NewTaskManager {
     newTaskCard.style.height = "5rem";
 
     //add event listener with function to expand a task card
-    newTaskCard.addEventListener("click", function () {
+    newTaskCard.addEventListener("click", function (event) {
+      const clickedTaskCard = event.target.closest(".task-card");
+      console.log(clickedTaskCard);
+
+      let clickedTaskCardPriority = clickedTaskCard.children[0];
+      const priorityText = clickedTaskCardPriority.children[2];
+
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
       newTaskCard.style.height =
         newTaskCard.style.height === "5rem" ? "auto" : "5rem";
       visibleContent.classList.toggle("card-task-visible-border");
+
+      switch (priorityText.innerHTML) {
+        case "High":
+          clickedTaskCard.classList.toggle("card-task-background-color-high");
+          break;
+
+        case "Medium":
+          clickedTaskCard.classList.toggle("card-task-background-color-medium");
+          break;
+
+        case "Low":
+          clickedTaskCard.classList.toggle("card-task-background-color-low");
+          break;
+      }
     });
 
     // append all elements
@@ -776,6 +813,5 @@ export default NewTaskManager;
 
 // Wenn man den Task abhakt soll er verschwinden und auf der seite runter rutschen in einen abschnitt mit den erledigten tasks
 // vllt nochmal nen button erstellen im side nav mit den erledigten aufgaben, wenn man einen task abhakt dann wird der task auf die seite hinzugefügt
-//Die Projekt Buttons sollen die größe des create new project einnehmen
 // farben und style überarbeiten
 // tasks bleiben nicht gechecked wenn man sie neu läd.
