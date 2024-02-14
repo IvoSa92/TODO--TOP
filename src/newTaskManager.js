@@ -488,7 +488,9 @@ class NewTaskManager {
       let taskChecked = event.target.closest(".task-card");
       let taskId = taskChecked.dataset.id;
       let taskChildren = taskChecked.children[0];
+      let taskChildren2 = taskChecked.children[1];
       const priorityText = taskChildren.children[2];
+
       // finding task with taskId
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
@@ -505,6 +507,9 @@ class NewTaskManager {
       cardTaskDeleteBtn.classList.toggle("checkbox-checked");
       cardTaskEditBtn.classList.toggle("checkbox-checked");
       priorityText.classList.toggle("priority-checked");
+
+      taskChildren.classList.toggle("checked-checkbox-background");
+      taskChildren2.classList.toggle("checked-checkbox-background");
     });
 
     // create title field
@@ -524,6 +529,12 @@ class NewTaskManager {
     cardTaskDate.textContent = `DueDate: ${taskData.date}`;
     cardTaskDate.classList.add("card-task-date");
 
+    //create container for project and date
+    const dateProjectContainer = document.createElement("div");
+    dateProjectContainer.classList.add("date-project-container");
+
+    dateProjectContainer.append(cardTaskProject, cardTaskDate);
+
     // create selection field
     const cardTaskPriority = document.createElement("div");
     cardTaskPriority.textContent = taskData.priority;
@@ -532,7 +543,7 @@ class NewTaskManager {
 
     // create description field
     const cardTaskDescription = document.createElement("div");
-    cardTaskDescription.textContent = taskData.description;
+    cardTaskDescription.textContent = `Description: ${taskData.description}`;
     cardTaskDescription.classList.add("card-task-description");
 
     // create container for delete and change buttons
@@ -609,9 +620,10 @@ class NewTaskManager {
     //add event listener with function to expand a task card
     newTaskCard.addEventListener("click", function (event) {
       const clickedTaskCard = event.target.closest(".task-card");
+      const hiddenCard = clickedTaskCard.children[1];
 
-      let clickedTaskCardPriority = clickedTaskCard.children[0];
-      const priorityText = clickedTaskCardPriority.children[2];
+      let clickedTaskCardChild = clickedTaskCard.children[0];
+      const priorityText = clickedTaskCardChild.children[2];
 
       hiddenContent.style.display =
         hiddenContent.style.display === "none" ? "flex" : "none";
@@ -621,15 +633,24 @@ class NewTaskManager {
 
       switch (priorityText.innerHTML) {
         case "High":
-          clickedTaskCard.classList.toggle("card-task-background-color-high");
+          clickedTaskCardChild.classList.toggle(
+            "card-task-background-color-high"
+          );
+          hiddenCard.classList.toggle("hidden-background-color-high");
           break;
 
         case "Medium":
-          clickedTaskCard.classList.toggle("card-task-background-color-medium");
+          clickedTaskCardChild.classList.toggle(
+            "card-task-background-color-medium"
+          );
+          hiddenCard.classList.toggle("hidden-background-color-medium");
           break;
 
         case "Low":
-          clickedTaskCard.classList.toggle("card-task-background-color-low");
+          clickedTaskCardChild.classList.toggle(
+            "card-task-background-color-low"
+          );
+          hiddenCard.classList.toggle("hidden-background-color-low");
           break;
       }
     });
@@ -638,8 +659,7 @@ class NewTaskManager {
     cardTaskBtnContainer.append(cardTaskDeleteBtn, cardTaskEditBtn);
     visibleContent.append(checkBox, cardTaskTitle, cardTaskPriority);
     hiddenContent.append(
-      cardTaskProject,
-      cardTaskDate,
+      dateProjectContainer,
       cardTaskDescription,
       cardTaskBtnContainer
     );

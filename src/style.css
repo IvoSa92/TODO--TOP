@@ -691,22 +691,29 @@ footer {
   font-size: 0.9rem;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   padding: 1rem;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+.date-project-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .card-task-background-color-high {
-  background-color: #fdb08ab3;
+  background-color: #ef7132b3;
 }
 
 .card-task-background-color-medium {
-  background-color: #f8fb9d;
+  background-color: #eff547;
 }
 
 .card-task-background-color-low {
-  background-color: #cbfaae;
+  background-color: #8efb4a;
 }
 
 .card-task-visible {
@@ -718,7 +725,9 @@ footer {
   width: 100%;
   height: auto;
   margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .card-task-visible-border {
@@ -742,12 +751,13 @@ footer {
 
 .card-task-date {
   margin: 1rem;
-  border-radius: 6px;
   padding: 0.3rem;
+  border-bottom: 1px solid black;
 }
 
 .card-task-project {
   margin: 1rem;
+  border-bottom: 1px solid black;
 }
 .card-task-btn-container {
   display: flex;
@@ -811,6 +821,18 @@ footer {
   background-color: transparent;
 }
 
+.hidden-background-color-high {
+  background-color: #f0a37ca8;
+}
+
+.hidden-background-color-medium {
+  background-color: #f8fb9d;
+}
+
+.hidden-background-color-low {
+  background-color: #cbfaae;
+}
+
 /*CHECKBOX */
 .checked-checkbox-background {
   background-color: #ded9d9 !important;
@@ -837,8 +859,12 @@ footer {
   cursor: pointer;
 }
 
+.checked-logo {
+  width: 2rem;
+}
+
 .card-task-checkbox:checked {
-  background-color: #888585;
+  background-color: #4ff408;
   border-color: #6d6868;
 }
 
