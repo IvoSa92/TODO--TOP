@@ -393,8 +393,6 @@ class NewTaskManager {
       allTasks.forEach((taskObject) => {
         if (`Project-${taskObject.data.project}` === activePage.classList[1]) {
           this.appendTaskToPage(taskObject, activePage);
-          console.log(taskObject.data.project);
-          console.log(activePage.classList[1]);
         }
       });
     }
@@ -443,15 +441,21 @@ class NewTaskManager {
   // function for appending the tasks
   appendTaskToPage(taskObject, page) {
     taskObject.element.className = "task-card";
-    if (taskObject.isChecked) {
+    if (taskObject.data.isChecked === true) {
       //change title text decoration and color by checking checkbox
-      taskObject.element.classList.toggle("checked-checkbox-font");
-      taskObject.element.classList.toggle("checked-checkbox-font");
-      taskObject.element.classList.toggle("checked-checkbox-background");
-    } else if (taskObject.isChecked === false) {
+      taskObject.element.classList.add("checked-checkbox-font");
+      taskObject.element.classList.add("checked-checkbox-background");
+      taskObject.element.children[0].classList.add(
+        "checked-checkbox-background"
+      );
+      taskObject.element.children[1].classList.add(
+        "checked-checkbox-background"
+      );
+      taskObject.element.children[0].children[0].checked = true;
+    } else if (taskObject.data.isChecked === false) {
       //change title text decoration and color by checking checkbox
-      taskObject.element.classList.toggle("checked-checkbox-font");
-      taskObject.element.classList.toggle("checked-checkbox-font");
+      taskObject.element.classList.remove("checked-checkbox-font");
+      taskObject.element.classList.remove("checked-checkbox-background");
     }
 
     //change color for the priority
@@ -520,24 +524,35 @@ class NewTaskManager {
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
       );
-      console.log(taskId);
-      console.log(index);
+
       NewTaskManager.taskList[index].data.isChecked = NewTaskManager.taskList[
         index
       ].data.isChecked
         ? false
         : true;
 
-      //change title text decoration and color by checking checkbox
-      cardTaskTitle.classList.toggle("checked-checkbox-font");
-      cardTaskPriority.classList.toggle("checked-checkbox-font");
-      newTaskCard.classList.toggle("checked-checkbox-background");
-      cardTaskDeleteBtn.classList.toggle("checkbox-checked");
-      cardTaskEditBtn.classList.toggle("checkbox-checked");
-      priorityText.classList.toggle("priority-checked");
+      if (checkBox.checked) {
+        //change title text decoration and color by checking checkbox
+        cardTaskTitle.classList.add("checked-checkbox-font");
+        cardTaskPriority.classList.add("checked-checkbox-font");
+        newTaskCard.classList.add("checked-checkbox-background");
+        cardTaskDeleteBtn.classList.add("checkbox-checked");
+        cardTaskEditBtn.classList.add("checkbox-checked");
+        priorityText.classList.add("priority-checked");
+        taskChildren.classList.add("checked-checkbox-background");
+        taskChildren2.classList.add("checked-checkbox-background");
+      } else if (checkBox.checked === false) {
+        cardTaskTitle.classList.remove("checked-checkbox-font");
+        cardTaskPriority.classList.remove("checked-checkbox-font");
+        newTaskCard.classList.remove("checked-checkbox-background");
+        cardTaskDeleteBtn.classList.remove("checkbox-checked");
+        cardTaskEditBtn.classList.remove("checkbox-checked");
+        priorityText.classList.remove("priority-checked");
+        taskChildren.classList.remove("checked-checkbox-background");
+        taskChildren2.classList.remove("checked-checkbox-background");
+      }
 
-      taskChildren.classList.toggle("checked-checkbox-background");
-      taskChildren2.classList.toggle("checked-checkbox-background");
+      this.saveTasksToLocalStorage();
     });
 
     // create title field
@@ -858,3 +873,5 @@ class NewTaskManager {
   };
 }
 export default NewTaskManager;
+
+// wenn ich einen task checke dann die siet ehin und wieder zurück wechsle uhnd dann unchecke dann bleibt der font durcvhgeestrichzen
