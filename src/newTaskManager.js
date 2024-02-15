@@ -24,6 +24,7 @@ class NewTaskManager {
     this.todayTasksButton = DomElements.todayTasksButton;
     this.tomorrowTasksButton = DomElements.tomorrowTasksButton;
     this.upcomingTasksButton = DomElements.upcomingTasksButton;
+    this.counter = 1;
     this.navButtons = [
       this.allTasksButton,
       this.todayTasksButton,
@@ -44,6 +45,7 @@ class NewTaskManager {
   // load the page of all tasks to display them directly from the storage
   loadStartPage() {
     HandleNavButtons.viewAllTasks.style.display = "flex";
+    this.counterReset();
   }
 
   //function to save the taskList to the local storage
@@ -62,6 +64,12 @@ class NewTaskManager {
         NewTaskManager.taskList.push({ data: taskData, element: taskElement });
       });
       this.updateScreen();
+    }
+  }
+
+  counterReset() {
+    if (this.counter > 100) {
+      this.counter = 1;
     }
   }
 
@@ -255,11 +263,13 @@ class NewTaskManager {
       priority: this.prioritySelect.querySelector(".priority-input").value,
       description:
         this.descriptionInput.querySelector(".description-input").value,
-      id: `new-task-card-${NewTaskManager.taskList.length + 1}`,
+      id: `new-task-card-${this.counter}`,
       project: this.projectSelection.querySelector(".form-project-select")
         .value,
       isChecked: false,
     };
+
+    this.counter++;
 
     const newTaskCard = this.createTaskCard(taskData);
     newTaskCard.style.height = "5rem";
