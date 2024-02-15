@@ -15,6 +15,7 @@ class NewTaskManager {
     this.sideNav = document.querySelector(".sideNav");
     this.formActive = false;
     this.addTaskButton = DomElements.addTaskButton;
+    this.addTaskTitle = DomElements.addTaskTitle;
     this.currentContent = DomElements.currentContent;
     this.allViewPage = DomElements.allViewPage;
     this.todaysTasksPage = DomElements.todayViewPage;
@@ -40,6 +41,18 @@ class NewTaskManager {
 
   initializeEventListeners() {
     this.addTaskButton.addEventListener("click", () => this.newTaskForm());
+
+    this.addTaskButton.addEventListener("mouseenter", () => {
+      this.addTaskTitle.style.opacity = "1";
+      this.addTaskTitle.style.transform = "translateX(0)";
+      this.addTaskTitle.style.zIndex = "10";
+    });
+
+    this.addTaskButton.addEventListener("mouseleave", () => {
+      this.addTaskTitle.style.opacity = "0";
+      this.addTaskTitle.style.transform = "translateX(100%)";
+      this.addTaskTitle.style.zIndex = "-1";
+    });
   }
 
   // load the page of all tasks to display them directly from the storage
@@ -380,6 +393,8 @@ class NewTaskManager {
       allTasks.forEach((taskObject) => {
         if (`Project-${taskObject.data.project}` === activePage.classList[1]) {
           this.appendTaskToPage(taskObject, activePage);
+          console.log(taskObject.data.project);
+          console.log(activePage.classList[1]);
         }
       });
     }
@@ -843,7 +858,3 @@ class NewTaskManager {
   };
 }
 export default NewTaskManager;
-
-// Bonus:
-
-// tasks bleiben nicht gechecked wenn man sie neu läd.

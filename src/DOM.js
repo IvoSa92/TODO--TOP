@@ -7,6 +7,7 @@ const DomElements = {
   todayViewPage: document.querySelector(".today-view"),
   upcomingViewPage: document.querySelector(".upcoming-view"),
   projects: document.querySelector(".projects"),
+  addTaskTitle: document.querySelector(".add-task-title"),
   //Buttons:
   addTaskButton: document.querySelector(".add-task"),
   allTasksButton: document.querySelector(".all-tasks"),

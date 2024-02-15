@@ -66,6 +66,21 @@ footer {
   color: whitesmoke;
 }
 
+.right-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.add-task-title {
+  display: flex;
+  opacity: 0;
+  color: #dcedd1;
+  width: 8rem;
+  z-index: -1;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease, transform 0.3s ease, z-index 0.5s ease;
+}
+
 .header {
   margin: 0;
   margin-left: 1rem;
@@ -84,7 +99,13 @@ footer {
   align-items: center;
   border: none;
   background-color: #333333;
-  margin-right: 2rem;
+  z-index: 100;
+}
+
+.add-task {
+  display: flex;
+  justify-content: flex-start;
+  width: 7rem;
 }
 
 .add-button {
