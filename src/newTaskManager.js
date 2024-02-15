@@ -495,8 +495,11 @@ class NewTaskManager {
       let index = NewTaskManager.taskList.findIndex(
         (task) => task.data.id === taskId
       );
-      NewTaskManager.taskList[index].isChecked = NewTaskManager.taskList[index]
-        .isChecked
+      console.log(taskId);
+      console.log(index);
+      NewTaskManager.taskList[index].data.isChecked = NewTaskManager.taskList[
+        index
+      ].data.isChecked
         ? false
         : true;
 
@@ -576,7 +579,7 @@ class NewTaskManager {
           page.classList.contains("project-page") &&
           page.style.display === "flex"
         ) {
-          //delete the taskcard from the project pages
+          //delete the taskCard from the project pages
           const taskProject = NewTaskManager.taskList[index];
           const taskProjectX = taskProject.data.project.replace(/\s+/g, "-");
 
@@ -833,7 +836,4 @@ export default NewTaskManager;
 
 // Bonus:
 
-// Wenn man den Task abhakt soll er verschwinden und auf der seite runter rutschen in einen abschnitt mit den erledigten tasks
-// vllt nochmal nen button erstellen im side nav mit den erledigten aufgaben, wenn man einen task abhakt dann wird der task auf die seite hinzugefügt
-// farben und style überarbeiten
 // tasks bleiben nicht gechecked wenn man sie neu läd.
