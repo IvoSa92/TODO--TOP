@@ -129,7 +129,7 @@ class ProjectManager {
     //add an icon before the title
     const icon = document.createElement("img");
     icon.className = "project-icon";
-    icon.src = "./media/target.png";
+    icon.src = "media/target.png";
 
     newNavLink.appendChild(icon);
 
