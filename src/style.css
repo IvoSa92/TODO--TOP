@@ -99,7 +99,7 @@ footer {
   align-items: center;
   border: none;
   background-color: #333333;
-  z-index: 100;
+  z-index: 99;
 }
 
 .add-task {
@@ -507,8 +507,9 @@ footer {
 .new-task {
   position: fixed;
   top: 12%;
-  left: 40%;
+  left: 35%;
   width: 45%;
+  max-width: 32rem;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -634,6 +635,7 @@ footer {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(1px);
+  z-index: 99;
 }
 
 /* VIEW OPTIONS*/
@@ -863,12 +865,12 @@ footer {
 }
 
 .checked-checkbox-font {
-  text-decoration: line-through !important;
-  color: #6d6868 !important;
+  text-decoration: line-through;
+  color: #6d6868;
 }
 
 .task-buttons-toggle {
-  display: none !important;
+  display: none;
 }
 
 .card-task-checkbox {
@@ -904,9 +906,9 @@ footer {
   align-items: center;
   position: fixed;
   top: 5%;
-  left: 50%;
+  left: 40%;
   background-color: #90a5ba;
-  width: 20rem;
+  width: 25%;
   height: fit-content;
   border-radius: 10px;
   padding: 1rem;
@@ -997,9 +999,15 @@ footer {
 .edit-submit-button:hover,
 .edit-cancel-button:hover {
   color: #fff;
-  background-color: #9dc0e4;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 10px;
   transform: translateY(-2px);
+}
+.edit-submit-button:hover {
+  background-color: rgba(15, 128, 0, 0.676);
+}
+
+.edit-cancel-button:hover {
+  background-color: rgba(255, 0, 0, 0.663);
 }
 
 .edit-submit-button:active,

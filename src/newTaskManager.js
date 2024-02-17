@@ -441,7 +441,9 @@ class NewTaskManager {
   // function for appending the tasks
   appendTaskToPage(taskObject, page) {
     taskObject.element.className = "task-card";
+
     if (taskObject.data.isChecked === true) {
+      taskObject.element.children[0].children[0].checked = true;
       //change title text decoration and color by checking checkbox
       taskObject.element.classList.add("checked-checkbox-font");
       taskObject.element.classList.add("checked-checkbox-background");
@@ -451,8 +453,8 @@ class NewTaskManager {
       taskObject.element.children[1].classList.add(
         "checked-checkbox-background"
       );
-      taskObject.element.children[0].children[0].checked = true;
     } else if (taskObject.data.isChecked === false) {
+      taskObject.element.children[0].children[0].checked = false;
       //change title text decoration and color by checking checkbox
       taskObject.element.classList.remove("checked-checkbox-font");
       taskObject.element.classList.remove("checked-checkbox-background");
@@ -531,7 +533,7 @@ class NewTaskManager {
         ? false
         : true;
 
-      if (checkBox.checked) {
+      if (NewTaskManager.taskList[index].data.isChecked === true) {
         //change title text decoration and color by checking checkbox
         cardTaskTitle.classList.add("checked-checkbox-font");
         cardTaskPriority.classList.add("checked-checkbox-font");
@@ -541,7 +543,7 @@ class NewTaskManager {
         priorityText.classList.add("priority-checked");
         taskChildren.classList.add("checked-checkbox-background");
         taskChildren2.classList.add("checked-checkbox-background");
-      } else if (checkBox.checked === false) {
+      } else if (NewTaskManager.taskList[index].data.isChecked === false) {
         cardTaskTitle.classList.remove("checked-checkbox-font");
         cardTaskPriority.classList.remove("checked-checkbox-font");
         newTaskCard.classList.remove("checked-checkbox-background");
@@ -553,6 +555,7 @@ class NewTaskManager {
       }
 
       this.saveTasksToLocalStorage();
+      this.updateScreen();
     });
 
     // create title field
