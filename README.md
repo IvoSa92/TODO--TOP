@@ -1,3 +1,4 @@
 # TODO--TOP
 
-So lets do the odin project todo project. i`m excited !
+Here is my version of the to do project from the odin project, hope you enjoy! 
+
